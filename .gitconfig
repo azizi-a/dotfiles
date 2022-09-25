@@ -1,0 +1,8 @@
+[core]
+	editor = code --wait
+	autocrlf = input
+[user]
+	name = Azizi
+	email = 64193693+azizi-a@users.noreply.github.com
+[init]
+	defaultBranch = main
