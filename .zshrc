@@ -24,13 +24,16 @@ source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 # aliases
-source $HOME/.aliases
+source ~/.dotfiles/.aliases/.git-aliases
 
 # bind arrow keys to search history
 bindkey '\e[A' history-search-backward
 bindkey '\e[B' history-search-forward
-bindkey '^[OA' history-substring-search-up
-bindkey '^[OB' history-substring-search-down
+# bindkey '^[OA' history-substring-search-up
+# bindkey '^[OB' history-substring-search-down
 
+# yarn
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# kubernetes-cli
 export PATH="/usr/local/opt/kubernetes-cli@1.22/bin:$PATH"
