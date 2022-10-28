@@ -15,6 +15,11 @@ bindkey '^[[B' history-search-forward
 source ~/.dotfiles/aliases/.aliases
 source ~/.dotfiles/aliases/.git-aliases
 
+# Functions
+fuction mkcd() {
+    mkdir -p "$@" && cd "$_";
+}
+
 
 # $PATH Location
 # yarn
@@ -24,9 +29,6 @@ export PATH="/usr/local/opt/kubernetes-cli@1.22/bin:$PATH"
 #jenv
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
-
-
-# Functions
 
 
 # Plugins

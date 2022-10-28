@@ -1,1 +1,2 @@
 alias pn='pnpm'
+alias ll='ls -lAFh'
