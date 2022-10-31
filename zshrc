@@ -12,8 +12,8 @@ bindkey '^[[B' history-search-forward
 
 
 # Aliases
-source ~/.dotfiles/aliases/.aliases
-source ~/.dotfiles/aliases/.git-aliases
+source ~/.dotfiles/aliases/aliases
+source ~/.dotfiles/aliases/git-aliases
 
 # Functions
 fuction mkcd() {
