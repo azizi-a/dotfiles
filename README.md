@@ -9,6 +9,7 @@
 - Finder Show Path Bar
 - .zshrc
 - gitconfig
+- homebrew Installation
 - Brewfile
 - Fonts
 - Aliases
