@@ -1,11 +1,8 @@
-# Taps
 tap "derailed/k9s"
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/core"
 tap "homebrew/services"
-
-# Brews (Packages)
 # Securely store and access AWS credentials in development environments
 brew "aws-vault"
 # Interpreted, interactive, object-oriented programming language
@@ -54,8 +51,6 @@ brew "zsh-history-substring-search"
 brew "zsh-syntax-highlighting"
 # Kubernetes CLI To Manage Your Clusters In Style!
 brew "derailed/k9s/k9s"
-
-# Caskes (Aplications)
 # Application launcher and productivity software
 cask "alfred"
 # Memory training application
@@ -63,6 +58,8 @@ cask "anki"
 cask "chrome-devtools"
 # Web browser
 cask "firefox"
+# Git client focusing on productivity
+cask "gitkraken"
 # Web browser
 cask "google-chrome"
 # HTTP and GraphQL Client
