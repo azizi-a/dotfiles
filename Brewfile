@@ -1,20 +1,29 @@
+# Taps
 tap "derailed/k9s"
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/core"
 tap "homebrew/services"
+
+# Brews (Packages)
 # Securely store and access AWS credentials in development environments
 brew "aws-vault"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.10"
 # Official Amazon AWS command-line interface
 brew "awscli", link: false
+# Clone of cat(1) with syntax highlighting and Git integration
+brew "bat"
 # Load/unload environment variables based on $PWD
 brew "direnv"
+# Modern replacement for 'ls'
+brew "exa"
 # Distributed revision control system
 brew "git"
 # AVH edition of git-flow
 brew "git-flow-avh"
+# User-friendly cURL replacement (command-line HTTP client)
+brew "httpie"
 # Manage your Java environment
 brew "jenv"
 # Kubernetes command-line interface
@@ -45,9 +54,17 @@ brew "zsh-history-substring-search"
 brew "zsh-syntax-highlighting"
 # Kubernetes CLI To Manage Your Clusters In Style!
 brew "derailed/k9s/k9s"
+
+# Caskes (Aplications)
+# Application launcher and productivity software
+cask "alfred"
 # Memory training application
 cask "anki"
 cask "chrome-devtools"
+# Web browser
+cask "firefox"
+# Web browser
+cask "google-chrome"
 # HTTP and GraphQL Client
 cask "insomnia"
 # Reverse proxy, secure introspectable tunnels to localhost

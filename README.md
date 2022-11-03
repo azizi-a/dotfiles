@@ -7,9 +7,7 @@
 - Mission Control Preferences (don't rearrange spaces)
 - Dock Preferences
 - Finder Show Path Bar
-- .zshrc
 - gitconfig
-- homebrew Installation
 - Brewfile
 - Fonts
 - Aliases
