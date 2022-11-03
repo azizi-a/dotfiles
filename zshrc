@@ -11,6 +11,20 @@ bindkey '^[[B' history-search-forward
 # bindkey '^[OB' history-substring-search-down
 
 
+# Variables
+# syntax highlighting for man pages using bat
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+# export BAT_THEME="Dracula"
+export BAT_THEME="Visual Studio Dark+"
+
+# nvm
+export NVM_DIR="$HOME/.nvm"
+# This loads nvm
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"
+# This loads nvm bash_completion
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"
+
+
 # Aliases
 source ~/.dotfiles/aliases/aliases
 source ~/.dotfiles/aliases/git-aliases
@@ -42,10 +56,3 @@ source /usr/local/share/zsh-history-substring-search/zsh-history-substring-searc
 # Other
 # direnv
 eval "$(direnv hook zsh)"
-
-# nvm
-export NVM_DIR="$HOME/.nvm"
-# This loads nvm
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"
-# This loads nvm bash_completion
-[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"
