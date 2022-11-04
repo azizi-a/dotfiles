@@ -7,6 +7,7 @@
 - link:
     ~/.zshrc: 
     ~/.gitconfig:
+    ~/.config/starship.toml:
 
 - create:
     - ~/work

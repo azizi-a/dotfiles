@@ -1,0 +1,157 @@
+format = """
+$username\
+$hostname\
+$localip\
+$shlvl\
+$singularity\
+$directory\
+$kubernetes\
+$vcsh\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$hg_branch\
+$docker_context\
+$package\
+$buf\
+$c\
+$cmake\
+$cobol\
+$container\
+$daml\
+$dart\
+$deno\
+$dotnet\
+$elixir\
+$elm\
+$erlang\
+$golang\
+$haskell\
+$helm\
+$java\
+$julia\
+$kotlin\
+$lua\
+$nim\
+$nodejs\
+$ocaml\
+$perl\
+$php\
+$pulumi\
+$purescript\
+$python\
+$rlang\
+$red\
+$ruby\
+$rust\
+$scala\
+$swift\
+$terraform\
+$vlang\
+$vagrant\
+$zig\
+$nix_shell\
+$conda\
+$spack\
+$memory_usage\
+$aws\
+$gcloud\
+$openstack\
+$azure\
+$env_var\
+$crystal\
+$custom\
+$sudo\
+$cmd_duration\
+$line_break\
+$jobs\
+$battery\
+$time\
+$status\
+$shell\
+$character"""
+
+continuation_prompt = "▸"
+
+[battery]
+format = "[$symbol]($style)"
+[[battery.display]]
+threshold = 99
+style = "bold cyan"
+[[battery.display]]
+threshold = 98
+style = "bold green"
+[[battery.display]]
+threshold = 60
+style = "bold yellow"
+[[battery.display]]
+threshold = 30
+style = "bold 214"
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+vicmd_symbol = "[❯](bold blue)"
+
+[directory]
+truncation_length = 3
+truncate_to_repo = true
+home_symbol = "~"
+truncation_symbol = "…/"
+style = "bold cyan"
+format = "[$path]($style)[$read_only]($read_only_style) "
+
+[git_branch]
+truncation_symbol = "…"
+style = "bold purple"
+disabled = false
+symbol = " "
+
+[git_state]
+cherry_pick = "CHERRY PICKING"
+rebase = "REBASING"
+merge = "MERGING"
+revert = "REVERTING"
+bisect = "BISECTING"
+am = "AM"
+am_or_rebase = "AM/REBASE"
+style = "bold yellow"
+disabled = false
+
+[git_status]
+ahead = "⇡${count}"
+behind = "⇣${count}"
+conflicted = "!="
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+format = '([$all_status$ahead_behind]($style) )'
+staged = '[++\($count\)](green)'
+style = "bold purple"
+
+[helm]
+format = "via [⎈ $version](bold white) "
+
+[java]
+symbol = "☕"
+style = "red"
+
+[kubernetes]
+format = 'on [☸ $context \($namespace\)](cyan bold) '
+disabled = true
+[kubernetes.context_aliases]
+"dev.local.cluster.k8s" = "dev"
+
+[python]
+pyenv_version_name = true
+
+[shlvl]
+disabled = false
+symbol = "↕️"
+
+[username]
+style_root = "bright-red"
+style_user = "yellow"
+format = "($style)"
+show_always = true
+disabled = false
