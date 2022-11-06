@@ -8,10 +8,14 @@
     ~/.zshrc:
     ~/.gitconfig:
     ~/.config/starship.toml:
-    ~/.config/nvim/init.vim:
+      create: true
+    ~/.config/nvim:
+      create: true
+    ~/.config/bat:
+      create: true
 
 - create:
-    - ~/work
+    - ~/Code
 
 - shell:
     - command: ./setup_homebrew.zsh
