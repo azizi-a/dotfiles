@@ -6,6 +6,7 @@
 
 - link:
     ~/.zshrc:
+    ~/.zshenv:
     ~/.gitconfig:
     ~/.config/starship.toml:
       create: true
