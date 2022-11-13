@@ -1,3 +1,4 @@
 alias pn='pnpm'
 # alias ll='ls -lAFh'
 alias ll='exa -laFh --git'
+alias bbd='brew bundle dump --force --describe'

@@ -18,5 +18,5 @@
 2. Run the `install` binary
 3. To add new dotfiles, cut them to this directory and list their old location
    in `instal.conf.yaml`
-4. To backup new brew packages in `Brewfile` run
-   `brew bundle dump -f --describe`
+4. To backup new brew packages in `Brewfile` run `bbd` an alias for
+   `brew bundle dump --force --describe`
