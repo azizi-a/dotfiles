@@ -11,6 +11,8 @@ brew "python@3.10"
 brew "awscli", link: false
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# X.Org: Library for common extensions to the X11 protocol
+brew "libxext"
 # Load/unload environment variables based on $PWD
 brew "direnv"
 # Modern replacement for 'ls'
@@ -25,6 +27,10 @@ brew "httpie"
 brew "jenv"
 # Kubernetes command-line interface
 brew "kubernetes-cli@1.22"
+# Pager program similar to more
+brew "less"
+# Free (GNU) replacement for the Pico text editor
+brew "nano"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
 # HTTP/2 C Library
@@ -66,6 +72,8 @@ cask "google-chrome"
 cask "insomnia"
 # Reverse proxy, secure introspectable tunnels to localhost
 cask "ngrok"
+# Collaboration platform for API development
+cask "postman"
 # Move and resize windows using keyboard shortcuts or snap areas
 cask "rectangle"
 # Music streaming service
