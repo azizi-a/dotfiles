@@ -1,6 +1,7 @@
 tap "derailed/k9s"
 tap "homebrew/bundle"
 tap "homebrew/cask"
+tap "homebrew/cask-fonts"
 tap "homebrew/core"
 tap "homebrew/services"
 # Securely store and access AWS credentials in development environments
@@ -64,6 +65,10 @@ cask "anki"
 cask "chrome-devtools"
 # Web browser
 cask "firefox"
+# Free monospaced font with programming ligatures
+cask "font-fira-code"
+# Developer targeted fonts with a high number of glyphs
+cask "font-fira-code-nerd-font"
 # Git client focusing on productivity
 cask "gitkraken"
 # Web browser
