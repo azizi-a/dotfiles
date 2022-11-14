@@ -12,6 +12,7 @@ bindkey '^[[B' history-search-forward
 
 
 # Variables
+export CASE_SENSITIVE="false"
 export HOMEBREW_CASK_OPTS="--no-quarantine"
 # syntax highlighting for man pages using bat
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
@@ -50,6 +51,12 @@ eval "$(jenv init -)"
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+
+# Completion
+autoload -U compinit; compinit
+# case-insensitive completion
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
 
 
 # Other
