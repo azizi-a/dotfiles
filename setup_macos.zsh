@@ -2,6 +2,8 @@
 
 echo "\n<<< Starting macOS Setup >>>\n"
 
+osascript -e 'tell application "System Preferences" to quit'
+
 # Finder > View > Show Path Bar
 defaults write com.apple.finder ShowPathbar -bool true
 
@@ -16,4 +18,8 @@ defaults write com.apple.dock largesize -int 64
 defaults write com.apple.dock autohide -bool true
 defaults write com.apple.dock autohide-time-modifier -float 0.5
 defaults write com.apple.dock autohide-delay -float 0.3
+
+# Finish macOS Setup
+killall Finder
 killall Dock
+echo "\n<<< macOS Setup Complete >>>\n"
