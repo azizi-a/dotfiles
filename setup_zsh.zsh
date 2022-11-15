@@ -18,5 +18,12 @@ else
   chsh -s '/usr/local/bin/zsh'
 fi
 
+if sh --version | grep -q zsh; then
+  echo "/private/var/select/sh already linked to /bin/zsh"
+else
+  echo "Enter superuser (sudo) password to symlink sh to zsh"
+  # more consistant but probably not important
+  sudo ln -sfv /bin/zsh /private/var/select/sh
+fi
 
 echo "\n<<< ZSH Setup Complete >>>\n"
