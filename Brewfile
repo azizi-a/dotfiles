@@ -58,8 +58,6 @@ brew "zsh-history-substring-search"
 brew "zsh-syntax-highlighting"
 # Kubernetes CLI To Manage Your Clusters In Style!
 brew "derailed/k9s/k9s"
-# Application launcher and productivity software
-cask "alfred"
 # Memory training application
 cask "anki"
 cask "chrome-devtools"
@@ -75,6 +73,8 @@ cask "gitkraken"
 cask "google-chrome"
 # HTTP and GraphQL Client
 cask "insomnia"
+# Terminal emulator as alternative to Apple's Terminal app
+cask "iterm2"
 # Reverse proxy, secure introspectable tunnels to localhost
 cask "ngrok"
 # Collaboration platform for API development
