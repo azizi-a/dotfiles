@@ -19,6 +19,9 @@ defaults write com.apple.dock autohide -bool true
 defaults write com.apple.dock autohide-time-modifier -float 0.5
 defaults write com.apple.dock autohide-delay -float 0.3
 
+# Remove mouse acceleration
+defaults write -g com.apple.mouse.scaling -int -1
+
 # Finish macOS Setup
 killall Finder
 killall Dock
