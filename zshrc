@@ -12,7 +12,6 @@ bindkey '^[[B' history-search-forward
 
 
 # Variables
-export HOMEBREW_CASK_OPTS="--no-quarantine"
 # syntax highlighting for man pages using bat
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export NULLCMD=bat
