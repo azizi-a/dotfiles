@@ -8,6 +8,7 @@
     ~/.zshrc:
     ~/.zshenv:
     ~/.gitconfig:
+    ~/.vimrc:
     ~/.config/starship.toml:
       create: true
     ~/.config/nvim:
