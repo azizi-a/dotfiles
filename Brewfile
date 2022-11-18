@@ -75,6 +75,8 @@ cask "google-chrome"
 cask "insomnia"
 # Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
+# Jellyfin desktop client
+cask "jellyfin-media-player"
 # Reverse proxy, secure introspectable tunnels to localhost
 cask "ngrok"
 # Collaboration platform for API development
@@ -85,3 +87,5 @@ cask "rectangle"
 cask "spotify"
 # Open-source code editor
 cask "visual-studio-code"
+# Rust-based terminal
+cask "warp"

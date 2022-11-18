@@ -76,6 +76,7 @@ $character"""
 continuation_prompt = "▸"
 
 [battery]
+disabled = true
 format = "[$symbol]($style)"
 [[battery.display]]
 threshold = 99
