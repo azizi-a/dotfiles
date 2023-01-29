@@ -18,7 +18,7 @@
 
 - create:
     - ~/Code
-    - ~/Code/Playground
+    - ~/Code/Testbed
     - ~/Screenshots
 
 - shell:
