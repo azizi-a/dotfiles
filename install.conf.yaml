@@ -27,10 +27,7 @@
     - ~/Screenshots
 
 - shell:
-    - command: ./setup_homebrew.zsh
-      stdout: true
-      stderr: true
-    - command: ./setup_macos.zsh
+    - command: ./setup_ubuntu.zsh
       stdout: true
       stderr: true
     - command: ./setup_zsh.zsh
