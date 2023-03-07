@@ -18,7 +18,7 @@ function install-script {
   fi
 }
 
-if nvm --version &> /dev/null; then
+if [ nvm --version &> /dev/null -ne 0 ]; then
   echo "Already installed: nvm"
 else
   install-script nvm
@@ -52,9 +52,6 @@ install httpie
 install less
 install nano
 install neovim
-install neovim
-install powertop
-install tlp
 install vim
 install zsh
 install zsh-autosuggestions
@@ -78,24 +75,38 @@ install-snap brave
 install-snap spotify
 install-snap vlc
 
-if [ which code &> /dev/null -ne 0 ]; then
+if [ which code &> /dev/nul -ne 0 ]; then
   echo "Installing: code..."
   sudo snap install --classic code
 else
   echo "Already installed: code"
 fi
 
-# # Battery setup
-# # start tlp
-# sudo systemctl enable tlp.service
-# sudo systemctl start tlp.service
-# # stop gnome power profiles
-# sudo systemctl stop power-profiles-daemon.service
-# sudo systemctl disable power-profiles-daemon.service
-# sudo systemctl mask power-profiles-daemon.service
-# 
-# # calibrate powertop
-# sudo powertop --calibrate
+# Power Managment
+if [ which tlp &> /dev/null -ne 0 ]; then
+  install tlp
+
+  echo "Enabling tlp"
+  sudo systemctl enable tlp.service
+  sudo systemctl start tlp.service
+  
+  echo "Disabling and masinging power-profiles-daemon"
+  sudo systemctl stop power-profiles-daemon.service
+  sudo systemctl disable power-profiles-daemon.service
+  sudo systemctl mask power-profiles-daemon.service
+else
+  echo "tlp already installed and enabled"
+fi
+
+if [ which powertop &> /dev/null -ne 0 ]; then
+  install powertop
+  
+  echo "<< Calibrating powertop >>"
+  sudo powertop --calibrate
+  echo "<< powertop calibrated >>"
+else
+  echo "powertop already installed and calibrated"
+fi
 
 # GNOME setup
 install gnome-tweaks
