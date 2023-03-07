@@ -1,5 +1,8 @@
 . "$HOME/.cargo/env"
 
+# force mozila firefox to use Wayland
+export MOZ_ENABLE_WAYLAND=1
+
 fuction exists() {
     # `command -v` is similar to `which`
     command -v $1 >/dev/null 2>&1
