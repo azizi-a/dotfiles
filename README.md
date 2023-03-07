@@ -7,3 +7,4 @@
 3. Run the `install` binary
 4. To add new dotfiles, cut them to this directory and list their old location
    in `instal.conf.yaml`
+4. open `nvim` and run `:PlugInstall`
