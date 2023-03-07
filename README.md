@@ -16,7 +16,8 @@
 
 1. Clone repo to `~/.dotfiles`
 2. Run the `install` binary
-3. To add new dotfiles, cut them to this directory and list their old location
+3. Open `nvim` and run `:PlugInstall`
+4. To add new dotfiles, cut them to this directory and list their old location
    in `instal.conf.yaml`
-4. To backup new brew packages in `Brewfile` run `bbd` (alias for
+5. To backup new brew packages in `Brewfile` run `bbd` (alias for
    `brew bundle dump --force --describe`)
