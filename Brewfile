@@ -6,14 +6,14 @@ tap "homebrew/core"
 tap "homebrew/services"
 # Securely store and access AWS credentials in development environments
 brew "aws-vault"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.10"
 # Official Amazon AWS command-line interface
-brew "awscli", link: false
+brew "awscli"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
 # X.Org: Library for common extensions to the X11 protocol
 brew "libxext"
+# Cross-platform make
+brew "cmake"
 # Load/unload environment variables based on $PWD
 brew "direnv"
 # Modern replacement for 'ls'
@@ -22,6 +22,8 @@ brew "exa"
 brew "git"
 # AVH edition of git-flow
 brew "git-flow-avh"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.10"
 # User-friendly cURL replacement (command-line HTTP client)
 brew "httpie"
 # Manage your Java environment
@@ -60,6 +62,8 @@ brew "zsh-syntax-highlighting"
 brew "derailed/k9s/k9s"
 # Memory training application
 cask "anki"
+# Cross platform SQL editor and database management app
+cask "beekeeper-studio"
 cask "chrome-devtools"
 # Web browser
 cask "firefox"
@@ -67,8 +71,6 @@ cask "firefox"
 cask "font-fira-code"
 # Developer targeted fonts with a high number of glyphs
 cask "font-fira-code-nerd-font"
-# Git client focusing on productivity
-cask "gitkraken"
 # Web browser
 cask "google-chrome"
 # HTTP and GraphQL Client
@@ -85,6 +87,8 @@ cask "postman"
 cask "rectangle"
 # Music streaming service
 cask "spotify"
+# Customizable timing of breaks
+cask "time-out"
 # Open-source code editor
 cask "visual-studio-code"
 # Rust-based terminal
