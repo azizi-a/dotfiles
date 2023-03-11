@@ -5,8 +5,8 @@
 - clean: ["~"]
 
 - link:
-    ~/.zshrc:
-    ~/.zshenv:
+    ~/.zshrc: zsh/zshrc
+    ~/.zshenv: zsh/zshenv
     ~/.gitconfig:
     ~/.vimrc:
     ~/.config/starship.toml:
