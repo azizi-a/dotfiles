@@ -7,8 +7,8 @@ eval "$(starship init zsh)"
 # bind arrow keys to search history
 bindkey '^[[A' history-search-backward
 bindkey '^[[B' history-search-forward
-# bindkey '^[OA' history-substring-search-up
-# bindkey '^[OB' history-substring-search-down
+bindkey '^[OA' history-substring-search-up
+bindkey '^[OB' history-substring-search-down
 
 
 # Variables
@@ -40,8 +40,9 @@ export PATH="$PATH:/snap/bin/code"
 
 
 # Plugins
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.dotfiles/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 
 # Completion
