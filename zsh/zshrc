@@ -4,11 +4,13 @@ eval "$(starship init zsh)"
 
 # ZSH Options
 # Key Binds
+# tip: use CTRL-V to find esc-sequences
 # bind arrow keys to search history
-bindkey '^[[A' history-search-backward
-bindkey '^[[B' history-search-forward
-bindkey '^[OA' history-substring-search-up
-bindkey '^[OB' history-substring-search-down
+bindkey '^[[A' history-begining-search-backward
+bindkey '^[[B' history-begining-search-forward
+# bind PgUp and PgDn keys to history substring search
+bindkey '^[[5~' history-substring-search-up
+bindkey '^[[6~' history-substring-search-down
 
 
 # Variables
@@ -40,9 +42,10 @@ export PATH="$PATH:/snap/bin/code"
 
 
 # Plugins
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.dotfiles/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# syntax highlighting must be last to apply to other plugins
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 
 # Completion
