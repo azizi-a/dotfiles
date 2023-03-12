@@ -109,8 +109,8 @@ else
 fi
 
 # GNOME setup
-install gnome-tweaks
-install chrome-gnome-shell
+# set caps-lock to ctrl
+gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
 
 # Finish Ubuntu Setup
 
