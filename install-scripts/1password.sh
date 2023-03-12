@@ -1,3 +1,5 @@
+#!/usr/bin/env sh
+
 # Add the key for the 1Password apt repository:
 curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg
 
