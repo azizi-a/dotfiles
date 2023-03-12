@@ -18,6 +18,11 @@ bindkey '^[[6~' history-substring-search-down
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export NULLCMD=bat
 
+# zsh history settings
+export HISTFILE=~/.zsh_history  # History filepath
+export HISTSIZE=10000   # Maximum events for internal history
+export SAVEHIST=100000  # Maximum events in history file
+
 # nvm
 export NVM_DIR="$HOME/.nvm"
 # This loads nvm
