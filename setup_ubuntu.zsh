@@ -1,15 +1,14 @@
 #!/usr/bin/env zsh
 
-echo "\n<<< Starting Ubuntu Setup >>>\n"
+echo "\n<<< Starting Ubuntu Setup >>>"
 
 # Installs
-# install drivers
+echo "\n< Installing drivers... >"
 sudo ubuntu-drivers autoinstall
 
-# install from scripts
+echo "\n< Installing from scripts... >"
 function install-script {
   which $1 &> /dev/null
-
   if [ $? -ne 0 ]; then
     echo "Installing: ${1}..."
     ./install-scripts/$1.sh
@@ -19,50 +18,50 @@ function install-script {
 }
 
 if [ nvm --version &> /dev/null -ne 0 ]; then
-  echo "Already installed: nvm"
-else
   install-script nvm
+else
+  echo "Already installed: nvm"
 fi
 install-script 1password
 install-script starship
 
 # apt installs
+echo "\n< Updating package list >"
 sudo apt update
 
-function install {
-  which $1 &> /dev/null
-
-  if [ $? -ne 0 ]; then
-    echo "Installing: ${1}..."
-    sudo apt install -y $1
-  else
+echo "\n< Installing apt packages... >"
+function install-apt {
+  if dpkg -s $1 >/dev/null 2>&1; then
     echo "Already installed: ${1}"
+  else
+    echo "Installing: ${1}..."
+    sudo apt-get install -y $1
   fi
 }
+install-apt bat
+install-apt chromium-browser
+install-apt curl
+install-apt direnv
+install-apt exa
+install-apt fonts-firacode
+install-apt git
+install-apt httpie
+install-apt less
+install-apt nano
+install-apt neovim
+install-apt safeeyes
+install-apt vim
+install-apt zsh
+install-apt zsh-autosuggestions
+install-apt zsh-syntax-highlighting
 
-install bat
-install chromium-browser
-install curl
-install direnv
-install exa
-install firefox
-install fonts-firacode
-install git
-install httpie
-install less
-install nano
-install neovim
-install vim
-install zsh
-install zsh-autosuggestions
-install zsh-syntax-highlighting
-
+echo "\n< Cleaning up dependencies >"
 sudo apt autoremove -y
 
 # install snaps
+echo "\n< Installing Snaps...>"
 function install-snap {
   which $1 &> /dev/null
-
   if [ $? -ne 0 ]; then
     echo "Installing: ${1}..."
     sudo snap install $1
@@ -70,12 +69,12 @@ function install-snap {
     echo "Already installed: ${1}"
   fi
 }
-
 install-snap brave
+install-snap firefox
 install-snap spotify
 install-snap vlc
 
-if [ which code &> /dev/nul -ne 0 ]; then
+if [ which code &> /dev/null -ne 0 ]; then
   echo "Installing: code..."
   sudo snap install --classic code
 else
@@ -83,8 +82,9 @@ else
 fi
 
 # Power Managment
+echo "\n< Power managment installs >"
 if [ which tlp &> /dev/null -ne 0 ]; then
-  install tlp
+  install-apt tlp
 
   echo "Enabling tlp"
   sudo systemctl enable tlp.service
@@ -95,22 +95,28 @@ if [ which tlp &> /dev/null -ne 0 ]; then
   sudo systemctl disable power-profiles-daemon.service
   sudo systemctl mask power-profiles-daemon.service
 else
-  echo "tlp already installed and enabled"
+  echo "TLP already installed and enabled"
 fi
 
 if [ which powertop &> /dev/null -ne 0 ]; then
-  install powertop
+  install-apt powertop
   
-  echo "<< Calibrating powertop >>"
+  echo "\n<< Calibrating Powertop >>"
   sudo powertop --calibrate
-  echo "<< powertop calibrated >>"
+  echo "<< Powertop Calibrated >>\n"
 else
-  echo "powertop already installed and calibrated"
+  echo "Powertop already installed and calibrated"
 fi
 
 # GNOME setup
+echo "\n< GNOME installs running.. >"
+install-apt gnome-tweaks
+install-apt chrome-gnome-shell
+
+echo "\n< GNOME setup running.. >"
 # set caps-lock to ctrl
-gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
+gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier']"
+echo "< GNOME setup finshed >"
 
 # Finish Ubuntu Setup
 
