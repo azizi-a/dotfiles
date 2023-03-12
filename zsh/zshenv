@@ -1,4 +1,3 @@
-. "$HOME/.cargo/env"
 
 # force mozila firefox to use Wayland
 export MOZ_ENABLE_WAYLAND=1
