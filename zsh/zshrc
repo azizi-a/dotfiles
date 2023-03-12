@@ -4,10 +4,12 @@ eval "$(starship init zsh)"
 
 # ZSH Options
 # Key Binds
-# tip: use CTRL-V to find esc-sequences
+# disable XON/XOFF to allow ^Q and ^S binds to work
+stty -ixon
+# (tip: use CTRL-V to find esc-sequences)
 # bind arrow keys to search history
-bindkey '^[[A' history-begining-search-backward
-bindkey '^[[B' history-begining-search-forward
+bindkey '^[[A' history-beginning-search-backward
+bindkey '^[[B' history-beginning-search-forward
 # bind PgUp and PgDn keys to history substring search
 bindkey '^[[5~' history-substring-search-up
 bindkey '^[[6~' history-substring-search-down
