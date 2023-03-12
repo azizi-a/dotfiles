@@ -21,7 +21,7 @@ export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
 export NULLCMD=bat
 
 # zsh history settings
-export HISTFILE=~/.zsh_history  # History filepath
+export HISTFILE=~/.dotfiles/zsh/zsh_history  # History filepath
 export HISTSIZE=10000   # Maximum events for internal history
 export SAVEHIST=100000  # Maximum events in history file
 

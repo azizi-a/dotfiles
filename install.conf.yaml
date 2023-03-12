@@ -7,8 +7,6 @@
 - link:
     ~/.zshrc: zsh/zshrc
     ~/.zshenv: zsh/zshenv
-    ~/.zprofile: zsh/zprofile
-    ~/.zsh_history: zsh/zsh_history
     ~/.gitconfig:
     ~/.vimrc:
     ~/.config/starship.toml:
