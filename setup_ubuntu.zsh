@@ -109,13 +109,23 @@ else
 fi
 
 # GNOME setup
-echo "\n< GNOME installs running.. >"
+echo "\n< GNOME installs running... >"
 install-apt gnome-tweaks
 install-apt chrome-gnome-shell
 
-echo "\n< GNOME setup running.. >"
+echo "\n< GNOME setup running... >"
 # set caps-lock to ctrl
 gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier']"
+gsettings set org.gnome.desktop.interface gtk-theme 'Yaru-prussiangreen-dark'
+gsettings set org.gnome.desktop.interface icon-theme 'Yaru-prussiangreen'
+gsettings set org.gnome.mutter dynamic-workspaces true
+gsettings set org.gnome.mutter workspaces-only-on-primary false
+gsettings set org.gnome.shell.extensions.dash-to-dock autohide true
+gsettings set org.gnome.shell.extensions.dash-to-dock autohide-in-fullscreen false
+gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed false
+gsettings set org.gnome.shell.extensions.dash-to-dock dock-position 'LEFT'
+gsettings set org.gnome.shell.extensions.dash-to-dock isolate-monitors false
+gsettings set org.gnome.shell.extensions.dash-to-dock isolate-workspaces true
 echo "< GNOME setup finshed >"
 
 # Finish Ubuntu Setup
