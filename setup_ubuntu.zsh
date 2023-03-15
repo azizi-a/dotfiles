@@ -90,7 +90,7 @@ if [ which tlp &> /dev/null -ne 0 ]; then
   sudo systemctl enable tlp.service
   sudo systemctl start tlp.service
   
-  echo "Disabling and masinging power-profiles-daemon"
+  echo "Disabling and maskinging power-profiles-daemon"
   sudo systemctl stop power-profiles-daemon.service
   sudo systemctl disable power-profiles-daemon.service
   sudo systemctl mask power-profiles-daemon.service
@@ -111,7 +111,7 @@ fi
 # GNOME setup
 echo "\n< GNOME installs running... >"
 install-apt gnome-tweaks
-install-apt chrome-gnome-shell
+install-apt gnome-shell-extension-manager 
 
 echo "\n< GNOME setup running... >"
 # set caps-lock to ctrl
