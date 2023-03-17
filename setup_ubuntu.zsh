@@ -45,6 +45,7 @@ install-apt direnv
 install-apt exa
 install-apt fonts-firacode
 install-apt git
+install-apt guake
 install-apt httpie
 install-apt less
 install-apt nano
