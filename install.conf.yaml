@@ -5,6 +5,7 @@
 - clean: ["~"]
 
 - link:
+    ~/Screenshots: ~/Pictures/Screenshots
     ~/.zshrc: zsh/zshrc
     ~/.zshenv: zsh/zshenv
     ~/.gitconfig:
@@ -23,7 +24,6 @@
 - create:
     - ~/Code
     - ~/Code/Testbed
-    - ~/Screenshots
 
 - shell:
     - command: ./setup_zsh.zsh
