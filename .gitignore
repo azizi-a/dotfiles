@@ -2,3 +2,4 @@
 Brewfile.lock.json
 nvim/autoload/plugged
 zsh/zsh_history
+guake/session.json

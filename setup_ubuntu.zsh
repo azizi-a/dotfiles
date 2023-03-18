@@ -129,6 +129,12 @@ gsettings set org.gnome.shell.extensions.dash-to-dock isolate-monitors false
 gsettings set org.gnome.shell.extensions.dash-to-dock isolate-workspaces true
 echo "< GNOME setup finshed >"
 
+
+echo "\n< Restroing guake terminal settings... >"
+# save preferances with `guake --save-preferences='.config/guake/preferences'`
+guake --restore-preferences='.config/guake/preferences'
+echo "< guake setup finshed >"
+
 # Finish Ubuntu Setup
 
 echo "\n<<< Ubuntu Setup Complete >>>\n"
