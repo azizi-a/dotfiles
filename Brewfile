@@ -29,7 +29,7 @@ brew "httpie"
 # Manage your Java environment
 brew "jenv"
 # Kubernetes command-line interface
-brew "kubernetes-cli@1.22"
+brew "kubernetes-cli"
 # Pager program similar to more
 brew "less"
 # Free (GNU) replacement for the Pico text editor
