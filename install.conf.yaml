@@ -8,6 +8,7 @@
     ~/Screenshots: ~/Pictures/Screenshots
     ~/.zshrc: zsh/zshrc
     ~/.zshenv: zsh/zshenv
+    ~/.zprofile: zsh/zprofile
     ~/.gitconfig:
     ~/.vimrc:
     ~/.config/starship.toml:
@@ -19,6 +20,7 @@
     ~/.config/guake:
       create: true
     ~/.config/coc: nvim/coc
+    ~/.config/chromium-flags.conf:
       create: true
 
 - create:
