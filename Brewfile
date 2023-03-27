@@ -1,4 +1,3 @@
-tap "derailed/k9s"
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/cask-fonts"
@@ -27,7 +26,7 @@ brew "httpie"
 # Manage your Java environment
 brew "jenv"
 # Kubernetes command-line interface
-brew "kubernetes-cli@1.22"
+brew "kubernetes-cli"
 # Pager program similar to more
 brew "less"
 # Free (GNU) replacement for the Pico text editor
@@ -56,8 +55,6 @@ brew "zsh-autosuggestions"
 brew "zsh-history-substring-search"
 # Fish shell like syntax highlighting for zsh
 brew "zsh-syntax-highlighting"
-# Kubernetes CLI To Manage Your Clusters In Style!
-brew "derailed/k9s/k9s"
 # Memory training application
 cask "anki"
 cask "chrome-devtools"
@@ -68,12 +65,8 @@ cask "font-fira-code"
 # Developer targeted fonts with a high number of glyphs
 cask "font-fira-code-nerd-font"
 # Git client focusing on productivity
-cask "gitkraken"
-# Web browser
 cask "google-chrome"
 # HTTP and GraphQL Client
-cask "insomnia"
-# Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
 # Jellyfin desktop client
 cask "jellyfin-media-player"
@@ -87,5 +80,3 @@ cask "rectangle"
 cask "spotify"
 # Open-source code editor
 cask "visual-studio-code"
-# Rust-based terminal
-cask "warp"
