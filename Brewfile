@@ -22,8 +22,6 @@ brew "exa"
 brew "git"
 # AVH edition of git-flow
 brew "git-flow-avh"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.10"
 # User-friendly cURL replacement (command-line HTTP client)
 brew "httpie"
 # Manage your Java environment
@@ -46,6 +44,8 @@ brew "openjdk"
 brew "openjdk@11"
 # Object-relational database system
 brew "postgresql@14", restart_service: true
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.10"
 # Rust toolchain installer
 brew "rustup-init"
 # Cross-shell prompt for astronauts
@@ -64,6 +64,8 @@ brew "derailed/k9s/k9s"
 cask "anki"
 # Cross platform SQL editor and database management app
 cask "beekeeper-studio"
+# Web browser focusing on privacy
+cask "brave-browser"
 cask "chrome-devtools"
 # Web browser
 cask "firefox"
@@ -81,6 +83,8 @@ cask "iterm2"
 cask "jellyfin-media-player"
 # Reverse proxy, secure introspectable tunnels to localhost
 cask "ngrok"
+# App to write, plan, collaborate, and get organized
+cask "notion"
 # Collaboration platform for API development
 cask "postman"
 # Move and resize windows using keyboard shortcuts or snap areas
