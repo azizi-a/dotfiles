@@ -71,6 +71,7 @@ function install-snap {
   fi
 }
 install-snap brave
+install-snap discord
 install-snap firefox
 install-snap spotify
 install-snap vlc
