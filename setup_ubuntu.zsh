@@ -118,8 +118,8 @@ install-apt gnome-shell-extension-manager
 echo "\n< GNOME setup running... >"
 # set caps-lock to ctrl
 gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier']"
-gsettings set org.gnome.desktop.interface gtk-theme 'Yaru-prussiangreen-dark'
-gsettings set org.gnome.desktop.interface icon-theme 'Yaru-prussiangreen'
+gsettings set org.gnome.desktop.interface gtk-theme 'Yaru-viridian-dark'
+gsettings set org.gnome.desktop.interface icon-theme 'Yaru-viridian'
 gsettings set org.gnome.mutter dynamic-workspaces true
 gsettings set org.gnome.mutter workspaces-only-on-primary false
 gsettings set org.gnome.shell.extensions.dash-to-dock autohide true
