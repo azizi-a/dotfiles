@@ -40,8 +40,8 @@ brew "nghttp2"
 brew "nvm"
 # Development kit for the Java programming language
 brew "openjdk"
-# Development kit for the Java programming language
-brew "openjdk@11"
+# 📦🚀 Fast, disk space efficient package manager
+brew "pnpm"
 # Object-relational database system
 brew "postgresql@14", restart_service: true
 # Interpreted, interactive, object-oriented programming language
@@ -91,6 +91,8 @@ cask "postman"
 cask "rectangle"
 # Music streaming service
 cask "spotify"
+# Customize mouse buttons, wheels and cursor speed
+cask "steermouse"
 # Customizable timing of breaks
 cask "time-out"
 # Open-source code editor
