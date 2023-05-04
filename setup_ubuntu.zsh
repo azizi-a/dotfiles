@@ -29,28 +29,31 @@ install-script starship
 echo "\n< Updating package list >"
 sudo apt update
 
-echo "\n< Installing apt packages... >"
+echo "\n< installing apt packages... >"
 function install-apt {
   if dpkg -s $1 >/dev/null 2>&1; then
-    echo "Already installed: ${1}"
+    echo "already installed: ${1}"
   else
-    echo "Installing: ${1}..."
+    echo "installing: ${1}..."
     sudo apt-get install -y $1
   fi
 }
 install-apt bat
 install-apt chromium-browser
 install-apt curl
+install-apt deja-dup
 install-apt direnv
 install-apt exa
 install-apt fonts-firacode
 install-apt git
 install-apt guake
 install-apt httpie
+install-apt input-remapper
 install-apt less
 install-apt nano
 install-apt neovim
 install-apt safeeyes
+install-apt timeshift
 install-apt vim
 install-apt zsh
 install-apt zsh-autosuggestions
