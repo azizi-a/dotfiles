@@ -13,7 +13,9 @@ bindkey '^[[B' history-beginning-search-forward
 # bind PgUp and PgDn keys to history substring search
 bindkey '^[[5~' history-substring-search-up
 bindkey '^[[6~' history-substring-search-down
-
+# bind Home and End to expected behaviour
+bindkey '\e[H'    beginning-of-line
+bindkey '\e[F'    end-of-line
 
 # Variables
 # syntax highlighting for man pages using bat
