@@ -46,10 +46,16 @@ brew "pnpm"
 brew "postgresql@14", restart_service: true
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.10"
+# Safe, concurrent, practical language
+brew "rust"
 # Rust toolchain installer
 brew "rustup-init"
+# Simple keystroke visualizer
+brew "showkey"
 # Cross-shell prompt for astronauts
 brew "starship"
+# Tool for managing your YubiKey configuration
+brew "ykman"
 # UNIX shell (command interpreter)
 brew "zsh"
 # Fish-like fast/unobtrusive autosuggestions for zsh
@@ -66,7 +72,12 @@ cask "anki"
 cask "beekeeper-studio"
 # Web browser focusing on privacy
 cask "brave-browser"
+# Standalone Chrome development tools
 cask "chrome-devtools"
+# Voice and text chat software
+cask "discord"
+# App to build and share containerized applications and microservices
+cask "docker"
 # Web browser
 cask "firefox"
 # Free monospaced font with programming ligatures
@@ -81,6 +92,8 @@ cask "insomnia"
 cask "iterm2"
 # Jellyfin desktop client
 cask "jellyfin-media-player"
+# JetBrains tools manager
+cask "jetbrains-toolbox"
 # Reverse proxy, secure introspectable tunnels to localhost
 cask "ngrok"
 # App to write, plan, collaborate, and get organized
