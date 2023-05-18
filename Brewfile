@@ -107,6 +107,8 @@ cask "iterm2"
 cask "jellyfin-media-player"
 # JetBrains tools manager
 cask "jetbrains-toolbox"
+# Keyboard customizer
+cask "karabiner-elements"
 # Reverse proxy, secure introspectable tunnels to localhost
 cask "ngrok"
 # App to write, plan, collaborate, and get organized
