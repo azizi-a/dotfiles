@@ -21,6 +21,8 @@ bindkey '\e[F'    end-of-line
 # syntax highlighting for man pages using bat
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export NULLCMD=bat
+export GH_TOKEN=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
+
 
 # zsh history settings
 export HISTFILE=~/.zsh_history  # History filepath
@@ -55,6 +57,8 @@ export PATH="/opt/homebrew/opt/kubernetes-cli/bin:$PATH"
 #jenv
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
+# Add .NET Core SDK tools
+export PATH="$PATH:$HOME/.dotnet/tools"
 
 
 # Plugins

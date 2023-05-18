@@ -1,4 +1,5 @@
 tap "derailed/k9s"
+tap "hashicorp/tap"
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/cask-fonts"
@@ -6,6 +7,8 @@ tap "homebrew/core"
 tap "homebrew/services"
 # Securely store and access AWS credentials in development environments
 brew "aws-vault"
+# Text processing system for reStructuredText
+brew "docutils"
 # Official Amazon AWS command-line interface
 brew "awscli"
 # Clone of cat(1) with syntax highlighting and Git integration
@@ -16,8 +19,12 @@ brew "libxext"
 brew "cmake"
 # Load/unload environment variables based on $PWD
 brew "direnv"
+# .NET Core
+brew "dotnet"
 # Modern replacement for 'ls'
 brew "exa"
+# GitHub command-line tool
+brew "gh"
 # Distributed revision control system
 brew "git"
 # AVH edition of git-flow
@@ -30,6 +37,10 @@ brew "jenv"
 brew "kubernetes-cli"
 # Pager program similar to more
 brew "less"
+# TIFF library and utilities
+brew "libtiff"
+# Color management engine supporting ICC profiles
+brew "little-cms2"
 # Free (GNU) replacement for the Pico text editor
 brew "nano"
 # Ambitious Vim-fork focused on extensibility and agility
@@ -66,6 +77,8 @@ brew "zsh-history-substring-search"
 brew "zsh-syntax-highlighting"
 # Kubernetes CLI To Manage Your Clusters In Style!
 brew "derailed/k9s/k9s"
+# Vault
+brew "hashicorp/tap/vault"
 # Memory training application
 cask "anki"
 # Cross platform SQL editor and database management app
