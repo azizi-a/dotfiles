@@ -19,3 +19,11 @@ else
 fi
 
 brew bundle --verbose
+
+if exists cargo; then
+  echo "cargo exists. Skipping cargo install."
+else
+  echo "cargo doesn't exist. Installing cargo."
+  rustup-init -vy
+  # curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+fi

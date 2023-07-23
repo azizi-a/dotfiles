@@ -1,9 +1,7 @@
 tap "derailed/k9s"
 tap "hashicorp/tap"
 tap "homebrew/bundle"
-tap "homebrew/cask"
 tap "homebrew/cask-fonts"
-tap "homebrew/core"
 tap "homebrew/services"
 # Securely store and access AWS credentials in development environments
 brew "aws-vault"
@@ -53,14 +51,12 @@ brew "nghttp2"
 brew "nvm"
 # Development kit for the Java programming language
 brew "openjdk"
-# 📦🚀 Fast, disk space efficient package manager
+# Fast, disk space efficient package manager
 brew "pnpm"
 # Object-relational database system
 brew "postgresql@14", restart_service: true
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.10"
-# Safe, concurrent, practical language
-brew "rust"
 # Rust toolchain installer
 brew "rustup-init"
 # Simple keystroke visualizer
@@ -142,6 +138,7 @@ vscode "dzannotti.vscode-babel-coloring"
 vscode "eamodio.gitlens"
 vscode "EditorConfig.EditorConfig"
 vscode "esbenp.prettier-vscode"
+vscode "figma.figma-vscode-extension"
 vscode "GitHub.copilot"
 vscode "golang.go"
 vscode "GraphQL.vscode-graphql"
