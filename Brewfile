@@ -121,8 +121,8 @@ cask "rectangle"
 cask "spotify"
 # Customize mouse buttons, wheels and cursor speed
 cask "steermouse"
-# Customizable timing of breaks
-cask "time-out"
+# Break time reminder app
+cask "stretchly"
 # Configurator of compatible keyboards in real time
 cask "vial"
 # Open-source code editor
@@ -132,6 +132,7 @@ cask "warp"
 vscode "alexcvzz.vscode-sqlite"
 vscode "asvetliakov.vscode-neovim"
 vscode "bradlc.vscode-tailwindcss"
+vscode "ChakrounAnas.turbo-console-log"
 vscode "dbaeumer.vscode-eslint"
 vscode "dsznajder.es7-react-js-snippets"
 vscode "dzannotti.vscode-babel-coloring"
@@ -153,6 +154,7 @@ vscode "mhutchie.git-graph"
 vscode "mikerhyssmith.ts-barrelr"
 vscode "ms-azuretools.vscode-docker"
 vscode "ms-dotnettools.csharp"
+vscode "ms-dotnettools.vscode-dotnet-runtime"
 vscode "ms-ossdata.vscode-postgresql"
 vscode "ms-python.isort"
 vscode "ms-python.python"
