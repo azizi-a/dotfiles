@@ -19,8 +19,8 @@ brew "cmake"
 brew "direnv"
 # .NET Core
 brew "dotnet"
-# Modern replacement for 'ls'
-brew "exa"
+# Modern, maintained replacement for ls
+brew "eza"
 # GitHub command-line tool
 brew "gh"
 # Distributed revision control system
@@ -33,6 +33,8 @@ brew "git-flow-avh"
 brew "httpie"
 # Manage your Java environment
 brew "jenv"
+# Lightweight and flexible command-line JSON processor
+brew "jq"
 # Kubernetes command-line interface
 brew "kubernetes-cli"
 # Pager program similar to more
@@ -127,6 +129,8 @@ cask "stretchly"
 cask "vial"
 # Open-source code editor
 cask "visual-studio-code"
+# Multimedia player
+cask "vlc"
 # Rust-based terminal
 cask "warp"
 vscode "alexcvzz.vscode-sqlite"
@@ -141,6 +145,7 @@ vscode "EditorConfig.EditorConfig"
 vscode "esbenp.prettier-vscode"
 vscode "figma.figma-vscode-extension"
 vscode "GitHub.copilot"
+vscode "GitHub.copilot-chat"
 vscode "golang.go"
 vscode "GraphQL.vscode-graphql"
 vscode "GraphQL.vscode-graphql-execution"
