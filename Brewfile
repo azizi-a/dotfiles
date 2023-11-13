@@ -2,6 +2,7 @@ tap "derailed/k9s"
 tap "hashicorp/tap"
 tap "homebrew/bundle"
 tap "homebrew/cask-fonts"
+tap "homebrew/cask-versions"
 tap "homebrew/services"
 # Securely store and access AWS credentials in development environments
 brew "aws-vault"
@@ -93,6 +94,8 @@ cask "discord"
 cask "docker"
 # Web browser
 cask "firefox"
+# Web browser
+cask "firefox-developer-edition"
 # Free monospaced font with programming ligatures
 cask "font-fira-code"
 # Developer targeted fonts with a high number of glyphs
@@ -158,8 +161,10 @@ vscode "mechatroner.rainbow-csv"
 vscode "mhutchie.git-graph"
 vscode "mikerhyssmith.ts-barrelr"
 vscode "ms-azuretools.vscode-docker"
+vscode "ms-dotnettools.csdevkit"
 vscode "ms-dotnettools.csharp"
 vscode "ms-dotnettools.vscode-dotnet-runtime"
+vscode "ms-dotnettools.vscodeintellicode-csharp"
 vscode "ms-ossdata.vscode-postgresql"
 vscode "ms-python.isort"
 vscode "ms-python.python"
