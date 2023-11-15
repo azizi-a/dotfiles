@@ -123,12 +123,13 @@ echo "\n< GNOME setup running... >"
 gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier']"
 gsettings set org.gnome.desktop.interface gtk-theme 'Yaru-viridian-dark'
 gsettings set org.gnome.desktop.interface icon-theme 'Yaru-viridian'
+gsettings set org.gnome.mutter center-new-windows true 
 gsettings set org.gnome.mutter dynamic-workspaces true
 gsettings set org.gnome.mutter workspaces-only-on-primary false
 gsettings set org.gnome.shell.extensions.dash-to-dock autohide true
 gsettings set org.gnome.shell.extensions.dash-to-dock autohide-in-fullscreen false
 gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed false
-gsettings set org.gnome.shell.extensions.dash-to-dock dock-position 'LEFT'
+gsettings set org.gnome.shell.extensions.dash-to-dock dock-position 'BOTTOM'
 gsettings set org.gnome.shell.extensions.dash-to-dock isolate-monitors false
 gsettings set org.gnome.shell.extensions.dash-to-dock isolate-workspaces true
 echo "< GNOME setup finshed >"
