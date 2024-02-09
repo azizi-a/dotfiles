@@ -54,12 +54,13 @@ export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/b
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 # kubernetes-cli
 export PATH="/opt/homebrew/opt/kubernetes-cli/bin:$PATH"
-#jenv
+# jenv
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
 # Add .NET Core SDK tools
 export PATH="$PATH:$HOME/.dotnet/tools"
-
+# llvm  
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 
 # Plugins
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
