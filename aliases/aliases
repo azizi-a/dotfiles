@@ -1,5 +1,5 @@
 alias pn='pnpm'
-# alias ll='ls -lAFh'
-alias ll='eza -laFh --icons'
+# alias ll='ls -lAhF'
+alias ll='eza -lahF --icons'
 alias bbd='brew bundle dump --force --describe'
 alias path='<<<${(F)path}'

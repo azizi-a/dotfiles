@@ -6,8 +6,6 @@ tap "homebrew/cask-versions"
 tap "homebrew/services"
 # Securely store and access AWS credentials in development environments
 brew "aws-vault"
-# Text processing system for reStructuredText
-brew "docutils"
 # Official Amazon AWS command-line interface
 brew "awscli"
 # Clone of cat(1) with syntax highlighting and Git integration
@@ -16,8 +14,12 @@ brew "bat"
 brew "libxext"
 # Cross-platform make
 brew "cmake"
+# Cryptographic recipes and primitives for Python
+brew "cryptography"
 # Load/unload environment variables based on $PWD
 brew "direnv"
+# Text processing system for reStructuredText
+brew "docutils"
 # .NET Core
 brew "dotnet"
 # Modern, maintained replacement for ls
@@ -60,8 +62,6 @@ brew "openjdk"
 brew "pnpm"
 # Object-relational database system
 brew "postgresql@14", restart_service: true
-# Cryptographic recipes and primitives for Python
-brew "python-cryptography"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.10"
 # Rust toolchain installer
@@ -94,7 +94,7 @@ cask "brave-browser"
 cask "chrome-devtools"
 # Voice and text chat software
 cask "discord"
-# App to build and share containerized applications and microservices
+# App to build and share containerised applications and microservices
 cask "docker"
 # Web browser
 cask "firefox"
@@ -114,11 +114,11 @@ cask "iterm2"
 cask "jellyfin-media-player"
 # JetBrains tools manager
 cask "jetbrains-toolbox"
-# Keyboard customizer
+# Keyboard customiser
 cask "karabiner-elements"
 # Reverse proxy, secure introspectable tunnels to localhost
 cask "ngrok"
-# App to write, plan, collaborate, and get organized
+# App to write, plan, collaborate, and get organised
 cask "notion"
 # Collaboration platform for API development
 cask "postman"
@@ -128,7 +128,7 @@ cask "qmk-toolbox"
 cask "rectangle"
 # Music streaming service
 cask "spotify"
-# Customize mouse buttons, wheels and cursor speed
+# Customise mouse buttons, wheels and cursor speed
 cask "steermouse"
 # Break time reminder app
 cask "stretchly"
@@ -193,7 +193,7 @@ vscode "octref.vetur"
 vscode "oderwat.indent-rainbow"
 vscode "patcx.vscode-nuget-gallery"
 vscode "pkief.material-icon-theme"
-vscode "radixpublishing.radix-transaction-manifest-support"
+vscode "radixpublishing.radix-developer-tools"
 vscode "ritwickdey.liveserver"
 vscode "rust-lang.rust-analyzer"
 vscode "streetsidesoftware.code-spell-checker"
@@ -204,6 +204,5 @@ vscode "tobermory.es6-string-html"
 vscode "ue.alphabetical-sorter"
 vscode "vincaslt.highlight-matching-tag"
 vscode "vue.volar"
-vscode "vue.vscode-typescript-vue-plugin"
 vscode "wayou.vscode-todo-highlight"
 vscode "yzhang.markdown-all-in-one"
