@@ -1,5 +1,5 @@
 alias pn='pnpm'
 # alias ll='ls -lAFh'
-alias ll='exa -laFh --icons'
+alias ll='eza -lah --icons'
 alias path='<<<${(F)path}'
 alias bat=batcat

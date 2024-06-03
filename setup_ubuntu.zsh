@@ -43,7 +43,7 @@ install-apt chromium-browser
 install-apt curl
 install-apt deja-dup
 install-apt direnv
-install-apt exa
+install-apt eza
 install-apt fonts-firacode
 install-apt git
 install-apt guake
