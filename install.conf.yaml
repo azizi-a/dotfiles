@@ -16,6 +16,8 @@
       create: true
     ~/.config/bat:
       create: true
+    ~/.config/coc: nvim/coc
+      create: true
 
 - create:
     - ~/Code

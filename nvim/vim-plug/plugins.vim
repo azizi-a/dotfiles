@@ -20,7 +20,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 call plug#end()
 
 " load all files in plugin-configs/
-"for file in split(glob('~/.config/nvim/vim-plug/plugin-configs/*'), '\n')
-"  exe 'source' file
-"endfor
+for file in split(glob('~/.config/nvim/vim-plug/plugin-configs/*'), '\n')
+  exe 'source' file
+endfor
 
