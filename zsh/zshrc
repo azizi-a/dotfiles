@@ -1,8 +1,8 @@
-#################################### Prompt ###################################
+#################################### Prompt ####################################
 eval "$(starship init zsh)"
 
 
-################################# ZSH Options #################################
+################################# ZSH Options ##################################
 # Key Binds
 # disable XON/XOFF to allow ^Q and ^S binds to work
 stty -ixon
@@ -15,7 +15,7 @@ bindkey '^[[5~' history-substring-search-up
 bindkey '^[[6~' history-substring-search-down
 
 
-################################## Variables ##################################
+################################## Variables ###################################
 # syntax highlighting for man pages using bat
 export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
 export MANROFFOPT="-c"
@@ -34,35 +34,35 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 
-################################### Aliases ###################################
+################################### Aliases ####################################
 source ~/.dotfiles/aliases/aliases
 source ~/.dotfiles/aliases/git-aliases
 
-################################## Functions ##################################
+################################## Functions ###################################
 fuction mkcd() {
     mkdir -p "$@" && cd "$_";
 }
 
 
-################################ $PATH Location ###############################
+################################ $PATH Location ################################
 # Add VS Codeium (code)
 export PATH="$PATH:/usr/bin/codium"
 # python package directory - Created by `pipx`
 export PATH="$PATH:/home/azizi/.local/bin"
 
-################################### Plugins ###################################
+################################### Plugins ####################################
 source ~/.dotfiles/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # syntax highlighting must be last to apply to other plugins
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 
-################################## Completion #################################
+################################## Completion ##################################
 autoload -U compinit; compinit
 # case-insensitive completion
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
 
 
-#################################### Other ####################################
+#################################### Other #####################################
 # direnv
 eval "$(direnv hook zsh)"
