@@ -40,6 +40,7 @@ function install-apt {
 }
 install-apt bat
 install-apt chromium-browser
+install-apt codium
 install-apt curl
 install-apt deja-dup
 install-apt direnv
@@ -79,12 +80,12 @@ install-snap firefox
 install-snap spotify
 install-snap vlc
 
-if [ which code &> /dev/null -ne 0 ]; then
-  echo "Installing: code..."
-  sudo snap install --classic code
-else
-  echo "Already installed: code"
-fi
+# if [ which code &> /dev/null -ne 0 ]; then
+#   echo "Installing: code..."
+#   sudo snap install --classic code
+# else
+#   echo "Already installed: code"
+# fi
 
 # Power Managment
 echo "\n< Power managment installs >"

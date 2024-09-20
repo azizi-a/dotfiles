@@ -43,9 +43,8 @@ fuction mkcd() {
 }
 
 
-# $PATH Location
-# Add Visual Studio Code (code)
-export PATH="$PATH:/snap/bin/code"
+# Add VS Codeium (code)
+export PATH="$PATH:/usr/bin/codium"
 
 
 # Plugins
