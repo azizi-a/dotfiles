@@ -30,7 +30,7 @@ hi SpellLocal guifg=NONE
 :map <silent> <leader>h :noh<CR>
 :map <leader>/ <plug>NERDCommenterToggle
 " :W will save with sudo and reload file
-:command W ':w !sudo tee % > /dev/null' | :edit!
+cnoremap W w !sudo tee % > /dev/null | :edit!
 " Press i to enter insert mode, and jj or kk to exit insert mode.
 " :inoremap jj <Esc>
 " :inoremap kk <Esc>
