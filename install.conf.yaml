@@ -22,6 +22,8 @@
     ~/.config/coc: nvim/coc
     ~/.config/chromium-flags.conf:
       create: true
+    ~/.config/VSCodium/User/snippets: vscodium/User/snippets
+    ~/.config/VSCodium/User/settings.json: vscodium/User/settings.json
 
 - create:
     - ~/Code
