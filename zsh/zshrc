@@ -27,34 +27,6 @@ export HISTFILE=~/.zsh_history  # History filepath
 export HISTSIZE=10000   # Maximum events for internal history
 export SAVEHIST=100000  # Maximum events in history file
 
-# nvm
-export NVM_DIR="$HOME/.nvm"
-# This loads nvm
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
-# This loads nvm bash_completion
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
-# Load npm on directory change
-autoload -U add-zsh-hook
-load-nvmrc() {
-  local node_version="$(nvm version)"
-  local nvmrc_path="$(nvm_find_nvmrc)"
-
-  if [ -n "$nvmrc_path" ]; then
-    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
-
-    if [ "$nvmrc_node_version" = "N/A" ]; then
-      nvm install
-    elif [ "$nvmrc_node_version" != "$node_version" ]; then
-      nvm use
-    fi
-  elif [ "$node_version" != "$(nvm version default)" ]; then
-    echo "Reverting to nvm default version"
-    nvm use default
-  fi
-}
-add-zsh-hook chpwd load-nvmrc
-load-nvmrc
-
 ################################ $PATH Location ################################
 # Add Visual Studio Code (code)
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
@@ -71,9 +43,15 @@ export PATH="$PATH:$HOME/.dotnet/tools"
 export PATH="$(brew --prefix llvm)/bin:$PATH"
 
 ################################### Plugins ####################################
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# nvm lazy loading using oh-my-zsh nvm plugin
+zstyle ':omz:plugins:nvm' autoload yes
+zstyle ':omz:plugins:nvm' lazy yes
+zstyle ':omz:plugins:nvm' lazy-cmd nvim
+source $HOME/.dotfiles/zsh/nvm/nvm.plugin.zsh
+# zsh-autosuggestions
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # syntax highlighting must be last to apply to other plugins
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 ################################## Completion ##################################
 autoload -Uz compinit && compinit
@@ -92,3 +70,4 @@ fuction mkcd() {
 #################################### Other #####################################
 # direnv
 eval "$(direnv hook zsh)"
+
