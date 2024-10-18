@@ -6,16 +6,22 @@ tap "homebrew/cask-versions"
 tap "homebrew/services"
 # Securely store and access AWS credentials in development environments
 brew "aws-vault"
+# Cryptographic recipes and primitives for Python
+brew "cryptography"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.12"
 # Official Amazon AWS command-line interface
 brew "awscli"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# Core application library for C
+brew "glib"
 # X.Org: Library for common extensions to the X11 protocol
 brew "libxext"
 # Cross-platform make
 brew "cmake"
-# Cryptographic recipes and primitives for Python
-brew "cryptography"
+# Secure runtime for JavaScript and TypeScript
+brew "deno"
 # Load/unload environment variables based on $PWD
 brew "direnv"
 # Text processing system for reStructuredText
@@ -32,6 +38,8 @@ brew "git"
 brew "git-delta"
 # AVH edition of git-flow
 brew "git-flow-avh"
+# OpenType text shaping engine
+brew "harfbuzz"
 # User-friendly cURL replacement (command-line HTTP client)
 brew "httpie"
 # Manage your Java environment
@@ -58,18 +66,26 @@ brew "nghttp2"
 brew "nvm"
 # Development kit for the Java programming language
 brew "openjdk"
+# Command-line interface for the Phylum API
+brew "phylum-cli"
 # Fast, disk space efficient package manager
 brew "pnpm"
 # Object-relational database system
 brew "postgresql@14", restart_service: true
+# Framework for managing multi-language pre-commit hooks
+brew "pre-commit"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.10"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.11"
 # Rust toolchain installer
-brew "rustup-init"
+brew "rustup"
 # Simple keystroke visualizer
 brew "showkey"
 # Cross-shell prompt for astronauts
 brew "starship"
+# Standalone JIT-style runtime for WebAssembly, using Cranelift
+brew "wasmtime"
 # Tool for managing your YubiKey configuration
 brew "ykman"
 # UNIX shell (command interpreter)
@@ -99,10 +115,8 @@ cask "docker"
 # Web browser
 cask "firefox"
 # Web browser
-cask "firefox-developer-edition"
-# Free monospaced font with programming ligatures
+cask "firefox@developer-edition"
 cask "font-fira-code"
-# Developer targeted fonts with a high number of glyphs
 cask "font-fira-code-nerd-font"
 # Web browser
 cask "google-chrome"
@@ -114,8 +128,6 @@ cask "iterm2"
 cask "jellyfin-media-player"
 # JetBrains tools manager
 cask "jetbrains-toolbox"
-# Keyboard customiser
-cask "karabiner-elements"
 # Reverse proxy, secure introspectable tunnels to localhost
 cask "ngrok"
 # App to write, plan, collaborate, and get organised
@@ -151,6 +163,7 @@ vscode "bierner.markdown-preview-github-styles"
 vscode "bierner.markdown-yaml-preamble"
 vscode "bradlc.vscode-tailwindcss"
 vscode "chakrounanas.turbo-console-log"
+vscode "cweijan.dbclient-jdbc"
 vscode "dbaeumer.vscode-eslint"
 vscode "dsznajder.es7-react-js-snippets"
 vscode "dzannotti.vscode-babel-coloring"
@@ -186,6 +199,11 @@ vscode "ms-toolsai.jupyter-keymap"
 vscode "ms-toolsai.jupyter-renderers"
 vscode "ms-toolsai.vscode-jupyter-cell-tags"
 vscode "ms-toolsai.vscode-jupyter-slideshow"
+vscode "ms-vscode.cmake-tools"
+vscode "ms-vscode.cpptools"
+vscode "ms-vscode.cpptools-extension-pack"
+vscode "ms-vscode.cpptools-themes"
+vscode "ms-vscode.makefile-tools"
 vscode "ms-vsliveshare.vsliveshare"
 vscode "msjsdiag.vscode-react-native"
 vscode "naumovs.color-highlight"
@@ -196,13 +214,17 @@ vscode "pkief.material-icon-theme"
 vscode "radixpublishing.radix-developer-tools"
 vscode "ritwickdey.liveserver"
 vscode "rust-lang.rust-analyzer"
+vscode "snyk-security.snyk-vulnerability-scanner"
 vscode "streetsidesoftware.code-spell-checker"
 vscode "styled-components.vscode-styled-components"
 vscode "svelte.svelte-vscode"
 vscode "tamasfe.even-better-toml"
 vscode "tobermory.es6-string-html"
+vscode "twxs.cmake"
 vscode "ue.alphabetical-sorter"
+vscode "vadimcn.vscode-lldb"
 vscode "vincaslt.highlight-matching-tag"
+vscode "vscodevim.vim"
 vscode "vue.volar"
 vscode "wayou.vscode-todo-highlight"
 vscode "yzhang.markdown-all-in-one"
