@@ -471,13 +471,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.70531737804412842</real>
+				<real>0.74117647058823533</real>
 				<key>Color Space</key>
-				<string>Calibrated</string>
+				<string>P3</string>
 				<key>Green Component</key>
-				<real>0.29879066348075867</real>
+				<real>0.45098039215686275</real>
 				<key>Red Component</key>
-				<real>0.98751437664031982</real>
+				<real>0.92941176470588238</real>
 			</dict>
 			<key>Ansi 14 Color</key>
 			<dict>
@@ -1729,7 +1729,7 @@
 	<key>SeparateStatusBarsPerPane</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
-	<true/>
+	<false/>
 	<key>ShowNewOutputIndicator</key>
 	<true/>
 	<key>ShowPaneTitles</key>
