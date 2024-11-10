@@ -120,8 +120,8 @@ install-apt gnome-tweaks
 install-apt gnome-shell-extension-manager 
 
 echo "\n< GNOME setup running... >"
-# set caps-lock to ctrl
-gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier']"
+# set caps-lock to esc (+shift for caps-lock)
+gsettings set org.gnome.desktop.input-sources xkb-options "['caps:escape_shifted_capslock']"
 gsettings set org.gnome.desktop.interface gtk-theme 'Yaru-viridian-dark'
 gsettings set org.gnome.desktop.interface icon-theme 'Yaru-viridian'
 gsettings set org.gnome.mutter center-new-windows true 
