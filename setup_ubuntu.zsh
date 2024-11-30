@@ -134,6 +134,10 @@ gsettings set org.gnome.shell.extensions.dash-to-dock dock-position 'BOTTOM'
 gsettings set org.gnome.shell.extensions.dash-to-dock isolate-monitors false
 gsettings set org.gnome.shell.extensions.dash-to-dock isolate-workspaces true
 echo "< GNOME setup finshed >"
+# Remove Super + Up/Down keybindings
+gsettings set org.gnome.shell.keybindings shift-overview-up "[]"
+gsettings set org.gnome.shell.keybindings shift-overview-down "[]"
+
 
 
 echo "\n< Restroing guake terminal settings... >"
