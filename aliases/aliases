@@ -4,3 +4,5 @@ alias ll='eza -lah --icons'
 alias path='<<<${(F)path}'
 alias bat=batcat
 alias code='codium --ozone-platform=wayland'
+alias ~='cd ~'
+alias ..='cd ..'
