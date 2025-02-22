@@ -47,8 +47,8 @@ fuction mkcd() {
 ################################ $PATH Location ################################
 # Add VS Codeium (code)
 export PATH="$PATH:/usr/bin/codium"
-# python package directory - Created by `pipx`
-export PATH="$PATH:/home/azizi/.local/bin"
+# Add Cursor (cursor)
+export PATH="$PATH:/usr/bin/cursor"
 
 ################################### Plugins ####################################
 source ~/.dotfiles/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
