@@ -46,6 +46,7 @@ install-apt deja-dup
 install-apt direnv
 install-apt eza
 install-apt fonts-firacode
+install-apt fzf
 install-apt git
 install-apt guake
 install-apt httpie
