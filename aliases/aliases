@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 alias pn='pnpm'
 # alias ll='ls -lAFh'
 alias ll='eza -lah --icons'
@@ -6,3 +8,12 @@ alias bat=batcat
 alias code='codium --ozone-platform=wayland'
 alias ~='cd ~'
 alias ..='cd ..'
+alias pgsql='echo psql: && psql'
+# alias cursor='cursor --ozone-platform=wayland --no-sandbox "$@" & disown'
+alias cursor-update='/opt/cursor/update-cursor.sh'
+function cursor {
+	/bin/cursor --ozone-platform=wayland --no-sandbox -- "$@" & disown
+}
+alias py='python'
+alias tptog='~/.dotfiles/toggle_touchpad.sh'
+alias hf='history -1000 | fzf'
