@@ -51,11 +51,15 @@ export PATH="$PATH:/usr/bin/codium"
 export PATH="$PATH:/usr/bin/cursor"
 
 ################################### Plugins ####################################
+# zsh
 source ~/.dotfiles/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # syntax highlighting must be last to apply to other plugins
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# fuzzy finder
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/completion.zsh
 
 ################################## Completion ##################################
 autoload -U compinit; compinit
