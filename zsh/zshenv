@@ -1,7 +1,9 @@
 # force guake to use Wayland
-#export GUAKE_ENABLE_WAYLAND=1
+# export GUAKE_ENABLE_WAYLAND=1
 # force mozila firefox to use Wayland
 export MOZ_ENABLE_WAYLAND=1
+# enable Wayland for Anki
+export ANKI_WAYLAND=1
 
 fuction exists() {
     # `command -v` is similar to `which`
