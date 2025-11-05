@@ -41,12 +41,14 @@ export PATH="$(brew --prefix kubernetes-cli)/bin:$PATH"
 export PATH="$PATH:$HOME/.dotnet/tools"
 # llvm  
 export PATH="$(brew --prefix llvm)/bin:$PATH"
+# Added by Windsurf
+export PATH="/Users/azizi/.codeium/windsurf/bin:$PATH"
 
 ################################### Plugins ####################################
 # nvm lazy loading using oh-my-zsh nvm plugin
 zstyle ':omz:plugins:nvm' autoload yes
 zstyle ':omz:plugins:nvm' lazy yes
-zstyle ':omz:plugins:nvm' lazy-cmd nvim
+zstyle ':omz:plugins:nvm' lazy-cmd nvim code
 source $HOME/.dotfiles/zsh/nvm/nvm.plugin.zsh
 # zsh-autosuggestions
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -70,4 +72,3 @@ fuction mkcd() {
 #################################### Other #####################################
 # direnv
 eval "$(direnv hook zsh)"
-
