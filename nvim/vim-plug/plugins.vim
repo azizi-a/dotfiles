@@ -17,6 +17,9 @@ call plug#begin('~/.config/nvim/autoload/plugged')
  Plug 'neoclide/coc.nvim', {'branch': 'release'} "Fast code completion engine
  Plug 'norcalli/nvim-colorizer.lua' " colourize any colour variables
  Plug 'itchyny/lightline.vim'   " Statusline/tabline
+ Plug 'unblevable/quick-scope'  " Highlight unique characters in words on line
+ Plug 'easymotion/vim-easymotion' " Select nav location instance
+ Plug 'justinmk/vim-sneak'      " Jump to any location specified by two chars
 call plug#end()
 
 " load all files in plugin-configs/
