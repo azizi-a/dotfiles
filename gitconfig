@@ -1,11 +1,12 @@
 [core]
-	editor = code --wait
+	editor = windsurf --wait
 	autocrlf = input
 	ignoreCase = false
   pager = delta
 [user]
 	name = Azizi
 	email = 64193693+azizi-a@users.noreply.github.com
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC3Jvt3xlTJL2aQXTk9kKSFdX+a1AaGcNBetTd2xi87E
 [init]
 	defaultBranch = main
 [interactive]
@@ -19,3 +20,11 @@
   conflictstyle = diff3
 [diff]
   colorMoved = default
+[commit]
+	gpgsign = true
+[gpg]
+	format = ssh
+[tag]
+	gpgsign = true
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
