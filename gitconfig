@@ -1,5 +1,5 @@
 [core]
-	editor = windsurf --wait
+	editor = cursor --wait
 	autocrlf = input
 	ignoreCase = false
   pager = delta
