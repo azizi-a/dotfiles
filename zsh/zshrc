@@ -43,7 +43,8 @@ export PATH="$PATH:$HOME/.dotnet/tools"
 export PATH="$(brew --prefix llvm)/bin:$PATH"
 # Added by Windsurf
 export PATH="/Users/azizi/.codeium/windsurf/bin:$PATH"
-
+# poetry
+export PATH="/Users/azizi/.local/bin:$PATH"
 ################################### Plugins ####################################
 # nvm lazy loading using oh-my-zsh nvm plugin
 zstyle ':omz:plugins:nvm' autoload yes
@@ -65,9 +66,15 @@ source ~/.dotfiles/aliases/aliases
 source ~/.dotfiles/aliases/git-aliases
 
 ################################## Functions ###################################
-fuction mkcd() {
+# Create directory and cd into it
+function mkcd() {
     mkdir -p "$@" && cd "$_";
 }
+# cd to parent directory, optionally into a sibling path
+function ..() {
+    cd "../${1:-.}" || return
+}
+compdef '_path_files -/ -W ..' ..
 
 #################################### Other #####################################
 # direnv
