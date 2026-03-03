@@ -80,10 +80,14 @@ brew "nghttp2"
 brew "nvm"
 # Development kit for the Java programming language
 brew "openjdk"
+# Drop-in replacement for Terraform. Infrastructure as Code Tool
+brew "opentofu"
 # Command-line interface for the Phylum API
 brew "phylum-cli"
 # Fast, disk space efficient package manager
 brew "pnpm"
+# Python package management tool
+brew "poetry"
 # Object-relational database system
 brew "postgresql@14", restart_service: :changed
 # Framework for managing multi-language pre-commit hooks
@@ -140,6 +144,8 @@ cask "beekeeper-studio"
 cask "brave-browser"
 # Utility that prevents the system from going to sleep
 cask "caffeine"
+# Terminal-based AI coding assistant
+cask "claude-code"
 # Write, edit, and chat about your code with AI
 cask "cursor"
 # Secure and reliable decentralised instant messenger
