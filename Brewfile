@@ -1,12 +1,11 @@
 tap "armmbed/formulae"
 tap "derailed/k9s"
 tap "hashicorp/tap"
-tap "homebrew/bundle"
-tap "homebrew/services"
 tap "osx-cross/arm"
 tap "osx-cross/avr"
 tap "oven-sh/bun"
 tap "qmk/qmk"
+tap "tilt-dev/tap"
 # TIFF library and utilities
 brew "libtiff"
 # Color management engine supporting ICC profiles
@@ -39,6 +38,8 @@ brew "harfbuzz"
 brew "esphome"
 # Modern, maintained replacement for ls
 brew "eza"
+# Command-line fuzzy finder written in Go
+brew "fzf"
 # GitHub command-line tool
 brew "gh"
 # Distributed revision control system
@@ -47,18 +48,28 @@ brew "git"
 brew "git-delta"
 # AVH edition of git-flow
 brew "git-flow-avh"
+# Kubernetes package manager
+brew "helm"
+# Deploy Kubernetes Helm Charts
+brew "helmfile"
 # User-friendly cURL replacement (command-line HTTP client)
 brew "httpie"
 # Manage your Java environment
 brew "jenv"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
+# Handy way to save and run project-specific commands
+brew "just"
 # Kubernetes command-line interface
 brew "kubernetes-cli"
+# Tool that can switch between kubectl contexts easily and create aliases
+brew "kubectx"
 # Pager program similar to more
 brew "less"
 # Next-gen compiler infrastructure
 brew "llvm"
+# Simple tool to make locally trusted development certificates
+brew "mkcert"
 # Free (GNU) replacement for the Pico text editor
 brew "nano"
 # Ambitious Vim-fork focused on extensibility and agility
@@ -85,12 +96,16 @@ brew "python@3.11"
 brew "python@3.12"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
+# Safe, concurrent, practical language
+brew "rust"
 # Rust toolchain installer
 brew "rustup"
 # Simple keystroke visualizer
 brew "showkey"
 # Cross-shell prompt for astronauts
 brew "starship"
+# Define your dev environment as code. For microservice apps on Kubernetes
+brew "tilt"
 # Extremely fast Python package installer and resolver, written in Rust
 brew "uv"
 # Standalone JIT-style runtime for WebAssembly, using Cranelift
@@ -107,7 +122,6 @@ brew "zsh-autosuggestions"
 brew "zsh-history-substring-search"
 # Fish shell like syntax highlighting for zsh
 brew "zsh-syntax-highlighting"
-brew "armmbed/formulae/arm-none-eabi-gcc"
 # Kubernetes CLI To Manage Your Clusters In Style!
 brew "derailed/k9s/k9s"
 # Vault
@@ -128,12 +142,10 @@ cask "brave-browser"
 cask "caffeine"
 # Write, edit, and chat about your code with AI
 cask "cursor"
-# Chat via the e-mail server network
+# Secure and reliable decentralised instant messenger
 cask "deltachat"
 # Voice and text chat software
 cask "discord"
-# App to build and share containerised applications and microservices
-cask "docker-desktop"
 # Web browser
 cask "firefox"
 # Web browser
@@ -156,8 +168,12 @@ cask "jetbrains-toolbox"
 cask "libreoffice"
 # Web browser
 cask "librewolf"
+# App to manage software development and track bugs
+cask "linear-linear"
 # Customise mouse behavior
 cask "linearmouse"
+# Software for Logitech devices
+cask "logitech-options"
 # Mouse utility to add gesture functions and smooth scrolling to 3rd party mice
 cask "mac-mouse-fix"
 # Reverse proxy, secure introspectable tunnels to localhost
@@ -166,6 +182,10 @@ cask "ngrok"
 cask "notion"
 # Get up and running with large language models locally
 cask "ollama-app"
+# Open source build of Lens Kubernetes IDE
+cask "openlens"
+# Replacement for Docker Desktop
+cask "orbstack"
 # Collaboration platform for API development
 cask "postman"
 # Toolbox companion for QMK Firmware
@@ -178,6 +198,8 @@ cask "rectangle"
 cask "scroll-reverser"
 # Instant messaging application focusing on security
 cask "signal"
+# Team communication and collaboration software
+cask "slack"
 # Music streaming service
 cask "spotify"
 # Customise mouse buttons, wheels and cursor speed
@@ -192,10 +214,6 @@ cask "vial"
 cask "visual-studio-code"
 # Multimedia player
 cask "vlc"
-# Rust-based terminal
-cask "warp"
-# Agentic IDE powered by AI Flow paradigm
-cask "windsurf"
 vscode "alexcvzz.vscode-sqlite"
 vscode "amodio.tsl-problem-matcher"
 vscode "asvetliakov.vscode-neovim"
@@ -213,7 +231,6 @@ vscode "cweijan.dbclient-jdbc"
 vscode "dbaeumer.vscode-eslint"
 vscode "docker.docker"
 vscode "dsznajder.es7-react-js-snippets"
-vscode "dzannotti.vscode-babel-coloring"
 vscode "eamodio.gitlens"
 vscode "editorconfig.editorconfig"
 vscode "esbenp.prettier-vscode"
