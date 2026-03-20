@@ -74,7 +74,8 @@ function mkcd() {
 function ..() {
     cd "../${1:-.}" || return
 }
-compdef '_path_files -/ -W ..' ..
+_dotdot_complete() { _path_files -/ -W ${PWD:h} }
+compdef _dotdot_complete ..
 
 #################################### Other #####################################
 # direnv
