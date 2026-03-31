@@ -46,8 +46,8 @@ brew "gh"
 brew "git"
 # Syntax-highlighting pager for git and diff output
 brew "git-delta"
-# AVH edition of git-flow
-brew "git-flow-avh"
+# Extensions to follow Vincent Driessen's branching model
+brew "git-flow"
 # Kubernetes package manager
 brew "helm"
 # Deploy Kubernetes Helm Charts
@@ -60,10 +60,10 @@ brew "jenv"
 brew "jq"
 # Handy way to save and run project-specific commands
 brew "just"
-# Kubernetes command-line interface
-brew "kubernetes-cli"
 # Tool that can switch between kubectl contexts easily and create aliases
 brew "kubectx"
+# Kubernetes command-line interface
+brew "kubernetes-cli"
 # Pager program similar to more
 brew "less"
 # Next-gen compiler infrastructure
@@ -88,8 +88,6 @@ brew "phylum-cli"
 brew "pnpm"
 # Python package management tool
 brew "poetry"
-# Object-relational database system
-brew "postgresql@14", restart_service: :changed
 # Framework for managing multi-language pre-commit hooks
 brew "pre-commit"
 # Interpreted, interactive, object-oriented programming language
@@ -146,8 +144,6 @@ cask "brave-browser"
 cask "caffeine"
 # Terminal-based AI coding assistant
 cask "claude-code"
-# Write, edit, and chat about your code with AI
-cask "cursor"
 # Secure and reliable decentralised instant messenger
 cask "deltachat"
 # Voice and text chat software
@@ -182,8 +178,6 @@ cask "linearmouse"
 cask "logitech-options"
 # Mouse utility to add gesture functions and smooth scrolling to 3rd party mice
 cask "mac-mouse-fix"
-# Reverse proxy, secure introspectable tunnels to localhost
-cask "ngrok"
 # App to write, plan, collaborate, and get organised
 cask "notion"
 # Get up and running with large language models locally
@@ -241,7 +235,6 @@ vscode "eamodio.gitlens"
 vscode "editorconfig.editorconfig"
 vscode "esbenp.prettier-vscode"
 vscode "figma.figma-vscode-extension"
-vscode "github.copilot"
 vscode "github.copilot-chat"
 vscode "github.vscode-github-actions"
 vscode "golang.go"
@@ -274,6 +267,7 @@ vscode "ms-vscode-remote.remote-containers"
 vscode "ms-vscode-remote.remote-ssh"
 vscode "ms-vscode-remote.remote-ssh-edit"
 vscode "ms-vscode.cmake-tools"
+vscode "ms-vscode.cpp-devtools"
 vscode "ms-vscode.cpptools"
 vscode "ms-vscode.cpptools-extension-pack"
 vscode "ms-vscode.cpptools-themes"
