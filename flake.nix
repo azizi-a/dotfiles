@@ -31,7 +31,7 @@
       };
     in
     {
-      nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.nixos-laptop = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit inputs user; };
 
@@ -54,6 +54,6 @@
       };
 
       # Convenience: `nix fmt`
-      formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-rfc-style;
+      formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt;
     };
 }

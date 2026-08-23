@@ -29,7 +29,7 @@
       # The nerd font leads so that anything asking for generic
       # "monospace" (terminals, mostly) gets the icon-capable font, while
       # the editors ask for LigaSrc Pro by name in their own configs.
-      # Guake, the VSCodium terminal and the Zed terminal all also name
+      # Guake, the VSCode terminal and the Zed terminal all also name
       # "SauceCodePro Nerd Font" explicitly.
       monospace = [ "SauceCodePro Nerd Font" "LigaSrc Pro" "Fira Code" ];
       emoji = [ "Noto Color Emoji" ];

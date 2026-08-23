@@ -24,8 +24,8 @@
     vlc
 
     # --- Nix tooling -----------------------------------------------------
-    nixfmt-rfc-style # formatter
-    nixd # language server, for the nvim/VSCodium Nix support
+    nixfmt # formatter
+    nixd # language server, for the nvim/VSCode Nix support
     nh # nicer wrapper around nixos-rebuild, see README
 
     # --- Toolchains ------------------------------------------------------
@@ -40,7 +40,7 @@
     #  3. Keep nvm itself. Also works via nix-ld, but you are then
     #     managing a toolchain outside the config, which is the thing
     #     you are moving away from.
-    nodejs_22
+    nodejs_24
     pnpm
     # fnm
 

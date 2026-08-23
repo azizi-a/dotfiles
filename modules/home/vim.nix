@@ -12,9 +12,6 @@
       set autoindent
       set mouse=a
       set wildmenu
-
-      inoremap jj <Esc>
-      inoremap kk <Esc>
     '';
   };
 }

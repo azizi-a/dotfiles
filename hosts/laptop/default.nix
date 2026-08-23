@@ -17,7 +17,7 @@
     # is left in the repo for whenever you add a second host that needs it.
   ];
 
-  networking.hostName = "laptop";
+  networking.hostName = "nixos-laptop";
 
   # --- Framework specifics -------------------------------------------------
 

@@ -2,7 +2,7 @@
 {
   programs.vscode = {
     enable = true;
-    package = pkgs.vscodium;
+    package = pkgs.vscode;
 
     # Leave the extensions directory writable so you can still install
     # things from the Open VSX marketplace by hand. Set to false if you
@@ -160,11 +160,11 @@
   # every occurrence, and JSON-with-comments survives the round trip
   # intact this way.
   xdg.configFile = {
-    "VSCodium/User/snippets/html.json".source = ../../config/vscodium/snippets/html.json;
-    "VSCodium/User/snippets/typescript.json".source = ../../config/vscodium/snippets/typescript.json;
-    "VSCodium/User/snippets/typescriptreact.json".source = ../../config/vscodium/snippets/typescriptreact.json;
-    "VSCodium/User/snippets/todo.code-snippets".source = ../../config/vscodium/snippets/todo.code-snippets;
-    "VSCodium/User/snippets/stories.svelte.code-snippets".source =
-      ../../config/vscodium/snippets/stories.svelte.code-snippets;
+    "Code/User/snippets/html.json".source = ../../config/vscode/snippets/html.json;
+    "Code/User/snippets/typescript.json".source = ../../config/vscode/snippets/typescript.json;
+    "Code/User/snippets/typescriptreact.json".source = ../../config/vscode/snippets/typescriptreact.json;
+    "Code/User/snippets/todo.code-snippets".source = ../../config/vscode/snippets/todo.code-snippets;
+    "Code/User/snippets/stories.svelte.code-snippets".source =
+      ../../config/vscode/snippets/stories.svelte.code-snippets;
   };
 }

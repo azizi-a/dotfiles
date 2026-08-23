@@ -43,11 +43,11 @@
     yelp
   ];
 
-  # Makes Electron and Chromium apps (VSCodium, Cursor, Discord, Chromium)
+  # Makes Electron and Chromium apps (VSCode, Cursor, Discord, Chromium)
   # run natively on Wayland. This is the declarative replacement for the
   # `--ozone-platform=wayland` flags scattered through your aliases.
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  # GNOME keyring, needed by 1Password and VSCodium secret storage.
+  # GNOME keyring, needed by 1Password and VSCode secret storage.
   services.gnome.gnome-keyring.enable = true;
 }

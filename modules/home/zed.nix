@@ -26,14 +26,14 @@
         light = "One Light";
       };
 
-      # Same fonts as VSCodium, so the two look consistent side by side.
+      # Same fonts as VSCode, so the two look consistent side by side.
       buffer_font_family = "LigaSrc Pro";
       buffer_font_size = 14;
       buffer_font_features.calt = true; # ligatures
       ui_font_family = "Fira Code";
       ui_font_size = 15;
 
-      # From your VSCodium settings.
+      # From your VSCode settings.
       tab_size = 2;
       format_on_save = "on";
       soft_wrap = "editor_width";
@@ -42,7 +42,7 @@
       relative_line_numbers = true;
       cursor_blink = false;
 
-      # You drive VSCodium through vscode-neovim, so this is almost
+      # You drive VSCode through vscode-neovim, so this is almost
       # certainly what you want. Flip to false if Zed is your "normal
       # editing" editor.
       vim_mode = true;
@@ -84,7 +84,7 @@
 
     extraPackages = with pkgs; [
       nixd
-      nixfmt-rfc-style
+      nixfmt
       prettier
       typescript-language-server
     ];

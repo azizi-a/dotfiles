@@ -30,14 +30,14 @@ outside the config.
    ```sh
    cd ~/.dotfiles
    git add -A
-   sudo nixos-rebuild switch --flake ~/.dotfiles#laptop
+   sudo nixos-rebuild switch --flake ~/.dotfiles#nixos-laptop
    ```
 
 **`git add` is not optional.** Flakes only see files that git tracks, so
 an untracked `hardware-configuration.nix` produces a confusing "path does
 not exist" error even though the file is sitting right there. Staging is
 enough; you do not have to commit before building. (`--flake
-path:$HOME/.dotfiles#laptop` bypasses git entirely if you ever need it.)
+path:$HOME/.dotfiles#nixos-laptop` bypasses git entirely if you ever need it.)
 
 No `:PlugInstall` step, no `chsh`, no font install, no PPA setup.
 
@@ -133,7 +133,7 @@ entry in `flake.nix`; the modules are already shared.
   `power.nix` are commented out and pointed here instead.
 - The panel is 2256x1504 at ~201 DPI. `gnome.nix` unlocks fractional
   scaling; pick 125% or 150% in Settings > Displays. Once you do, the
-  `window.zoomLevel = 1.75` carried over from your VSCodium settings will
+  `window.zoomLevel = 1.5` carried over from your VSCode settings will
   almost certainly be too much. Worth retuning both together.
 - BIOS updates come through `fwupdmgr`. Have a live USB ready first.
 
@@ -153,7 +153,7 @@ None of this has been evaluated against real nixpkgs. Attribute names
 drift between releases, so expect two or three "attribute missing" errors
 on the first build; `nix flake check` and `nix repl` will name them
 precisely. The places most likely to need a nudge are the noctis plugin
-in `neovim.nix`, the VSCodium extension list, the GNOME extension UUIDs
+in `neovim.nix`, the VSCode extension list, the GNOME extension UUIDs
 in `gnome.nix`, the `framework-tool` attribute name, and the Zed Noctis
 extension id in `zed.nix`.
 

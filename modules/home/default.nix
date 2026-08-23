@@ -12,7 +12,7 @@
     ./helix.nix
     ./zed.nix
     ./guake.nix
-    ./vscodium.nix
+    ./vscode.nix
     ./gnome.nix
     ./scripts.nix
   ];

@@ -34,9 +34,9 @@
     # checked-in shell file, so there is no ~/.dotfiles path to keep valid.
 
     # --- Nix --------------------------------------------------------------
-    rebuild = "sudo nixos-rebuild switch --flake ~/.dotfiles#laptop";
-    rebuild-test = "sudo nixos-rebuild test --flake ~/.dotfiles#laptop";
-    rebuild-boot = "sudo nixos-rebuild boot --flake ~/.dotfiles#laptop";
+    rebuild = "sudo nixos-rebuild switch --flake ~/.dotfiles#nixos-laptop";
+    rebuild-test = "sudo nixos-rebuild test --flake ~/.dotfiles#nixos-laptop";
+    rebuild-boot = "sudo nixos-rebuild boot --flake ~/.dotfiles#nixos-laptop";
     nix-update = "nix flake update --flake ~/.dotfiles";
     nix-clean = "sudo nix-collect-garbage --delete-older-than 30d";
     generations = "nixos-rebuild list-generations";

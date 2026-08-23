@@ -1,6 +1,6 @@
 { ... }:
 {
-  # Inferred from your en_GB spellcheck settings in nvim and VSCodium.
+  # Inferred from your en_GB spellcheck settings in nvim and VSCode.
   time.timeZone = "Europe/London";
 
   i18n = {

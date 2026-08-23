@@ -67,9 +67,6 @@
       };
 
       keys.insert = {
-        # The jj / kk escapes from your vimrc.
-        j.j = "normal_mode";
-        k.k = "normal_mode";
       };
 
       keys.normal = {
@@ -130,7 +127,7 @@
     # coc extension list from neovim.nix.
     extraPackages = with pkgs; [
       nixd
-      nixfmt-rfc-style
+      nixfmt
       rust-analyzer
       typescript-language-server
       prettier

@@ -3,15 +3,18 @@
   programs.git = {
     enable = true;
 
-    userName = user.fullName;
-    userEmail = user.email;
+    settings = {
+      user = {
+        name = user.fullName;
+        email = user.email;
+      };
 
-    extraConfig = {
       core = {
-        editor = "codium --wait";
+        editor = "zed --wait";
         autocrlf = "input";
         ignoreCase = false;
       };
+
       init.defaultBranch = "main";
 
       # Additions, not carried over from the Ubuntu gitconfig. Remove any
@@ -26,7 +29,7 @@
     # gbda in your git-aliases only catches genuinely merged branches.
     # If you want the squash-merge-aware version too, drop it in here as
     # an alias rather than another shell function.
-    aliases = {
+    settings.alias = {
       staash = "stash --all";
     };
   };
