@@ -6,57 +6,6 @@ NixOS equivalent of the `ubuntu` branch, for a **Framework Laptop 13,
 there is no install script to run and nothing that mutates the system
 outside the config.
 
-## Completing the branch
-
-The `nixos` branch currently has `flake.nix`, `README.md`, both font
-folders, and five module files sitting at the repo root. Those five are
-correct in content but wrong in location: the flake expects them inside
-`modules/`, along with about twenty-five more files that make up the rest
-of the tree. This zip contains the complete tree.
-
-From the repo root, on the `nixos` branch:
-
-```sh
-cd ~/.dotfiles
-
-# These five belong inside modules/, where the zip has identical copies.
-git rm default.nix aliases.nix zsh.nix helix.nix zed.nix
-
-# Unpack the full tree. -o overwrites README.md and flake.nix without
-# asking; flake.nix is identical anyway. fonts/ is not in the zip, so
-# your committed fonts are untouched.
-unzip -o ~/Downloads/nixos-dotfiles.zip
-
-git add -A          # note: the zip includes a .gitignore, easy to miss
-git commit -m "Add full module tree"
-git push
-```
-
-Afterwards the branch should look like the Layout section below — in
-particular `hosts/`, `modules/`, `pkgs/` and `config/` must all exist, or
-the first line of `flake.nix`'s imports will fail.
-
-## Fonts
-
-Both vendored folders are built into a package by `pkgs/local-fonts.nix`
-and installed system-wide by `modules/nixos/fonts.nix`. The family names,
-read from the font files themselves:
-
-| Folder | Family | Used for |
-| --- | --- | --- |
-| `fonts/LigaSrcPro` | `LigaSrc Pro` | editor buffers (VSCodium, Zed) |
-| `fonts/SourceCodeProNerdFonts` | `SauceCodePro Nerd Font` | terminals (guake, VSCodium, Zed, and the fontconfig `monospace` default) |
-| same folder, Mono files | `SauceCodePro Nerd Font Mono` | installed, unused |
-| same folder, Windows Compatible files | `SauceCodePro NF` | installed, unused |
-
-The 28 "Windows Compatible" files (~25 MB) exist for Windows font-name
-limits and do nothing on Linux; delete them from the folder if you want a
-lighter repo. One correction to a working assumption: this nerd font
-*is* in nixpkgs (`nerd-fonts.sauce-code-pro`), but as the v3 patch, and
-your files are v2. Icon codepoints moved between those versions, so the
-vendored copy is kept deliberately — it keeps glyphs where your existing
-guake config expects them. `fonts.nix` has the details.
-
 ## Installing on the Framework
 
 1. Install NixOS from the GNOME ISO and create the `azizi` user.
@@ -129,28 +78,28 @@ entry in `flake.nix`; the modules are already shared.
 
 ## What moved where
 
-| Ubuntu | NixOS |
-| --- | --- |
-| `install` + dotbot symlinks | Home Manager |
-| `install.conf.yaml` link/create blocks | `modules/home/default.nix` |
-| `setup_zsh.zsh` (chsh, /etc/shells) | `programs.zsh.enable` + `users.users.<n>.shell` |
-| `apt install` list | `modules/home/packages.nix` |
-| snaps (brave, discord, spotify, vlc) | same file, ordinary packages |
-| `install-scripts/1password.sh` | `programs._1password-gui` |
-| `install-scripts/starship.sh` | `programs.starship` |
-| `install-scripts/nvm.sh` | see the note in `packages.nix` |
-| `ubuntu-drivers autoinstall` | not needed (Iris Xe); `gpu-nvidia.nix` kept for a future host |
-| tlp enable + mask ppd | `modules/nixos/power.nix`, two options |
-| `powertop --calibrate` | `powerManagement.powertop.enable` |
-| `gsettings set ...` lines | `modules/home/gnome.nix` (dconf) |
-| guake `--restore-preferences` | `modules/home/guake.nix` |
-| vim-plug + `:PlugInstall` | `programs.neovim.plugins` |
-| coc `extensions/package.json` | `coc-*` plugins from nixpkgs |
-| timeshift | boot generations, see `backups.nix` |
-| `zsh/plugins/` submodule | `programs.zsh.historySubstringSearch` |
-| `fonts/` (both folders) | `pkgs/local-fonts.nix` |
-| (new) Zed | `modules/home/zed.nix` |
-| (new) Helix | `modules/home/helix.nix` |
+| Ubuntu                                 | NixOS                                                         |
+| -------------------------------------- | ------------------------------------------------------------- |
+| `install` + dotbot symlinks            | Home Manager                                                  |
+| `install.conf.yaml` link/create blocks | `modules/home/default.nix`                                    |
+| `setup_zsh.zsh` (chsh, /etc/shells)    | `programs.zsh.enable` + `users.users.<n>.shell`               |
+| `apt install` list                     | `modules/home/packages.nix`                                   |
+| snaps (brave, discord, spotify, vlc)   | same file, ordinary packages                                  |
+| `install-scripts/1password.sh`         | `programs._1password-gui`                                     |
+| `install-scripts/starship.sh`          | `programs.starship`                                           |
+| `install-scripts/nvm.sh`               | see the note in `packages.nix`                                |
+| `ubuntu-drivers autoinstall`           | not needed (Iris Xe); `gpu-nvidia.nix` kept for a future host |
+| tlp enable + mask ppd                  | `modules/nixos/power.nix`, two options                        |
+| `powertop --calibrate`                 | `powerManagement.powertop.enable`                             |
+| `gsettings set ...` lines              | `modules/home/gnome.nix` (dconf)                              |
+| guake `--restore-preferences`          | `modules/home/guake.nix`                                      |
+| vim-plug + `:PlugInstall`              | `programs.neovim.plugins`                                     |
+| coc `extensions/package.json`          | `coc-*` plugins from nixpkgs                                  |
+| timeshift                              | boot generations, see `backups.nix`                           |
+| `zsh/plugins/` submodule               | `programs.zsh.historySubstringSearch`                         |
+| `fonts/` (both folders)                | `pkgs/local-fonts.nix`                                        |
+| (new) Zed                              | `modules/home/zed.nix`                                        |
+| (new) Helix                            | `modules/home/helix.nix`                                      |
 
 ## Things that changed rather than moved
 

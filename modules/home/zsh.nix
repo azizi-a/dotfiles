@@ -58,8 +58,12 @@
         }
 
         # cd to parent directory, optionally into a sibling path.
-        # `''${1:-.}` is escaped so Nix leaves the zsh expansion alone; the
-        # shell still sees ${1:-.}. Same for ${PWD:h} below.
+        # Editing note: inside this Nix string, any dollar-brace must be
+        # prefixed with two single quotes, or Nix tries to interpolate it.
+        # The two below are escaped that way; zsh still receives the plain
+        # parameter expansions. Do not write the unescaped form anywhere
+        # in this string, not even in a comment - that is what broke the
+        # build once already.
         function ..() {
             cd "../''${1:-.}" || return
         }
