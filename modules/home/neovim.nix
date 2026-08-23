@@ -57,13 +57,13 @@ in
         config = builtins.readFile "${pluginConfigs}/coc.lua";
       }
 
-      # The coc extensions from coc/extensions/package.json, now pinned
-      # and built by Nix instead of being fetched at first launch.
-      coc-json
-      coc-tsserver
-      coc-html
-      coc-css
-      coc-rust-analyzer
+      # The coc-* extension packages are deliberately NOT listed here.
+      # nixpkgs has been dropping them as unmaintained (coc-tsserver went
+      # first), and pinning the rest just queues up the same error one
+      # attribute at a time. They are installed by coc itself instead,
+      # via g:coc_global_extensions in extraConfig below, which is the
+      # mechanism coc is designed around and which mirrors what
+      # nvim/coc/extensions/package.json did on Ubuntu.
 
       # lightline.vim's config calls FugitiveHead, which needs fugitive
       # to be installed. It was missing from the Ubuntu plugin list, so
@@ -85,6 +85,18 @@ in
     ];
 
     extraConfig = ''
+      " coc installs and updates these itself on first launch, into
+      " ~/.config/coc/extensions. Same list as the old
+      " nvim/coc/extensions/package.json. Needs network access the first
+      " time you open nvim; after that it is cached.
+      let g:coc_global_extensions = [
+        \ 'coc-json',
+        \ 'coc-tsserver',
+        \ 'coc-html',
+        \ 'coc-css',
+        \ 'coc-rust-analyzer',
+        \ ]
+
       set scrolloff=2           " show lines above cursor when setting view position
       set incsearch             " show where search pattern matches as it's typed
       set linebreak             " line break in white space where possible
@@ -117,5 +129,16 @@ in
       " :W will save with sudo and reload file
       cnoremap W w !sudo tee % > /dev/null | :edit!
     '';
+  };
+
+  # coc reads this from next to init.vim. It matters on NixOS because
+  # coc-rust-analyzer would otherwise download its own rust-analyzer
+  # binary, which is dynamically linked and will not run without
+  # programs.nix-ld. Pointing it at the nixpkgs one avoids that entirely.
+  xdg.configFile."nvim/coc-settings.json".text = builtins.toJSON {
+    "rust-analyzer.server.path" = "${pkgs.rust-analyzer}/bin/rust-analyzer";
+    "tsserver.tsdk" = "${pkgs.typescript}/lib/node_modules/typescript/lib";
+    "suggest.noselect" = false;
+    "coc.preferences.extensionUpdateCheck" = "never";
   };
 }
