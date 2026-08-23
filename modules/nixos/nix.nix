@@ -26,18 +26,19 @@
   # dependency shows up as an evaluation error rather than sneaking in.
   # If you would rather not maintain the list, replace the whole block
   # with: nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.allowUnfreePredicate =
-    pkg:
-    builtins.elem (lib.getName pkg) [
-      "1password"
-      "1password-cli"
-      "1password-gui"
-      "claude-code"
-      "code-cursor"
-      "cursor"
-      "discord"
-      "nvidia-settings"
-      "nvidia-x11"
-      "spotify"
-    ];
+  nixpkgs.config.allowUnfree = true;
+  # nixpkgs.config.allowUnfreePredicate =
+  #   pkg:
+  #   builtins.elem (lib.getName pkg) [
+  #     "1password"
+  #     "1password-cli"
+  #     "1password-gui"
+  #     "claude-code"
+  #     "code-cursor"
+  #     "cursor"
+  #     "discord"
+  #     "nvidia-settings"
+  #     "nvidia-x11"
+  #     "spotify"
+  #   ];
 }
