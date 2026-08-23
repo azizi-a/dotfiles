@@ -80,7 +80,7 @@ in
     # On Ubuntu these came from npm -g; here they are on PATH for nvim only.
     extraPackages = with pkgs; [
       nixd
-      nodePackages.typescript-language-server
+      typescript-language-server
       rust-analyzer
     ];
 

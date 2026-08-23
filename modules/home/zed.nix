@@ -85,8 +85,8 @@
     extraPackages = with pkgs; [
       nixd
       nixfmt-rfc-style
-      nodePackages.prettier
-      nodePackages.typescript-language-server
+      prettier
+      typescript-language-server
     ];
   };
 }

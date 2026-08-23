@@ -132,8 +132,8 @@
       nixd
       nixfmt-rfc-style
       rust-analyzer
-      nodePackages.typescript-language-server
-      nodePackages.prettier
+      typescript-language-server
+      prettier
       vscode-langservers-extracted # html, css, json, eslint
     ];
   };
