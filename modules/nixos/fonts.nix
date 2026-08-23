@@ -9,7 +9,7 @@
       fira-code-symbols
 
       noto-fonts
-      noto-fonts-emoji
+      noto-fonts-color-emoji
 
       # Both vendored folders: fonts/LigaSrcPro and
       # fonts/SourceCodeProNerdFonts. See pkgs/local-fonts.nix for the
