@@ -129,7 +129,44 @@ alias gbd='git branch --delete'
 alias gbD='git branch --delete --force'
 
 function gbda() {
-  git branch --no-color --merged | command grep -vE "^([+*]|\s*($(git_main_branch)|$(git_develop_branch))\s*$)" | command xargs git branch --delete 2>/dev/null
+  local target branch
+  target="$(git_main_branch)"
+
+  git checkout "$target" &>/dev/null
+
+  # 1) Standard merged branches
+  git branch --no-color --merged \
+    | command grep -vE "^([+*]|\s*($(git_main_branch)|$(git_develop_branch))\s*$)" \
+    | sed 's/^[* ]*//' \
+    | while read -r branch; do
+        [[ -z "$branch" ]] && continue
+        git branch --delete "$branch" &>/dev/null && echo "$branch deleted"
+      done
+
+  # 2) Squash-merged, rebased, or upstream-merged branches
+  git branch --no-color \
+    | command grep -vE "^([+*]|\s*($(git_main_branch)|$(git_develop_branch))\s*$)" \
+    | sed 's/^[* ]*//' \
+    | while read -r branch; do
+        [[ -z "$branch" ]] && continue
+
+        # (a) merged into its own remote-tracking ref (the -d warning case)
+        # local remote_ref="refs/remotes/origin/$branch"
+        # if git rev-parse --verify -q "$remote_ref" >/dev/null \
+        #    && git merge-base --is-ancestor "$branch" "$remote_ref"; then
+        #   git branch -D "$branch" &>/dev/null && echo "$branch deleted"
+        #   continue
+        # fi
+
+        # (b) squash-merged / rebased into target
+        local mergeBase tree tmpCommit
+        mergeBase="$(git merge-base "$target" "$branch")"
+        tree="$(git rev-parse "$branch^{tree}")"
+        tmpCommit="$(git commit-tree "$tree" -p "$mergeBase" -m _tmp_ 2>/dev/null)"
+        if git cherry "$target" "$tmpCommit" 2>/dev/null | command grep -q "^-"; then
+          git branch -D "$branch" &>/dev/null && echo "$branch deleted"
+        fi
+      done
 }
 
 # Copied and modified from James Roeder (jmaroeder) under MIT License
