@@ -11,40 +11,37 @@
       "toml"
       "svelte"
       "html"
+      "dockerfile"
+      "docker-compose"
 
-      # There is a Noctis port in the Zed extension registry, but I could
-      # not confirm the exact slug. If the theme does not appear after
-      # first launch, open the command palette, run `zed: extensions`,
-      # search Noctis, and correct the id here and in `theme` below.
-      "noctis"
+      "codebook"
+
+      "noctis-port"
+      "material-icon-theme"
     ];
 
     userSettings = {
       theme = {
         mode = "dark";
         dark = "Noctis";
-        light = "One Light";
+        light = "Hibernus Light";
+        icon_theme = "Material Icon Theme";
       };
 
-      # Same fonts as VSCode, so the two look consistent side by side.
       buffer_font_family = "LigaSrc Pro";
       buffer_font_size = 14;
       buffer_font_features.calt = true; # ligatures
-      ui_font_family = "Fira Code";
-      ui_font_size = 15;
+      ui_font_family = "LigaSrc Pro";
+      ui_font_size = 13;
 
-      # From your VSCode settings.
       tab_size = 2;
       format_on_save = "on";
       soft_wrap = "editor_width";
       preferred_line_length = 80;
       show_whitespaces = "all";
-      relative_line_numbers = true;
       cursor_blink = false;
 
-      # You drive VSCode through vscode-neovim, so this is almost
-      # certainly what you want. Flip to false if Zed is your "normal
-      # editing" editor.
+      base_keymap = "VSCode";
       vim_mode = true;
 
       terminal = {
@@ -63,15 +60,24 @@
       languages = {
         TypeScript.formatter.external = {
           command = "prettier";
-          arguments = [ "--stdin-filepath" "{buffer_path}" ];
+          arguments = [
+            "--stdin-filepath"
+            "{buffer_path}"
+          ];
         };
         TSX.formatter.external = {
           command = "prettier";
-          arguments = [ "--stdin-filepath" "{buffer_path}" ];
+          arguments = [
+            "--stdin-filepath"
+            "{buffer_path}"
+          ];
         };
         Svelte.formatter.external = {
           command = "prettier";
-          arguments = [ "--stdin-filepath" "{buffer_path}" ];
+          arguments = [
+            "--stdin-filepath"
+            "{buffer_path}"
+          ];
         };
         Nix = {
           language_servers = [ "nixd" ];

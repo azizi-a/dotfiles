@@ -1,4 +1,9 @@
-{ config, pkgs, user, ... }:
+{
+  config,
+  pkgs,
+  user,
+  ...
+}:
 {
   imports = [
     ./packages.nix
@@ -10,7 +15,7 @@
     ./neovim.nix
     ./vim.nix
     ./helix.nix
-    ./zed.nix
+    ./zed-editor.nix
     ./guake.nix
     ./vscode.nix
     ./gnome.nix
