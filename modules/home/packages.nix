@@ -17,6 +17,7 @@
     brave
     chromium
     firefox
+    librewolf
 
     # --- Apps ------------------------------------------------------------
     discord
