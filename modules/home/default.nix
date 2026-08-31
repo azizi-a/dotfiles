@@ -6,20 +6,21 @@
 }:
 {
   imports = [
-    ./packages.nix
-    ./zsh.nix
     ./aliases.nix
-    ./starship.nix
-    ./git.nix
     ./bat.nix
-    ./neovim.nix
-    ./vim.nix
-    ./helix.nix
-    ./zed-editor.nix
-    ./guake.nix
-    ./vscode.nix
+    ./git.nix
     ./gnome.nix
+    ./guake.nix
+    ./helix.nix
+    ./neovim.nix
+    ./packages.nix
     ./scripts.nix
+    ./ssh.nix
+    ./starship.nix
+    ./vim.nix
+    ./vscode.nix
+    ./zed-editor.nix
+    ./zsh.nix
   ];
 
   home = {

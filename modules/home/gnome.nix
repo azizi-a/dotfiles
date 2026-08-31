@@ -18,8 +18,6 @@ in
       gtk-theme = "Yaru-viridian-dark";
       icon-theme = "Yaru-viridian";
       color-scheme = "prefer-dark";
-      # Ubuntu's default was already close to this; set explicitly since
-      # vanilla GNOME defaults to light.
     };
 
     "org/gnome/mutter" = {

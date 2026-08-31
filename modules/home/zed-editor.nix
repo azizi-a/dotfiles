@@ -32,7 +32,7 @@
       buffer_font_size = 14;
       buffer_font_features.calt = true; # ligatures
       ui_font_family = "LigaSrc Pro";
-      ui_font_size = 13;
+      ui_font_size = 14;
 
       tab_size = 2;
       format_on_save = "on";
@@ -46,7 +46,7 @@
 
       terminal = {
         font_family = "SauceCodePro Nerd Font";
-        font_size = 13;
+        font_size = 14;
         shell.program = "${pkgs.zsh}/bin/zsh";
       };
 

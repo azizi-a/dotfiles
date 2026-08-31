@@ -50,4 +50,5 @@
 
   # GNOME keyring, needed by 1Password and VSCode secret storage.
   services.gnome.gnome-keyring.enable = true;
+  services.gnome.gcr-ssh-agent.enable = false;
 }
