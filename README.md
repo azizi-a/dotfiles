@@ -66,8 +66,8 @@ what changed. Rollback is the boot menu, or
 ```
 flake.nix                  inputs, and the laptop system definition
 hosts/laptop/              hostname, state version, hardware config
-modules/nixos/             system: boot, desktop, power, hardware, fonts
-modules/home/              user: shell, git, editors, terminal, dconf
+modules/nixos/             system: boot, desktop, sway, power, hardware, fonts
+modules/home/              user: sway, shell, git, editors, terminal, dconf
 pkgs/                      local derivations (vendored fonts)
 config/                    files kept verbatim and referenced from Nix
 fonts/                     LigaSrcPro + SauceCodePro Nerd Font TTFs
@@ -92,7 +92,7 @@ entry in `flake.nix`; the modules are already shared.
 | tlp enable + mask ppd                  | `modules/nixos/power.nix`, two options                        |
 | `powertop --calibrate`                 | `powerManagement.powertop.enable`                             |
 | `gsettings set ...` lines              | `modules/home/gnome.nix` (dconf)                              |
-| guake `--restore-preferences`          | `modules/home/guake.nix`                                      |
+| guake `--restore-preferences`          | `modules/home/foot.nix` + sway scratchpad                     |
 | vim-plug + `:PlugInstall`              | `programs.neovim.plugins`                                     |
 | coc `extensions/package.json`          | `coc-*` plugins from nixpkgs                                  |
 | timeshift                              | boot generations, see `backups.nix`                           |
@@ -124,6 +124,81 @@ entry in `flake.nix`; the modules are already shared.
 - **Passwords stay imperative.** `users.mutableUsers = true`, so set
   yours with `passwd`. Do not put a hash in a public repo.
 
+## Desktop: sway
+
+Sway is the default session; GNOME is still installed and selectable at
+GDM, so a broken sway config means picking a different session rather
+than a trip to a TTY.
+
+A window manager is not a desktop, so the pieces GNOME was quietly
+providing are now explicit:
+
+| GNOME                    | Replacement                                    |
+| ------------------------ | ---------------------------------------------- |
+| top bar, dash-to-dock    | `waybar.nix`                                   |
+| notifications            | `mako.nix`                                     |
+| app launcher / overview  | `fuzzel.nix`                                   |
+| lock + idle              | `swaylock.nix` (swaylock-effects + swayidle)   |
+| screenshots              | `grim` + `slurp`, via the `Print` bindings     |
+| **polkit agent**         | `polkit_gnome`, a user service in `sway.nix`   |
+| display arrangements     | `kanshi.nix`                                   |
+| GTK theming              | `gtk.nix` (no settings daemon under sway)      |
+| clipboard history        | `services.cliphist`                            |
+| guake                    | `foot.nix` in sway's scratchpad                |
+
+The polkit agent is the one to remember: without it 1Password cannot
+authorise at all, and `pkexec` prompts vanish with no error.
+
+### Window management
+
+Snapping is Rectangle's grid, on `Super+Ctrl`. `Super+Ctrl` rather than
+bare `Super` so none of sway's own defaults are displaced.
+
+| Keys                       | Action                                  |
+| -------------------------- | --------------------------------------- |
+| `Super+Ctrl+←/→/↑/↓`       | halves                                  |
+| `Super+Ctrl+U/I/J/K`       | quarters, clockwise from top-left       |
+| `Super+Ctrl+D/F/G`         | first / centre / last third             |
+| `Super+Ctrl+E/T`           | first / last two-thirds                 |
+| `Super+Ctrl+Return`        | maximise to the workspace               |
+| `Super+Ctrl+C`             | centre, keeping the size                |
+| `Super+,` / `Super+.`      | focus previous / next monitor           |
+| `Super+Shift+,` / `+.`     | move window to previous / next monitor  |
+| `Super+Ctrl+Q`             | lock                                    |
+| `Super+Shift+V`            | clipboard history                       |
+| `Alt+Space`                | drop-down terminal                      |
+| `Print` / `Shift` / `Ctrl` | screenshot region / output / to clipboard |
+
+**The snap keys only affect floating windows.** Sway tiles by default, so
+`Super+Shift+Space` to float a window is what makes them apply. This is
+deliberate: the alternative was floating everything and giving up tiling.
+The check lives in the `sway-snap` script in `sway.nix`, so changing the
+policy to "float it, then snap it" is a one-line edit there rather than a
+redesign.
+
+Snapping has to be a script at all because sway cannot scope a binding to
+the focused window when it is floating — a `[floating]` criteria prefix
+matches every floating window in the tree. Geometry is in `ppt`, which
+sway measures against the workspace rect; that already excludes waybar's
+reserved space, so the percentages need no bar arithmetic. `ppt` is
+integer-only, which is why thirds are 33/34/33 rather than exact.
+
+### Known rough edges
+
+- **Fingerprint does not unlock the screen.** `swaylock` only ever submits
+  a typed password, so `fprintAuth` is turned off for its PAM service in
+  `modules/nixos/sway.nix` — otherwise `pam_fprintd` sits in front of
+  `pam_unix` and the lock screen accepts neither (nixpkgs#171136). sudo,
+  polkit and GDM are unaffected. `swaylock-fprintd` would fix this but is
+  not in nixpkgs; it needs a flake input or a local derivation.
+- **XWayland apps blur at `scale 1.5`.** Same trade-off GNOME had with
+  `scale-monitor-framebuffer`, just more visible. Affects input-remapper's
+  GUI and anything not yet on Wayland.
+- **`services.safeeyes` is X11-oriented** and its break overlays may not
+  grab correctly under sway.
+- **The docked kanshi profile is a stub.** It needs the make/model/serial
+  string from `swaymsg -t get_outputs` with the monitor attached.
+
 ## Framework 13 notes
 
 - `services.fprintd.enable` is on; run `fprintd-enroll azizi` once after
@@ -134,10 +209,11 @@ entry in `flake.nix`; the modules are already shared.
 - Charge limit is set in the BIOS or through sysfs, not TLP. The battery
   is `BAT1` on this machine, which is why the usual `*_BAT0` keys in
   `power.nix` are commented out and pointed here instead.
-- The panel is 2256x1504 at ~201 DPI. `gnome.nix` unlocks fractional
-  scaling; pick 125% or 150% in Settings > Displays. Once you do, the
-  `window.zoomLevel = 1.5` carried over from your VSCode settings will
-  almost certainly be too much. Worth retuning both together.
+- The panel is 2256x1504 at ~201 DPI. Under sway that is the `scale`
+  line on output `eDP-1` in `sway.nix`, currently 1.5; under the GNOME
+  fallback it is still Settings > Displays, unlocked by `gnome.nix`. The
+  `window.zoomLevel = 1.5` carried over from your VSCode settings is
+  almost certainly too much on top of either. Worth retuning together.
 - BIOS updates come through `fwupdmgr`. Have a live USB ready first.
 
 ## Not yet decided
@@ -159,5 +235,12 @@ precisely. The places most likely to need a nudge are the noctis plugin
 in `neovim.nix`, the VSCode extension list, the GNOME extension UUIDs
 in `gnome.nix`, the `framework-tool` attribute name, and the Zed Noctis
 extension id in `zed.nix`.
+
+The sway modules were written against verified nixpkgs and Home Manager
+`release-26.05` sources, but they have not been built either. Home
+Manager's sway module validates the generated config at build time with
+`sway --validate`, so syntax errors surface during the rebuild rather
+than at login. If that check ever fails for a reason you disagree with,
+`wayland.windowManager.sway.checkConfig = false` turns it off.
 
 Helix's `noctis` theme is built in, so that one is safe.
