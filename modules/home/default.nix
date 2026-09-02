@@ -8,10 +8,12 @@
   imports = [
     ./aliases.nix
     ./bat.nix
+    ./fuzzel.nix
     ./git.nix
     ./gnome.nix
     ./guake.nix
     ./helix.nix
+    ./mako.nix
     ./neovim.nix
     ./packages.nix
     ./scripts.nix
@@ -20,6 +22,7 @@
     ./sway.nix
     ./vim.nix
     ./vscode.nix
+    ./waybar.nix
     ./zed-editor.nix
     ./zsh.nix
   ];

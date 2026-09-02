@@ -176,6 +176,13 @@ in
         "${mod}+Shift+comma" = "move container to output left";
         "${mod}+Shift+period" = "move container to output right";
 
+        # --- Clipboard history ------------------------------------------
+        # GNOME had no equivalent, but losing the clipboard on app exit
+        # is worse under a WM where you close things more freely.
+        "${mod}+Shift+v" =
+          "exec ${pkgs.cliphist}/bin/cliphist list | ${pkgs.fuzzel}/bin/fuzzel --dmenu"
+          + " | ${pkgs.cliphist}/bin/cliphist decode | ${pkgs.wl-clipboard}/bin/wl-copy";
+
         # --- Screenshots ------------------------------------------------
         "Print" = "exec ${sway-screenshot}/bin/sway-screenshot region";
         "Shift+Print" = "exec ${sway-screenshot}/bin/sway-screenshot output";
@@ -209,6 +216,11 @@ in
       for_window [app_id="1Password"] floating enable
     '';
   };
+
+  # Watches the wayland clipboard and keeps a history. wl-clipboard is
+  # installed at system level in modules/nixos/sway.nix because this
+  # module calls wl-paste by store path but does not put it on PATH.
+  services.cliphist.enable = true;
 
   # GNOME Shell ran a polkit agent for you. Without one 1Password cannot
   # authorise and pkexec fails silently. A systemd user unit rather than
