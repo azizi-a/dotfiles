@@ -40,10 +40,6 @@ export PATH="$(brew --prefix kubernetes-cli)/bin:$PATH"
 export PATH="$PATH:$HOME/.dotnet/tools"
 # llvm  
 export PATH="$(brew --prefix llvm)/bin:$PATH"
-# Added by Windsurf
-export PATH="/Users/azizi/.codeium/windsurf/bin:$PATH"
-# poetry
-export PATH="/Users/azizi/.local/bin:$PATH"
 ################################### Plugins ####################################
 # nvm lazy loading using oh-my-zsh nvm plugin
 zstyle ':omz:plugins:nvm' autoload yes
@@ -79,3 +75,6 @@ compdef _dotdot_complete ..
 #################################### Other #####################################
 # direnv
 eval "$(direnv hook zsh)"
+
+# Re-dedupe after this file's prepends (see zshenv).
+typeset -U path

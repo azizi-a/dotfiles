@@ -1,10 +1,22 @@
-. "$HOME/.cargo/env"
+# Homebrew's rustup leaves ~/.cargo/env empty, so add the bin dir ourselves.
+[[ -s "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
+[[ -d "$HOME/.cargo/bin" ]] && path=("$HOME/.cargo/bin" $path)
+
+# Where uv puts tool shims and managed pythons.
+[[ -d "$HOME/.local/bin" ]] && path=("$HOME/.local/bin" $path)
 
 export HOMEBREW_CASK_OPTS="--no-quarantine"
 
-fuction exists() {
+function exists() {
     # `command -v` is similar to `which`
     command -v $1 >/dev/null 2>&1
     # more explicitly written as...
     # command -v $1 1>/dev/null 2>/dev/null
 }
+
+# Untracked, for per-machine values only.
+[[ -r "$HOME/.zshenv.local" ]] && . "$HOME/.zshenv.local"
+
+# Nested shells re-run this file and re-prepend. Must follow the prepends:
+# scalar PATH= assignment doesn't re-trigger -U.
+typeset -U path
