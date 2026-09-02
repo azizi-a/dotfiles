@@ -4,6 +4,12 @@
 
   # Note the paths: these moved out of services.xserver in 24.11.
   services.displayManager.gdm.enable = true;
+
+  # GNOME is the fallback session now, not the daily driver: sway is in
+  # modules/nixos/sway.nix and GDM lists both. Keeping GNOME means a
+  # broken sway config is a session switch rather than a trip to a TTY.
+  # Nothing here conflicts with sway - GDM does not gate on
+  # services.xserver.enable, which stays on for XWayland and GNOME X11.
   services.desktopManager.gnome.enable = true;
 
   # caps -> escape, shift+caps -> caps lock.

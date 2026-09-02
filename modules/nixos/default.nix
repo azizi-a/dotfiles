@@ -8,6 +8,7 @@
     ./users.nix
     ./hardware.nix
     ./desktop.nix
+    ./sway.nix
     ./fonts.nix
     ./power.nix
     ./programs.nix
