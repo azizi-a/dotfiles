@@ -10,7 +10,7 @@
       };
 
       core = {
-        editor = "zed --wait";
+        editor = "zeditor --wait";
         autocrlf = "input";
         ignoreCase = false;
       };
