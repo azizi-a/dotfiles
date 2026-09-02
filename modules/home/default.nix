@@ -8,10 +8,10 @@
   imports = [
     ./aliases.nix
     ./bat.nix
+    ./foot.nix
     ./fuzzel.nix
     ./git.nix
     ./gnome.nix
-    ./guake.nix
     ./helix.nix
     ./mako.nix
     ./neovim.nix

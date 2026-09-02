@@ -144,6 +144,15 @@ in
         bg = "#1d2021 solid_color";
       };
 
+      # The scratchpad terminal is spawned once per session and parked.
+      # Without this it would only exist after the first toggle, and the
+      # first toggle would have nothing to show.
+      startup = [
+        {
+          command = "${pkgs.foot}/bin/foot --app-id=scratchpad-term";
+        }
+      ];
+
       keybindings = {
         # --- Rectangle-style snapping (floating windows only) ----------
         # $mod+Shift+space floats the focused window, which is what makes
@@ -175,6 +184,10 @@ in
         "${mod}+period" = "focus output right";
         "${mod}+Shift+comma" = "move container to output left";
         "${mod}+Shift+period" = "move container to output right";
+
+        # Drop-down terminal, on guake's old Alt+Space. Mod1 is left
+        # unused by everything else for exactly this.
+        "Mod1+space" = "[app_id=\"scratchpad-term\"] scratchpad show";
 
         # Lock. Echoes macOS's Ctrl+Cmd+Q, and $mod+Shift+q is already
         # sway's kill-window.
@@ -211,6 +224,11 @@ in
     # Plain sway syntax for the things that have no Home Manager option,
     # kept here so there is one obvious place to look for them.
     extraConfig = ''
+      # guake's geometry: 67% wide, 50% tall, centred against the top
+      # edge. Parked in the scratchpad at startup so Alt+Space toggles it
+      # rather than spawning a second one.
+      for_window [app_id="scratchpad-term"] floating enable, resize set 67 ppt 50 ppt, move position 17 ppt 0 ppt, move scratchpad
+
       # Dialogs and pickers are tiled by default under sway, which makes
       # them awkward. Floating them also means the snap keys work on them.
       for_window [window_role="dialog"] floating enable

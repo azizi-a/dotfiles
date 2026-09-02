@@ -20,21 +20,7 @@ let
     '';
   };
 
-  # Convenience wrapper so you can re-export guake settings after tweaking
-  # them in the GUI, straight back into this repo.
-  guake-save = pkgs.writeShellApplication {
-    name = "guake-save";
-    runtimeInputs = [ pkgs.guake ];
-    text = ''
-      target="''${1:-$HOME/.dotfiles/config/guake/preferences}"
-      guake --save-preferences="$target"
-      echo "Saved guake preferences to $target"
-    '';
-  };
 in
 {
-  home.packages = [
-    tptog
-    guake-save
-  ];
+  home.packages = [ tptog ];
 }
