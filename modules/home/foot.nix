@@ -9,8 +9,8 @@ in
   # drop-down behaviour moves into modules/home/sway.nix and this file is
   # just the terminal.
   #
-  # Sizes and font carry over from the old guake preferences: 67% wide,
-  # 50% tall, 90% opaque, SauceCodePro Nerd Font at 13, no scrollbar.
+  # Geometry lives in sway.nix's scratchpad rule; font and opacity carry
+  # over from the old guake preferences.
   programs.foot = {
     enable = true;
 

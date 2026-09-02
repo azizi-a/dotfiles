@@ -220,10 +220,10 @@ in
     # Plain sway syntax for the things that have no Home Manager option,
     # kept here so there is one obvious place to look for them.
     extraConfig = ''
-      # guake's geometry: 67% wide, 50% tall, centred against the top
-      # edge. Parked in the scratchpad at startup so Alt+Space toggles it
-      # rather than spawning a second one.
-      for_window [app_id="scratchpad-term"] floating enable, resize set 67 ppt 50 ppt, move position 17 ppt 0 ppt, move scratchpad
+      # 40% wide, 67% tall, against the left edge. Parked in the
+      # scratchpad at startup so Alt+Space toggles it rather than
+      # spawning a second one.
+      for_window [app_id="scratchpad-term"] floating enable, resize set 40 ppt 67 ppt, move position 0 ppt 0 ppt, move scratchpad
 
       # Dialogs and pickers are tiled by default under sway, which makes
       # them awkward. Floating them also means the snap keys work on them.

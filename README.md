@@ -133,17 +133,17 @@ than a trip to a TTY.
 A window manager is not a desktop, so the pieces GNOME was quietly
 providing are now explicit:
 
-| GNOME                    | Replacement                                    |
-| ------------------------ | ---------------------------------------------- |
-| top bar, dash-to-dock    | `waybar.nix`                                   |
-| notifications            | `mako.nix`                                     |
-| app launcher / overview  | `fuzzel.nix`                                   |
-| lock + idle              | `swaylock.nix` (swaylock-effects + swayidle)   |
-| screenshots              | `grim` + `slurp`, via the `Print` bindings     |
-| **polkit agent**         | `polkit_gnome`, a user service in `sway.nix`   |
-| display arrangements     | `kanshi.nix`                                   |
-| GTK theming              | `gtk.nix` (no settings daemon under sway)      |
-| guake                    | `foot.nix` in sway's scratchpad                |
+| GNOME                   | Replacement                                  |
+| ----------------------- | -------------------------------------------- |
+| top bar, dash-to-dock   | `waybar.nix`                                 |
+| notifications           | `mako.nix`                                   |
+| app launcher / overview | `fuzzel.nix`                                 |
+| lock + idle             | `swaylock.nix` (swaylock-effects + swayidle) |
+| screenshots             | `grim` + `slurp`, via the `Print` bindings   |
+| **polkit agent**        | `polkit_gnome`, a user service in `sway.nix` |
+| display arrangements    | `kanshi.nix`                                 |
+| GTK theming             | `gtk.nix` (no settings daemon under sway)    |
+| guake                   | `foot.nix` in sway's scratchpad              |
 
 The polkit agent is the one to remember: without it 1Password cannot
 authorise at all, and `pkexec` prompts vanish with no error.
@@ -153,19 +153,19 @@ authorise at all, and `pkexec` prompts vanish with no error.
 Snapping is Rectangle's grid, on `Super+Ctrl`. `Super+Ctrl` rather than
 bare `Super` so none of sway's own defaults are displaced.
 
-| Keys                       | Action                                  |
-| -------------------------- | --------------------------------------- |
-| `Super+Ctrl+←/→/↑/↓`       | halves                                  |
-| `Super+Ctrl+U/I/J/K`       | quarters, clockwise from top-left       |
-| `Super+Ctrl+D/F/G`         | first / centre / last third             |
-| `Super+Ctrl+E/T`           | first / last two-thirds                 |
-| `Super+Ctrl+Return`        | maximise to the workspace               |
-| `Super+Ctrl+C`             | centre, keeping the size                |
-| `Super+,` / `Super+.`      | focus previous / next monitor           |
-| `Super+Shift+,` / `+.`     | move window to previous / next monitor  |
-| `Super+Ctrl+Q`             | lock                                    |
-| `Super+Shift+V`            | clipboard history                       |
-| `Alt+Space`                | drop-down terminal                      |
+| Keys                       | Action                                    |
+| -------------------------- | ----------------------------------------- |
+| `Super+Ctrl+←/→/↑/↓`       | halves                                    |
+| `Super+Ctrl+U/I/J/K`       | quarters, clockwise from top-left         |
+| `Super+Ctrl+D/F/G`         | first / centre / last third               |
+| `Super+Ctrl+E/T`           | first / last two-thirds                   |
+| `Super+Ctrl+Return`        | maximise to the workspace                 |
+| `Super+Ctrl+C`             | centre, keeping the size                  |
+| `Super+,` / `Super+.`      | focus previous / next monitor             |
+| `Super+Shift+,` / `+.`     | move window to previous / next monitor    |
+| `Super+Ctrl+Q`             | lock                                      |
+| `Super+Shift+V`            | clipboard history                         |
+| `Alt+Space`                | drop-down terminal (left, 40%x67%)        |
 | `Print` / `Shift` / `Ctrl` | screenshot region / output / to clipboard |
 
 **The snap keys only affect floating windows.** Sway tiles by default, so
@@ -234,6 +234,31 @@ hardware, and two of them are the kind you would rather not find at 2am:
   `window.zoomLevel = 1.5` carried over from your VSCode settings is
   almost certainly too much on top of either. Worth retuning together.
 - BIOS updates come through `fwupdmgr`. Have a live USB ready first.
+
+### Hibernation
+
+Closing the lid on battery does `suspend-then-hibernate`: suspend first,
+then write the image and power off after `HibernateDelaySec` (25m), or
+sooner if the battery would not last that long. Plugged in, the lid still
+just locks.
+
+This needs swap, and `power.nix` asserts on it rather than letting it
+fail at runtime — logind fails a lid-close outright when it cannot
+hibernate rather than degrading to a plain suspend
+([systemd#10558](https://github.com/systemd/systemd/issues/10558)), and
+the failure mode is a laptop left awake in a bag. So the build stops with
+a message instead. To satisfy it:
+
+1. Swap at least the size of RAM, in
+   `hosts/laptop/hardware-configuration.nix`. A partition is simplest.
+   For a swapfile you also need `boot.kernelParams = [ "resume_offset=N" ]`
+   with `N` from `filefrag -v /swapfile`, which can only be read on the
+   real machine.
+2. `boot.resumeDevice` pointing at the swap partition, or at the
+   filesystem holding the swapfile.
+
+If you would rather not set swap up, put `HandleLidSwitch = "suspend"`
+back in `power.nix` and the assertion goes away with it.
 
 ## Not yet decided
 
