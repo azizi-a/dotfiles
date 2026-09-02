@@ -5,6 +5,10 @@
   # Note the paths: these moved out of services.xserver in 24.11.
   services.displayManager.gdm.enable = true;
 
+  # Without this GDM has no reason to prefer sway, and the first login
+  # after the migration lands back in GNOME.
+  services.displayManager.defaultSession = "sway";
+
   # GNOME is the fallback session now, not the daily driver: sway is in
   # modules/nixos/sway.nix and GDM lists both. Keeping GNOME means a
   # broken sway config is a session switch rather than a trip to a TTY.
