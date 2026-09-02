@@ -84,7 +84,247 @@ alias gapt='git apply --3way'
 alias gb='git branch'
 alias gba='git branch -a'
 alias gbd='git branch -d'
-alias gbda='git branch --no-color --merged | command grep -vE "^([+*]|\s*($(git_main_branch)|$(git_develop_branch))\s*$)" | command xargs git branch -d 2>/dev/null'
+
+# True when a branch tip is already contained in its pull request, so deleting
+# the local ref cannot lose anything. Guards against a merged PR whose local
+# branch has picked up extra commits (a --wip-- commit, say) that never landed.
+function _gbda_tip_landed() {
+  local tip="$(command git rev-parse --verify --quiet "$1^{commit}")"
+  local oid="$2" num="$3"
+
+  [[ -n "$tip" ]] || return 1
+  [[ -n "$oid" && "$tip" == "$oid" ]] && return 0
+
+  # The local ref may simply be behind the head that got merged.
+  if [[ -n "$oid" ]] && command git cat-file -e "$oid^{commit}" 2>/dev/null &&
+     command git merge-base --is-ancestor "$tip" "$oid" 2>/dev/null; then
+    return 0
+  fi
+
+  # The merged head is usually pruned locally, so ask for the PR's commits.
+  [[ -n "$num" ]] || return 1
+  gh pr view "$num" --json commits --jq '.commits[].oid' 2>/dev/null |
+    command grep -qx "$tip"
+}
+
+# Delete local branches that have already landed on the main branch.
+#
+# Detection is layered because a local ref is often a stale snapshot of a
+# squash-merged PR: review commits went to the remote branch, GitHub squashed
+# and deleted it, so no local patch comparison can ever match. Only the PR
+# state on GitHub resolves those.
+#
+#   gbda              delete merged branches, print the list at the end
+#   gbda -n           dry run
+#   gbda -v           also list what was kept, and why
+#   gbda --closed     also delete branches whose PR was closed unmerged
+#   gbda --no-fetch   skip the initial fetch --prune
+#   gbda --no-gh      local checks only (offline / no gh)
+function gbda() {
+  emulate -L zsh
+  setopt local_options no_nomatch
+
+  local dry_run=0 verbose=0 include_closed=0 use_gh=1 do_fetch=1
+  while (( $# )); do
+    case "$1" in
+      -n|--dry-run) dry_run=1 ;;
+      -v|--verbose) verbose=1 ;;
+      --closed)     include_closed=1 ;;
+      --no-fetch)   do_fetch=0 ;;
+      --no-gh)      use_gh=0 ;;
+      -h|--help)
+        print -- "usage: gbda [-n|--dry-run] [-v|--verbose] [--closed] [--no-fetch] [--no-gh]"
+        return 0 ;;
+      *) print -u2 "gbda: unknown option: $1"; return 1 ;;
+    esac
+    shift
+  done
+
+  command git rev-parse --git-dir &>/dev/null || {
+    print -u2 "gbda: not a git repository"
+    return 1
+  }
+
+  local target dev current target_ref
+  target="$(git_main_branch)"
+  dev="$(git_develop_branch)"
+  current="$(command git symbolic-ref --quiet --short HEAD 2>/dev/null)"
+
+  (( do_fetch )) && command git fetch --prune --quiet 2>/dev/null
+
+  # Compare against the remote tip so a stale local main can't hide merges.
+  if command git rev-parse --verify --quiet "refs/remotes/origin/$target" >/dev/null; then
+    target_ref="origin/$target"
+  else
+    target_ref="$target"
+  fi
+
+  # Candidates: every local branch except main and develop. Branches held by
+  # another worktree are reported rather than dropped, since git can't delete
+  # them and their status is still worth knowing.
+  local -a candidates
+  local -A worktree_of
+  local line ref wtpath
+  for line in ${(f)"$(command git for-each-ref refs/heads \
+      --format='%(refname:short)%09%(worktreepath)')"}; do
+    ref="${line%%$'\t'*}"
+    wtpath="${line#*$'\t'}"
+    [[ "$ref" == ("$target"|"$dev") ]] && continue
+    candidates+=( "$ref" )
+    [[ -n "$wtpath" ]] && worktree_of[$ref]="$wtpath"
+  done
+
+  (( ${#candidates} )) || { print -- "gbda: no candidate branches"; return 0 }
+
+  # One bulk PR lookup instead of one call per branch.
+  local -A pr_state pr_num pr_oid
+  local head_ref state num oid
+  if (( use_gh )) && command -v gh &>/dev/null; then
+    while IFS=$'\t' read -r head_ref state num oid; do
+      [[ -n "$head_ref" ]] || continue
+      # A branch can have several PRs; a merged one is decisive.
+      [[ -n "${pr_state[$head_ref]}" && "$state" != "MERGED" ]] && continue
+      pr_state[$head_ref]="$state"
+      pr_num[$head_ref]="$num"
+      pr_oid[$head_ref]="$oid"
+    done < <(gh pr list --state all --limit 400 \
+               --json headRefName,state,number,headRefOid \
+               --jq '.[] | [.headRefName, .state, (.number|tostring), .headRefOid] | @tsv' 2>/dev/null)
+  fi
+
+  local branch remote_name upstream merge_base tree tmp_commit reason verdict
+  local -a pr_row
+  local -a to_delete delete_reason keep_desc
+
+  for branch in $candidates; do
+    reason=""
+    verdict=""
+
+    # git refuses to delete a branch another worktree has checked out.
+    if [[ -n "${worktree_of[$branch]}" && "$branch" != "$current" ]]; then
+      keep_desc+=( "$branch	in worktree ${worktree_of[$branch]:t2}" )
+      continue
+    fi
+
+    # 1) Plain merge or fast-forward: the tip is already an ancestor.
+    if command git merge-base --is-ancestor "$branch" "$target_ref" 2>/dev/null; then
+      verdict=merged
+      reason="merged"
+    fi
+
+    # 2) Squash-merged locally: flatten the branch onto its merge base and see
+    #    whether that patch already exists on the target.
+    if [[ -z "$verdict" ]]; then
+      merge_base="$(command git merge-base "$target_ref" "$branch" 2>/dev/null)"
+      if [[ -n "$merge_base" ]]; then
+        tree="$(command git rev-parse "$branch^{tree}" 2>/dev/null)"
+        tmp_commit="$(command git commit-tree "$tree" -p "$merge_base" -m _tmp_ 2>/dev/null)"
+        if [[ -n "$tmp_commit" ]] && \
+           command git cherry "$target_ref" "$tmp_commit" 2>/dev/null | command grep -q '^-'; then
+          verdict=merged
+          reason="squash-merged"
+        fi
+      fi
+    fi
+
+    # 3) Ask GitHub. This is what catches the stale-local-ref case.
+    if [[ -z "$verdict" ]] && (( use_gh )) && command -v gh &>/dev/null; then
+      upstream="$(command git for-each-ref "refs/heads/$branch" --format='%(upstream:short)')"
+      remote_name="${upstream#*/}"
+      : ${remote_name:=$branch}
+
+      state="${pr_state[$remote_name]}"
+      num="${pr_num[$remote_name]}"
+      oid="${pr_oid[$remote_name]}"
+      # Older PRs fall outside the bulk window, so look those up directly.
+      if [[ -z "$state" ]]; then
+        pr_row=( ${(f)"$(gh pr list --head "$remote_name" --state all --limit 20 \
+                   --json state,number,headRefOid \
+                   --jq '([.[] | select(.state == "MERGED")] + .)[0]
+                         | [.state, (.number|tostring), .headRefOid] | join("\n")' 2>/dev/null)"} )
+        state="${pr_row[1]}"
+        num="${pr_row[2]}"
+        oid="${pr_row[3]}"
+      fi
+
+      case "$state" in
+        MERGED)
+          if _gbda_tip_landed "$branch" "$oid" "$num"; then
+            verdict=merged; reason="merged PR #$num"
+          else
+            verdict=keep;   reason="merged PR #$num, local tip not in it (unpushed commits)"
+          fi ;;
+        CLOSED)
+          if (( include_closed )); then
+            verdict=merged; reason="closed PR #$num"
+          else
+            verdict=keep;   reason="closed PR #$num (--closed to delete)"
+          fi ;;
+        OPEN)   verdict=keep; reason="open PR #$num" ;;
+        *)      verdict=keep; reason="no PR found" ;;
+      esac
+    fi
+
+    if [[ "$verdict" == merged ]]; then
+      to_delete+=( "$branch" )
+      delete_reason+=( "$reason" )
+    else
+      keep_desc+=( "$branch	${reason:-not merged}" )
+    fi
+  done
+
+  if (( ! ${#to_delete} )); then
+    print -- "gbda: nothing to delete (${#candidates} branch(es) checked)"
+    (( verbose )) && printf '  %s\n' "${keep_desc[@]}" | command column -t -s$'\t'
+    return 0
+  fi
+
+  # Deleting the checked-out branch needs HEAD moved off it first.
+  local idx
+  if (( ! dry_run )) && [[ -n "$current" ]]; then
+    idx=${to_delete[(Ie)$current]}
+    if (( idx )) && ! command git checkout "$target" &>/dev/null; then
+      print -u2 "gbda: cannot leave '$current' (dirty tree?); skipping it"
+      to_delete[$idx]=()
+      delete_reason[$idx]=()
+    fi
+  fi
+
+  local -a done_lines failed_lines
+  local i
+  for (( i = 1; i <= ${#to_delete}; i++ )); do
+    branch="${to_delete[i]}"
+    if (( dry_run )); then
+      done_lines+=( "$branch	${delete_reason[i]}" )
+    elif command git branch -D "$branch" &>/dev/null; then
+      done_lines+=( "$branch	${delete_reason[i]}" )
+    else
+      failed_lines+=( "$branch	could not delete" )
+    fi
+  done
+
+  if (( ${#done_lines} )); then
+    (( dry_run )) \
+      && print -- "Would delete ${#done_lines} branch(es):" \
+      || print -- "Deleted ${#done_lines} branch(es):"
+    printf '  %s\n' "${done_lines[@]}" | command column -t -s$'\t'
+  fi
+
+  if (( ${#failed_lines} )); then
+    print -u2 -- "Failed on ${#failed_lines}:"
+    printf '  %s\n' "${failed_lines[@]}" | command column -t -s$'\t' >&2
+  fi
+
+  if (( ${#keep_desc} )); then
+    if (( verbose )); then
+      print -- "Kept ${#keep_desc}:"
+      printf '  %s\n' "${keep_desc[@]}" | command column -t -s$'\t'
+    else
+      print -- "Kept ${#keep_desc} branch(es); gbda -v to see why."
+    fi
+  fi
+}
+
 alias gbD='git branch -D'
 alias gbl='git blame -b -w'
 alias gbnm='git branch --no-merged'

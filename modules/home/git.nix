@@ -26,9 +26,6 @@
       fetch.prune = true;
     };
 
-    # gbda in your git-aliases only catches genuinely merged branches.
-    # If you want the squash-merge-aware version too, drop it in here as
-    # an alias rather than another shell function.
     settings.alias = {
       staash = "stash --all";
     };

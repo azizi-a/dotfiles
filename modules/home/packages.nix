@@ -6,6 +6,7 @@
     # --- CLI -------------------------------------------------------------
     eza
     fd
+    gh # gbda's PR-state checks in config/zsh/git-aliases.zsh need it
     httpie
     jq
     less
