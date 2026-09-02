@@ -22,28 +22,16 @@
     slurp # region select, feeds grim
     wl-clipboard # services.cliphist does not put these on PATH itself
 
-    # GNOME Shell has a polkit agent built in; sway has none, and without
-    # one 1Password cannot authorise at all and pkexec prompts vanish
-    # with no error. /etc/pam.d/polkit-1 already accepts a fingerprint
-    # because security.pam.services.<name>.fprintAuth follows
-    # services.fprintd.enable, so this is also the piece that makes
-    # 1Password unlock with a finger. The user service that runs it is in
-    # modules/home/sway.nix.
-    #
-    # polkit_gnome is ancient (0.105) but is the agent reported to
-    # actually surface the fprintd prompt. If it misbehaves, swap in
-    # `security.soteria.enable = true`, which is maintained and brings
-    # its own user service, at the cost of unverified fingerprint support.
+    # sway ships no polkit agent; the README says what breaks without one.
+    # polkit_gnome is ancient but is the one that surfaces the fprintd
+    # prompt; security.soteria is the maintained fallback. The unit that
+    # runs it is in modules/home/sway.nix.
     polkit_gnome
   ];
 
-  # programs.sway creates security.pam.services.swaylock for us, and
-  # fprintAuth follows services.fprintd.enable, so pam_fprintd would sit
-  # in front of pam_unix on the lock screen. swaylock only ever submits a
-  # typed password, so it cannot answer the fingerprint conversation, and
-  # nixpkgs#171136 is exactly this: fprintd in a graphical stack blocking
-  # password entry. Turning it off here keeps the lock screen unlockable.
-  # sudo, polkit and GDM are unaffected and still take a finger.
+  # swaylock cannot answer a fingerprint prompt, so pam_fprintd sitting in
+  # front of pam_unix would leave it accepting neither (nixpkgs#171136).
+  # sudo, polkit and GDM keep the reader.
   security.pam.services.swaylock.fprintAuth = false;
 
   # programs.sway turns on the wlr and GTK portal backends but not the

@@ -1,19 +1,13 @@
 { ... }:
 {
-  # Replaces GNOME's remembered display arrangements. kanshi watches for
-  # outputs appearing and disappearing and applies the first profile whose
-  # output set matches, so docking and undocking restore a layout without
-  # editing this file or re-dragging monitors.
-  #
-  # Scale stays in modules/home/sway.nix rather than being repeated here,
-  # so there is one source of truth for it and the panel is still legible
-  # if kanshi ever fails to start. This file only owns arrangement.
+  # Replaces GNOME's remembered display arrangements: the first profile
+  # whose output set matches wins, so docking restores a layout by itself.
+  # Scale stays in sway.nix so there is one source of truth for it.
   services.kanshi = {
     enable = true;
 
-    # An ordered list: the first matching profile wins, so more specific
-    # profiles must come first. `profiles` as an attrset is the old shape
-    # and now warns on activation.
+    # Ordered, so more specific profiles come first. `profiles` as an
+    # attrset is the old shape and warns on activation.
     settings = [
       {
         profile.name = "laptop";

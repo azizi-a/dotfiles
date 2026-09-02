@@ -9,11 +9,9 @@
   # after the migration lands back in GNOME.
   services.displayManager.defaultSession = "sway";
 
-  # GNOME is the fallback session now, not the daily driver: sway is in
-  # modules/nixos/sway.nix and GDM lists both. Keeping GNOME means a
-  # broken sway config is a session switch rather than a trip to a TTY.
-  # Nothing here conflicts with sway - GDM does not gate on
-  # services.xserver.enable, which stays on for XWayland and GNOME X11.
+  # The fallback session now, so a broken sway config means picking a
+  # different session rather than a trip to a TTY. xserver.enable stays on
+  # for XWayland and GNOME's X11 session; GDM does not gate sway on it.
   services.desktopManager.gnome.enable = true;
 
   # caps -> escape, shift+caps -> caps lock.

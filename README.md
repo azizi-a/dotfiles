@@ -143,7 +143,6 @@ providing are now explicit:
 | **polkit agent**         | `polkit_gnome`, a user service in `sway.nix`   |
 | display arrangements     | `kanshi.nix`                                   |
 | GTK theming              | `gtk.nix` (no settings daemon under sway)      |
-| clipboard history        | `services.cliphist`                            |
 | guake                    | `foot.nix` in sway's scratchpad                |
 
 The polkit agent is the one to remember: without it 1Password cannot
@@ -198,6 +197,26 @@ integer-only, which is why thirds are 33/34/33 rather than exact.
   grab correctly under sway.
 - **The docked kanshi profile is a stub.** It needs the make/model/serial
   string from `swaymsg -t get_outputs` with the monitor attached.
+- **No clipboard history.** `cliphist` only skips entries carrying the
+  password-manager MIME hint, and 1Password does not set it, so every
+  copied secret would persist in a plaintext history outliving
+  1Password's own clipboard timer. GNOME kept no history either, so
+  nothing is lost. `services.cliphist.enable = true` in `sway.nix` if you
+  want it anyway.
+
+### Verify on the first login
+
+Sway's config is checked at build time, but these three only fail on real
+hardware, and two of them are the kind you would rather not find at 2am:
+
+1. `$mod+Ctrl+Q`, then type your password. Confirms `swaylock-effects`
+   registers against the `swaylock` PAM service that `fprintAuth = false`
+   was applied to. If it accepts nothing, switch VTs with `Ctrl+Alt+F2`.
+2. `systemctl --user status polkit-gnome-authentication-agent-1` should be
+   `active (running)`, then check 1Password unlocks with a fingerprint.
+   This is also the first thing to check if `pkexec` ever goes quiet.
+3. `swaymsg -t get_outputs` to confirm the internal panel really is
+   `eDP-1`, and `tptog` to confirm the touchpad toggle lands.
 
 ## Framework 13 notes
 

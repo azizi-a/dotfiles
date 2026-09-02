@@ -8,20 +8,10 @@ let
 
   mod = "Mod4"; # Super. Mod1 (Alt) is left free for the scratchpad.
 
-  # Rectangle-style snapping. This has to be a script rather than plain
-  # bindsym lines for two reasons:
-  #
-  #  1. Snapping is scoped to floating windows, and sway cannot express
-  #     that in a binding. A `[floating]` criteria prefix acts on every
-  #     floating window in the tree, not the focused one.
-  #  2. Without the guard a binding half-applies on a tiled window:
-  #     `resize set` resizes it inside its split, then `move position`
-  #     fails, leaving the layout disturbed.
-  #
-  # Geometry is in ppt (percentage points of the workspace). sway derives
-  # the workspace rect from the output's usable area, which already has
-  # waybar's exclusive zone subtracted, so no bar arithmetic is needed
-  # here. ppt is integer-only, hence 33/34/33 for thirds.
+  # Rectangle-style snapping. A script rather than bindsym lines because
+  # sway cannot scope a binding to the focused window when it is floating;
+  # see the README. ppt is percent of the workspace, which already
+  # excludes waybar, and is integer-only, hence 33/34/33 for thirds.
   sway-snap = pkgs.writeShellApplication {
     name = "sway-snap";
     runtimeInputs = with pkgs; [
@@ -251,10 +241,8 @@ in
   # plaintext history that outlives 1Password's own clipboard timer.
   # GNOME kept no such history either, so this is not a regression.
 
-  # GNOME Shell ran a polkit agent for you. Without one 1Password cannot
-  # authorise and pkexec fails silently. A systemd user unit rather than
-  # a sway `exec` line so it restarts on crash, stops with the session,
-  # and starts after the environment has actually propagated.
+  # A systemd user unit rather than a sway `exec` line, so it restarts on
+  # crash and stops with the session.
   systemd.user.services.polkit-gnome-authentication-agent-1 = {
     Unit = {
       Description = "polkit-gnome authentication agent";

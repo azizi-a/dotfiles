@@ -3,13 +3,9 @@ let
   theme = import ./theme.nix;
 in
 {
-  # GNOME Shell applied the theme through its own settings daemon. sway
-  # runs no such thing, so GTK has to be told directly or apps come up in
-  # the default light Adwaita regardless of what dconf says.
-  #
-  # The dconf keys in gnome.nix are still what GTK4/libadwaita reads, so
-  # the two files agree on purpose: this covers GTK2 and GTK3, which read
-  # their own config files instead.
+  # sway runs no settings daemon, so GTK2/3 have to be told directly or
+  # apps come up in light Adwaita whatever dconf says. gnome.nix carries
+  # the same values for GTK4/libadwaita, which read dconf instead.
   gtk = {
     enable = true;
 
