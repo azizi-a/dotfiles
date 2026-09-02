@@ -13,6 +13,7 @@
     ./git.nix
     ./gnome.nix
     ./helix.nix
+    ./kanshi.nix
     ./mako.nix
     ./neovim.nix
     ./packages.nix
