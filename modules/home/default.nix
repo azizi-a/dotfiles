@@ -12,6 +12,7 @@
     ./fuzzel.nix
     ./git.nix
     ./gnome.nix
+    ./gtk.nix
     ./helix.nix
     ./kanshi.nix
     ./mako.nix
