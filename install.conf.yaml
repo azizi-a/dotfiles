@@ -4,9 +4,14 @@
 
 - clean: ["~"]
 
+# Gitignored, so missing on a fresh clone; seed it before the link below.
+- shell:
+    - command: '[ -f zsh/zshenv.local ] || echo "# Per-machine values only (secrets, host-only paths). Untracked by design." > zsh/zshenv.local'
+
 - link:
     ~/.zshrc: zsh/zshrc
     ~/.zshenv: zsh/zshenv
+    ~/.zshenv.local: zsh/zshenv.local
     ~/.zprofile: zsh/zprofile
     ~/.gitconfig:
     ~/.vimrc:
