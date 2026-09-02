@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+echo "main holds instructions only -- there is nothing to install here."
+echo
+echo "Switch to the branch for this system, then run ./install again:"
+echo "  arm-macos    Apple Silicon macOS"
+echo "  intel-macos  Intel macOS"
+echo "  nixos        NixOS"
+echo "  ubuntu       Ubuntu"
+exit 1
