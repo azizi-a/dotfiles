@@ -17,6 +17,7 @@
     ./scripts.nix
     ./ssh.nix
     ./starship.nix
+    ./sway.nix
     ./vim.nix
     ./vscode.nix
     ./zed-editor.nix
