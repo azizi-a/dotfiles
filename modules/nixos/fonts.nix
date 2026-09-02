@@ -29,8 +29,8 @@
       # The nerd font leads so that anything asking for generic
       # "monospace" (terminals, mostly) gets the icon-capable font, while
       # the editors ask for LigaSrc Pro by name in their own configs.
-      # foot, the VSCode terminal and the Zed terminal all also name
-      # "SauceCodePro Nerd Font" explicitly.
+      # Anything naming this family explicitly should take it from
+      # modules/home/theme.nix rather than spelling it out again.
       monospace = [ "SauceCodePro Nerd Font" "LigaSrc Pro" "Fira Code" ];
       emoji = [ "Noto Color Emoji" ];
     };

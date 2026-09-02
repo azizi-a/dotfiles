@@ -1,8 +1,14 @@
-{ pkgs, ... }:
+{
+  config,
+  pkgs,
+  ...
+}:
 let
+  theme = import ./theme.nix;
+
   # -f daemonises after the lock surface is up, so swayidle and the
   # sleep hook cannot race the screen going off before it is covered.
-  lock = "${pkgs.swaylock-effects}/bin/swaylock -f";
+  lock = "${config.programs.swaylock.package}/bin/swaylock -f";
 in
 {
   # GNOME's lock screen. programs.swaylock.enable does not follow
@@ -21,12 +27,12 @@ in
       indicator = true;
       indicator-radius = 110;
       indicator-thickness = 8;
-      ring-color = "1d2021";
-      key-hl-color = "8ec07c";
+      ring-color = theme.bg;
+      key-hl-color = theme.accent;
       line-color = "00000000";
-      inside-color = "1d202188";
+      inside-color = "${theme.bg}88";
       separator-color = "00000000";
-      text-color = "ebdbb2";
+      text-color = theme.fg;
       fade-in = 0.2;
       ignore-empty-password = true;
     };

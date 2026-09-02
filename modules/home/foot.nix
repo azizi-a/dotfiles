@@ -1,4 +1,7 @@
 { ... }:
+let
+  theme = import ./theme.nix;
+in
 {
   # Replaces guake. Guake is GTK/X11: under Wayland it cannot take a
   # global hotkey or place its own window, both of which were the whole
@@ -13,7 +16,7 @@
 
     settings = {
       main = {
-        font = "SauceCodePro Nerd Font:size=13";
+        font = "${theme.font}:size=13";
         pad = "8x8";
         # Terminfo that ships with foot is not on remote hosts; claiming
         # xterm-256color avoids breaking ssh into anything older.
@@ -22,8 +25,8 @@
 
       colors = {
         alpha = 0.9;
-        background = "1d2021";
-        foreground = "ebdbb2";
+        background = theme.bg;
+        foreground = theme.fg;
       };
 
       scrollback.lines = 10000;

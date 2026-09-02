@@ -4,6 +4,8 @@
   ...
 }:
 let
+  theme = import ./theme.nix;
+
   mod = "Mod4"; # Super. Mod1 (Alt) is left free for the scratchpad.
 
   # Rectangle-style snapping. This has to be a script rather than plain
@@ -83,10 +85,21 @@ let
       mkdir -p "$dir"
       file="$dir/$(date +%Y-%m-%d_%H-%M-%S).png"
 
+      # slurp exits nonzero and prints nothing when cancelled with Escape.
+      # Selecting first, in the parent shell, means cancelling aborts
+      # rather than feeding grim an empty geometry.
+      geom=""
       case "$mode" in
-        region) grim -g "$(slurp)" "$file" ;;
+        region | clip)
+          geom=$(slurp) || exit 0
+          [ -n "$geom" ] || exit 0
+          ;;
+      esac
+
+      case "$mode" in
+        region) grim -g "$geom" "$file" ;;
         output) grim "$file" ;;
-        clip)   grim -g "$(slurp)" - | wl-copy; exit 0 ;;
+        clip)   grim -g "$geom" - | wl-copy; exit 0 ;;
         *) echo "sway-screenshot: unknown mode: $mode" >&2; exit 1 ;;
       esac
 
@@ -141,7 +154,7 @@ in
       # $HOME does not exist and would fail the build.
       output."eDP-1" = {
         scale = "1.5";
-        bg = "#1d2021 solid_color";
+        bg = "#${theme.bg} solid_color";
       };
 
       # The scratchpad terminal is spawned once per session and parked.
@@ -191,14 +204,7 @@ in
 
         # Lock. Echoes macOS's Ctrl+Cmd+Q, and $mod+Shift+q is already
         # sway's kill-window.
-        "${mod}+Ctrl+q" = "exec ${pkgs.swaylock-effects}/bin/swaylock -f";
-
-        # --- Clipboard history ------------------------------------------
-        # GNOME had no equivalent, but losing the clipboard on app exit
-        # is worse under a WM where you close things more freely.
-        "${mod}+Shift+v" =
-          "exec ${pkgs.cliphist}/bin/cliphist list | ${pkgs.fuzzel}/bin/fuzzel --dmenu"
-          + " | ${pkgs.cliphist}/bin/cliphist decode | ${pkgs.wl-clipboard}/bin/wl-copy";
+        "${mod}+Ctrl+q" = "exec ${config.programs.swaylock.package}/bin/swaylock -f";
 
         # --- Screenshots ------------------------------------------------
         "Print" = "exec ${sway-screenshot}/bin/sway-screenshot region";
@@ -239,10 +245,11 @@ in
     '';
   };
 
-  # Watches the wayland clipboard and keeps a history. wl-clipboard is
-  # installed at system level in modules/nixos/sway.nix because this
-  # module calls wl-paste by store path but does not put it on PATH.
-  services.cliphist.enable = true;
+  # Clipboard history is deliberately not enabled. cliphist only skips
+  # entries whose MIME types carry the password-manager hint, and
+  # 1Password does not set it, so every copied secret would persist in a
+  # plaintext history that outlives 1Password's own clipboard timer.
+  # GNOME kept no such history either, so this is not a regression.
 
   # GNOME Shell ran a polkit agent for you. Without one 1Password cannot
   # authorise and pkexec fails silently. A systemd user unit rather than
@@ -258,6 +265,9 @@ in
     Service = {
       ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
       Restart = "on-failure";
+      # Default is 5 restarts per 10s, after which systemd gives up for
+      # the session and polkit prompts silently stop appearing.
+      StartLimitIntervalSec = 0;
     };
   };
 }

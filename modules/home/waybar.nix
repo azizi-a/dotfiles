@@ -1,4 +1,7 @@
 { pkgs, ... }:
+let
+  theme = import ./theme.nix;
+in
 {
   # Replaces the GNOME top bar and dash-to-dock. Runs as a systemd user
   # service rather than a sway exec line so it comes back if it crashes.
@@ -79,29 +82,29 @@
 
     style = ''
       * {
-        font-family: "SauceCodePro Nerd Font";
+        font-family: "${theme.font}";
         font-size: 13px;
       }
 
       window#waybar {
-        background: #1d2021;
-        color: #ebdbb2;
+        background: #${theme.bg};
+        color: #${theme.fg};
       }
 
       #workspaces button {
         padding: 0 8px;
         background: transparent;
-        color: #928374;
+        color: #${theme.dim};
         border-bottom: 2px solid transparent;
       }
 
       #workspaces button.focused {
-        color: #ebdbb2;
-        border-bottom: 2px solid #8ec07c;
+        color: #${theme.fg};
+        border-bottom: 2px solid #${theme.accent};
       }
 
       #workspaces button.urgent {
-        color: #fb4934;
+        color: #${theme.urgent};
       }
 
       #clock,
@@ -113,11 +116,11 @@
       }
 
       #battery.warning {
-        color: #fabd2f;
+        color: #${theme.warning};
       }
 
       #battery.critical {
-        color: #fb4934;
+        color: #${theme.urgent};
       }
     '';
   };

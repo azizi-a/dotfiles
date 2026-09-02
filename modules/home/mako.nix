@@ -1,4 +1,7 @@
 { ... }:
+let
+  theme = import ./theme.nix;
+in
 {
   # Notification daemon. GNOME Shell was the one handling this; without a
   # daemon running, notify-send fails and anything using libnotify goes
@@ -11,10 +14,10 @@
     enable = true;
 
     settings = {
-      font = "SauceCodePro Nerd Font 11";
-      background-color = "#1d2021";
-      text-color = "#ebdbb2";
-      border-color = "#8ec07c";
+      font = "${theme.font} 11";
+      background-color = "#${theme.bg}";
+      text-color = "#${theme.fg}";
+      border-color = "#${theme.accent}";
       border-size = 2;
       border-radius = 4;
       padding = "10";
@@ -26,7 +29,7 @@
       # Nested attrsets are criteria sections. Anything marked urgent
       # should not disappear on its own.
       "urgency=critical" = {
-        border-color = "#fb4934";
+        border-color = "#${theme.urgent}";
         default-timeout = 0;
       };
     };

@@ -1,4 +1,7 @@
 { pkgs, ... }:
+let
+  theme = import ./theme.nix;
+in
 {
   # GNOME Shell applied the theme through its own settings daemon. sway
   # runs no such thing, so GTK has to be told directly or apps come up in
@@ -11,12 +14,12 @@
     enable = true;
 
     theme = {
-      name = "Yaru-viridian-dark";
+      name = theme.gtkTheme;
       package = pkgs.yaru-theme;
     };
 
     iconTheme = {
-      name = "Yaru-viridian";
+      name = theme.iconTheme;
       package = pkgs.yaru-theme;
     };
   };

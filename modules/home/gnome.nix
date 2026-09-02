@@ -3,6 +3,8 @@ let
   # On Home Manager 25.05+ this is lib.gvariant; lib.hm.gvariant is still
   # provided as an alias. Swap if you ever see "attribute 'hm' missing".
   inherit (lib.hm.gvariant) mkEmptyArray type;
+
+  theme = import ./theme.nix;
 in
 {
   # Every `gsettings set` line from setup_ubuntu.zsh. The difference is
@@ -26,8 +28,8 @@ in
     # Both sessions: GTK4 and libadwaita apps read these keys directly,
     # and xdg-desktop-portal-gtk reports color-scheme to everything else.
     "org/gnome/desktop/interface" = {
-      gtk-theme = "Yaru-viridian-dark";
-      icon-theme = "Yaru-viridian";
+      gtk-theme = theme.gtkTheme;
+      icon-theme = theme.iconTheme;
       color-scheme = "prefer-dark";
     };
 
