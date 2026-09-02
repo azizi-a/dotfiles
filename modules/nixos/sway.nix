@@ -37,6 +37,15 @@
     polkit_gnome
   ];
 
+  # programs.sway creates security.pam.services.swaylock for us, and
+  # fprintAuth follows services.fprintd.enable, so pam_fprintd would sit
+  # in front of pam_unix on the lock screen. swaylock only ever submits a
+  # typed password, so it cannot answer the fingerprint conversation, and
+  # nixpkgs#171136 is exactly this: fprintd in a graphical stack blocking
+  # password entry. Turning it off here keeps the lock screen unlockable.
+  # sudo, polkit and GDM are unaffected and still take a finger.
+  security.pam.services.swaylock.fprintAuth = false;
+
   # programs.sway turns on the wlr and GTK portal backends but not the
   # portal service itself. GNOME happens to enable it today; spelling it
   # out means the sway session survives GNOME ever being removed.

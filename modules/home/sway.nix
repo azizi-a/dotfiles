@@ -176,6 +176,10 @@ in
         "${mod}+Shift+comma" = "move container to output left";
         "${mod}+Shift+period" = "move container to output right";
 
+        # Lock. Echoes macOS's Ctrl+Cmd+Q, and $mod+Shift+q is already
+        # sway's kill-window.
+        "${mod}+Ctrl+q" = "exec ${pkgs.swaylock-effects}/bin/swaylock -f";
+
         # --- Clipboard history ------------------------------------------
         # GNOME had no equivalent, but losing the clipboard on app exit
         # is worse under a WM where you close things more freely.
