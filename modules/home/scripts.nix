@@ -4,22 +4,28 @@ let
   # ~/.dotfiles. Building it as a package means it lands on PATH properly,
   # gets shellcheck run over it at build time, and does not break if you
   # move the repo.
+  #
+  # Drives sway rather than gsettings: the GNOME key it used to set is
+  # read by mutter, so under sway it toggled a value nothing acts on.
   tptog = pkgs.writeShellApplication {
     name = "tptog";
-    runtimeInputs = [ pkgs.glib ];
+    runtimeInputs = with pkgs; [
+      sway
+      jq
+    ];
     text = ''
-      current_value=$(gsettings get org.gnome.desktop.peripherals.touchpad send-events)
+      swaymsg input type:touchpad events toggle enabled disabled >/dev/null
 
-      if [ "$current_value" = "'enabled'" ]; then
-        gsettings set org.gnome.desktop.peripherals.touchpad send-events disabled
-        echo "Touchpad disabled."
-      else
-        gsettings set org.gnome.desktop.peripherals.touchpad send-events enabled
-        echo "Touchpad enabled."
-      fi
+      state=$(swaymsg -t get_inputs \
+        | jq -r 'first(.[] | select(.type == "touchpad") | .libinput.send_events)')
+
+      case "$state" in
+        enabled)  echo "Touchpad enabled." ;;
+        disabled) echo "Touchpad disabled." ;;
+        *)        echo "Touchpad state: ''${state:-unknown}" ;;
+      esac
     '';
   };
-
 in
 {
   home.packages = [ tptog ];
