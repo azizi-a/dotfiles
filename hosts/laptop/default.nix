@@ -27,10 +27,11 @@
   # as configuration.
   hardware.framework.enableKmod = true;
 
-  # Goodix fingerprint reader. After the first rebuild, enrol with:
-  #   fprintd-enroll
-  # then check it with `fprintd-verify`. GNOME picks it up automatically
-  # for the lock screen; sudo needs pam config you have not asked for.
+  # Goodix fingerprint reader. Enrol as yourself, never via sudo, or the
+  # print lands on root and every check then fails:
+  #   fprintd-enroll azizi && fprintd-verify
+  # fprintAuth defaults to this option for every pam service, so sudo,
+  # polkit (1Password unlock) and the display manager need no more config.
   services.fprintd.enable = true;
 
   environment.systemPackages = with pkgs; [

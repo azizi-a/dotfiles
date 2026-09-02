@@ -126,8 +126,11 @@ entry in `flake.nix`; the modules are already shared.
 
 ## Framework 13 notes
 
-- `services.fprintd.enable` is on; run `fprintd-enroll` once after the
-  first boot to register a finger.
+- `services.fprintd.enable` is on; run `fprintd-enroll azizi` once after
+  the first boot to register a finger. Do not prefix it with `sudo` — that
+  enrols root instead, and every later check fails with no useful error.
+  This covers sudo and polkit (so 1Password unlocks with a fingerprint)
+  as well as the login screen.
 - Charge limit is set in the BIOS or through sysfs, not TLP. The battery
   is `BAT1` on this machine, which is why the usual `*_BAT0` keys in
   `power.nix` are commented out and pointed here instead.
