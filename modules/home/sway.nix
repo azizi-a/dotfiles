@@ -239,6 +239,10 @@ in
       terminal = "${pkgs.kitty}/bin/kitty";
       menu = "${pkgs.fuzzel}/bin/fuzzel";
 
+      # smart, the default, only focuses a window already on screen; an
+      # app on another workspace just went urgent.
+      focus.newWindow = "focus";
+
       window = {
         titlebar = false;
         border = 1;
@@ -274,10 +278,22 @@ in
         "eDP-1".scale = "1.5";
       };
 
-      # Spawned once and parked, or the first toggle has nothing to show.
+      # Matched case-insensitively: Electron apps do not all report the
+      # app_id you would guess. `swaymsg -t get_tree` shows the real one.
+      assigns = {
+        "1" = [ { app_id = "(?i)firefox"; } ];
+        "2" = [ { app_id = "(?i)proton"; } ];
+        "3" = [ { app_id = "(?i)1password"; } ];
+      };
+
       startup = [
+        { command = "${pkgs.firefox}/bin/firefox"; }
+        { command = "${pkgs.protonmail-desktop}/bin/proton-mail"; }
+        # From the system module, which wraps it for its polkit helper.
+        { command = "1password"; }
         {
-          # --class sets app_id on Wayland, which the rules below match.
+          # Parked at startup, or the first toggle has nothing to show.
+          # --class sets the app_id the rules below match.
           command = "${pkgs.kitty}/bin/kitty --class=scratchpad-term";
         }
       ];
@@ -358,7 +374,6 @@ in
       for_window [window_type="dialog"] floating enable
       for_window [app_id="pavucontrol"] floating enable
       for_window [app_id="blueman-manager"] floating enable
-      for_window [app_id="1Password"] floating enable
     '';
   };
 
