@@ -115,6 +115,17 @@ in
       terminal = "${pkgs.foot}/bin/foot";
       menu = "${pkgs.fuzzel}/bin/fuzzel";
 
+      # The title is already in waybar, so a border alone marks focus.
+      # Drag floating windows with Super held, having no bar to grab.
+      window = {
+        titlebar = false;
+        border = 2;
+      };
+      floating = {
+        titlebar = false;
+        border = 2;
+      };
+
       # An empty list suppresses the bar block entirely. The default is a
       # one-element list running swaybar with i3status, which would sit
       # underneath waybar reserving a second exclusive zone.

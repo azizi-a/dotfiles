@@ -11,8 +11,14 @@ in
 
     settings.main = {
       layer = "top";
-      position = "top";
-      height = 30;
+      position = "bottom";
+
+      # No height: a fixed one forces a larger exclusive zone than the
+      # contents need. Padding in the stylesheet sets it instead.
+      spacing = 4;
+
+      # Uncomment to reserve no space at all and show the bar on demand.
+      # mode = "hide";
 
       modules-left = [
         "sway/workspaces"
@@ -83,24 +89,30 @@ in
     style = ''
       * {
         font-family: "${theme.font}", "Symbols Nerd Font Mono";
-        font-size: 13px;
+        font-size: 12px;
+        /* Kills the default 4px of dead space above and below the text */
+        min-height: 0;
+        padding: 0;
+        margin: 0;
       }
 
       window#waybar {
         background: #${theme.bg};
         color: #${theme.fg};
+        /* Sets the bar height, there being none configured. */
+        padding: 1px 6px;
       }
 
       #workspaces button {
         padding: 0 8px;
         background: transparent;
         color: #${theme.dim};
-        border-bottom: 2px solid transparent;
+        border-top: 2px solid transparent;
       }
 
       #workspaces button.focused {
         color: #${theme.fg};
-        border-bottom: 2px solid #${theme.accent};
+        border-top: 2px solid #${theme.accent};
       }
 
       #workspaces button.urgent {
@@ -112,7 +124,7 @@ in
       #backlight,
       #pulseaudio,
       #tray {
-        padding: 0 10px;
+        padding: 0 8px;
       }
 
       #battery.warning {
