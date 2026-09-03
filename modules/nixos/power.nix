@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   # The whole "install tlp, enable it, then stop/disable/mask
   # power-profiles-daemon" dance becomes two options. GNOME pulls in
@@ -45,6 +45,13 @@
     HandleLidSwitchExternalPower = "lock";
     HandlePowerKey = "suspend";
   };
+
+  # fprintd loses its device claim across a sleep cycle: certain on
+  # hibernate, intermittent on suspend. This runs on resume from both;
+  # post-resume.target, which search results suggest, does not exist.
+  powerManagement.resumeCommands = ''
+    ${pkgs.systemd}/bin/systemctl restart fprintd.service
+  '';
 
   # How long to sit in suspend before hibernating. systemd treats this as
   # an upper bound and hibernates sooner if the battery is draining fast
