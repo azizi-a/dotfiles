@@ -190,7 +190,8 @@ in
       # first toggle would have nothing to show.
       startup = [
         {
-          command = "${pkgs.foot}/bin/foot --app-id=scratchpad-term";
+          # foot has no tabs; zellij is what supplies them.
+          command = "${pkgs.foot}/bin/foot --app-id=scratchpad-term ${pkgs.zellij}/bin/zellij";
         }
       ];
 
@@ -233,9 +234,12 @@ in
         "${mod}+Shift+comma" = "move container to output left";
         "${mod}+Shift+period" = "move container to output right";
 
-        # Drop-down terminal, on guake's old Alt+Space. Mod1 is left
-        # unused by everything else for exactly this.
-        "Mod1+space" = "[app_id=\"scratchpad-term\"] scratchpad show";
+        # Drop-down terminal on guake's old Alt+Space, the only Mod1
+        # binding. Geometry is re-applied on every show: sway re-centres
+        # a window returning from the scratchpad and may drop its size.
+        "Mod1+space" =
+          "[app_id=\"scratchpad-term\"] scratchpad show,"
+          + " resize set 40 ppt 67 ppt, move position 0 ppt 0 ppt";
 
         # Lock. Echoes macOS's Ctrl+Cmd+Q, and $mod+Shift+q is already
         # sway's kill-window.

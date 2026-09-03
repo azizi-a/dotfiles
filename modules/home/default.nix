@@ -27,6 +27,7 @@
     ./vscode.nix
     ./waybar.nix
     ./zed-editor.nix
+    ./zellij.nix
     ./zsh.nix
   ];
 
