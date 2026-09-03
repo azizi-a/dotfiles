@@ -23,7 +23,9 @@ in
         term = "xterm-256color";
       };
 
-      colors = {
+      # foot 1.26 deprecated [colors] and 1.28 removes it; nixpkgs pins
+      # 1.27, which is why it warned rather than failed.
+      colors-dark = {
         alpha = 0.9;
         background = theme.bg;
         foreground = theme.fg;
