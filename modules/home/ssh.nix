@@ -17,8 +17,6 @@ in
       ForwardAgent = false;
       Compression = false;
       HashKnownHosts = false;
-      UserKnownHostsFile = "~/.shh/master-%r@%n:%p";
-      ControlPersist = "no";
       ServerAliveInterval = 3;
       ServerAliveCountMax = 3;
     };
