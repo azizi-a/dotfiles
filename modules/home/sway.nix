@@ -5,8 +5,6 @@
   ...
 }:
 let
-  theme = import ./theme.nix;
-
   mod = "Mod4"; # Super. Mod1 (Alt) is left free for the scratchpad.
 
   # Halves and thirds resize in the tiling tree; quarters have no clean
@@ -245,11 +243,14 @@ in
         };
       };
 
-      # ~201 DPI. A colour not an image: the build-time config validator
-      # cannot see a path under $HOME.
-      output."eDP-1" = {
-        scale = "1.5";
-        bg = "#${theme.bg} solid_color";
+      output = {
+        # The same wallpaper the GNOME session shows: nixos-artwork's
+        # dark variant, which is what NixOS pairs with prefer-dark. A
+        # store path, so the build-time validator can see it.
+        "*".bg = "${pkgs.nixos-artwork.wallpapers.simple-dark-gray.gnomeFilePath} fill";
+
+        # ~201 DPI.
+        "eDP-1".scale = "1.5";
       };
 
       # Spawned once and parked, or the first toggle has nothing to show.
