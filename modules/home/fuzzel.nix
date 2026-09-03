@@ -14,6 +14,8 @@ in
         font = "${theme.font}:size=12";
         terminal = "${pkgs.foot}/bin/foot";
         layer = "overlay";
+        icons-enabled = true;
+        icon-theme = theme.iconTheme;
         width = 45;
         lines = 12;
       };

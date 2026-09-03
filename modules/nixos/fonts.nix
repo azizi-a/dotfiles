@@ -11,27 +11,31 @@
       noto-fonts
       noto-fonts-color-emoji
 
-      # Both vendored folders: fonts/LigaSrcPro and
-      # fonts/SourceCodeProNerdFonts. See pkgs/local-fonts.nix for the
-      # exact family names they install.
-      #
-      # For the record, nixpkgs does carry this nerd font as
-      # nerd-fonts.sauce-code-pro, but that is the v3 patch and your
-      # checked-in files are v2. Icon codepoints moved between the two,
-      # so the vendored copy keeps glyphs exactly where your existing
-      # terminal and prompt configs expect them. If you ever switch to the
-      # nixpkgs one, drop the folder from the repo at the same time so
-      # two versions of the same family are not fighting.
+      # v3. The Material Design icons waybar and mako use moved to
+      # F0001+, so the v2 files this repo vendored rendered them as tofu.
+      nerd-fonts.sauce-code-pro
+
+      # Glyphs only, so apps not themselves set in a nerd font get them.
+      nerd-fonts.symbols-only
+
+      # Still vendored, because LigaSrc Pro is not in nixpkgs.
       (pkgs.callPackage ../../pkgs/local-fonts.nix { })
     ];
 
+    # Only reaches requests for the generic families, never a config that
+    # names one outright - waybar and mako do, so they carry their own
+    # fallback lists. Naming a family elsewhere: use theme.nix.
     fontconfig.defaultFonts = {
-      # The nerd font leads so that anything asking for generic
-      # "monospace" (terminals, mostly) gets the icon-capable font, while
-      # the editors ask for LigaSrc Pro by name in their own configs.
-      # Anything naming this family explicitly should take it from
-      # modules/home/theme.nix rather than spelling it out again.
-      monospace = [ "SauceCodePro Nerd Font" "LigaSrc Pro" "Fira Code" ];
+      monospace = [
+        "SauceCodePro Nerd Font"
+        "Symbols Nerd Font Mono"
+        "LigaSrc Pro"
+        "Fira Code"
+      ];
+      sansSerif = [
+        "Noto Sans"
+        "Symbols Nerd Font"
+      ];
       emoji = [ "Noto Color Emoji" ];
     };
   };

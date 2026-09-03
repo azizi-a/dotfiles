@@ -14,7 +14,8 @@ in
     enable = true;
 
     settings = {
-      font = "${theme.font} 11";
+      # A Pango family list, not one name: symbols back up missing glyphs.
+      font = "${theme.font}, Symbols Nerd Font Mono 11";
       background-color = "#${theme.bg}";
       text-color = "#${theme.fg}";
       border-color = "#${theme.accent}";

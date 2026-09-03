@@ -18,9 +18,14 @@
   };
 
   environment.systemPackages = with pkgs; [
+    # Tray and launcher icons are icon-theme lookups, not font glyphs,
+    # and GNOME was supplying these. hicolor terminates the lookup chain.
+    adwaita-icon-theme
+    hicolor-icon-theme
+
     swaybg # sway shells out to this for the `output * bg` line
     slurp # region select, feeds grim
-    wl-clipboard # services.cliphist does not put these on PATH itself
+    wl-clipboard # sway-screenshot copies through wl-copy
 
     # sway ships no polkit agent; the README says what breaks without one.
     # polkit_gnome is ancient but is the one that surfaces the fprintd

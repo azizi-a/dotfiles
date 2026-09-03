@@ -1,14 +1,6 @@
-# Packages every TTF under fonts/ in this repo, currently:
-#
-#   fonts/LigaSrcPro/              family "LigaSrc Pro"
-#   fonts/SourceCodeProNerdFonts/  families "SauceCodePro Nerd Font",
-#                                  "SauceCodePro Nerd Font Mono", and
-#                                  "SauceCodePro NF" (the Windows
-#                                  Compatible files)
-#
-# The family names above were read straight from the font name tables, so
-# they are what fontconfig and every app will see. New folders dropped
-# into fonts/ get picked up automatically on the next rebuild.
+# Packages every TTF under fonts/, currently only LigaSrcPro, which
+# registers the family "LigaSrc Pro". New folders are picked up on the
+# next rebuild. Nerd fonts come from nixpkgs instead - see fonts.nix.
 { lib, stdenvNoCC }:
 
 stdenvNoCC.mkDerivation {

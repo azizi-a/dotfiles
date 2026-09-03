@@ -82,7 +82,7 @@ in
 
     style = ''
       * {
-        font-family: "${theme.font}";
+        font-family: "${theme.font}", "Symbols Nerd Font Mono";
         font-size: 13px;
       }
 
