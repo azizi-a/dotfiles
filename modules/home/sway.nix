@@ -304,9 +304,10 @@ in
         # --- Launching and discovering ----------------------------------
         # mkForce because this is the one key that collides with a default.
         "${mod}+space" = lib.mkForce "exec ${pkgs.fuzzel}/bin/fuzzel";
-        "${mod}+Tab" = "focus mode_toggle";
+        "${mod}+Tab" = "exec ${pkgs.swayr}/bin/swayr switch-window";
         "${mod}+slash" = "exec ${sway-keys}/bin/sway-keys";
         "${mod}+Escape" = "exec ${sway-power}/bin/sway-power";
+        "${mod}+grave" = "focus mode_toggle";
 
         # --- Rectangle-style snapping ------------------------------------
         # Halves and thirds resize in place; quarters float first.

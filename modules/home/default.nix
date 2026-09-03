@@ -23,6 +23,7 @@
     ./starship.nix
     ./sway.nix
     ./swaylock.nix
+    ./swayr.nix
     ./vim.nix
     ./vscode.nix
     ./waybar.nix
