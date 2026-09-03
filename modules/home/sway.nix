@@ -9,8 +9,8 @@ let
 
   mod = "Mod4"; # Super. Mod1 (Alt) is left free for the scratchpad.
 
-  # A script because sway cannot scope a binding to the focused window
-  # when it is floating; see the README. ppt is integer-only, hence 33/34/33.
+  # Halves and thirds resize in the tiling tree; quarters have no clean
+  # equivalent and float. ppt is integer-only, hence 33/34/33.
   sway-snap = pkgs.writeShellApplication {
     name = "sway-snap";
     runtimeInputs = with pkgs; [
@@ -24,34 +24,93 @@ let
       fi
 
       focused=$(swaymsg -t get_tree | jq -r '.. | select(.focused? == true) | .type')
-      if [ "$focused" != "floating_con" ]; then
-        exit 0
-      fi
 
-      # width height pos_x pos_y, all ppt
-      snap() {
-        swaymsg "resize set $1 ppt $2 ppt, move position $3 ppt $4 ppt" >/dev/null
+      # Float and place, in percentages of the workspace.
+      place() {
+        swaymsg "floating enable, resize set $1 ppt $2 ppt, move position $3 ppt $4 ppt" >/dev/null
+      }
+
+      # Resize in the tree instead, shuffled to the requested end so the
+      # siblings keep the rest. axis size first|centre|last
+      tile() {
+        if [ "$1" = h ]; then
+          want_layout=splith; back=left; fwd=right; dim=width
+        else
+          want_layout=splitv; back=up;   fwd=down;  dim=height
+        fi
+        size=$2
+        want=$3
+
+        layout=""
+        idx=0
+        count=1
+        info=$(swaymsg -t get_tree | jq -r 'first(.. | objects
+          | select(.nodes? and (.nodes | map(.focused == true) | any))
+          | "\(.layout) \(.nodes | map(.focused == true) | index(true)) \(.nodes | length)")')
+        if [ -n "$info" ]; then
+          read -r layout idx count <<< "$info"
+        fi
+
+        # A half-height means nothing in a row. Order survives the
+        # conversion, so idx and count still hold.
+        if [ "$layout" != "$want_layout" ]; then
+          swaymsg "layout $want_layout" >/dev/null
+        fi
+
+        case "$want" in
+          first) target=0 ;;
+          last)  target=$((count - 1)) ;;
+          *)     target=$(((count - 1) / 2)) ;;
+        esac
+        while [ "$idx" -gt "$target" ]; do
+          swaymsg "move $back" >/dev/null
+          idx=$((idx - 1))
+        done
+        while [ "$idx" -lt "$target" ]; do
+          swaymsg "move $fwd" >/dev/null
+          idx=$((idx + 1))
+        done
+
+        swaymsg "resize set $dim $size ppt" >/dev/null
+      }
+
+      # width pos want
+      across() {
+        if [ "$focused" = "floating_con" ]; then
+          place "$1" 100 "$2" 0
+        else
+          tile h "$1" "$3"
+        fi
+      }
+
+      # height pos want
+      down() {
+        if [ "$focused" = "floating_con" ]; then
+          place 100 "$1" 0 "$2"
+        else
+          tile v "$1" "$3"
+        fi
       }
 
       case "$1" in
-        left-half)        snap  50 100  0  0 ;;
-        right-half)       snap  50 100 50  0 ;;
-        top-half)         snap 100  50  0  0 ;;
-        bottom-half)      snap 100  50  0 50 ;;
+        left-half)        across 50  0 first ;;
+        right-half)       across 50 50 last ;;
+        top-half)         down   50  0 first ;;
+        bottom-half)      down   50 50 last ;;
 
-        top-left)         snap  50  50  0  0 ;;
-        top-right)        snap  50  50 50  0 ;;
-        bottom-left)      snap  50  50  0 50 ;;
-        bottom-right)     snap  50  50 50 50 ;;
+        first-third)      across 33  0 first ;;
+        centre-third)     across 34 33 centre ;;
+        last-third)       across 33 67 last ;;
+        first-two-thirds) across 67  0 first ;;
+        last-two-thirds)  across 67 33 last ;;
 
-        first-third)      snap  33 100  0  0 ;;
-        centre-third)     snap  34 100 33  0 ;;
-        last-third)       snap  33 100 67  0 ;;
-        first-two-thirds) snap  67 100  0  0 ;;
-        last-two-thirds)  snap  67 100 33  0 ;;
+        top-left)         place 50  50  0  0 ;;
+        top-right)        place 50  50 50  0 ;;
+        bottom-left)      place 50  50  0 50 ;;
+        bottom-right)     place 50  50 50 50 ;;
 
-        maximise)         snap 100 100  0  0 ;;
-        centre)           swaymsg "move position center" >/dev/null ;;
+        maximise)         place 100 100 0 0 ;;
+        centre)           swaymsg "floating enable, move position center" >/dev/null ;;
 
         *) echo "sway-snap: unknown preset: $1" >&2; exit 1 ;;
       esac
@@ -158,6 +217,7 @@ in
 
     config = {
       modifier = mod;
+      terminal = "${pkgs.kitty}/bin/kitty";
       menu = "${pkgs.fuzzel}/bin/fuzzel";
 
       window = {
@@ -195,8 +255,8 @@ in
       # Spawned once and parked, or the first toggle has nothing to show.
       startup = [
         {
-          # foot has no tabs; zellij is what supplies them.
-          command = "${pkgs.foot}/bin/foot --app-id=scratchpad-term ${pkgs.zellij}/bin/zellij";
+          # --class sets app_id on Wayland, which the rules below match.
+          command = "${pkgs.kitty}/bin/kitty --class=scratchpad-term";
         }
       ];
 
@@ -209,8 +269,8 @@ in
         "${mod}+Tab" = "focus mode_toggle";
         "${mod}+slash" = "exec ${sway-keys}/bin/sway-keys";
 
-        # --- Rectangle-style snapping (floating windows only) ----------
-        # Inert on tiled windows; $mod+Shift+space floats one first.
+        # --- Rectangle-style snapping ------------------------------------
+        # Halves and thirds resize in place; quarters float first.
         "${mod}+Ctrl+Left" = snap "left-half";
         "${mod}+Ctrl+Right" = snap "right-half";
         "${mod}+Ctrl+Up" = snap "top-half";

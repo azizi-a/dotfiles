@@ -168,16 +168,19 @@ bare `Super` so none of sway's own defaults are displaced.
 | `Alt+Space`                | drop-down terminal (left, 40%x67%)        |
 | `Print` / `Shift` / `Ctrl` | screenshot region / output / to clipboard |
 
-**The snap keys only affect floating windows.** Sway tiles by default, so
-`Super+Shift+Space` to float a window is what makes them apply. This is
-deliberate: the alternative was floating everything and giving up tiling.
-The check lives in the `sway-snap` script in `sway.nix`, so changing the
-policy to "float it, then snap it" is a one-line edit there rather than a
-redesign.
+**Halves and thirds stay tiled.** They resize a tiled window inside the
+layout and shuffle it to the requested end, so its neighbours keep the
+rest of the row or column. A half-height means nothing in a row, so the
+container is turned into a column first — and the horizontal presets turn
+it back, or the two would fight each other.
 
-Snapping has to be a script at all because sway cannot scope a binding to
-the focused window when it is floating — a `[floating]` criteria prefix
-matches every floating window in the tree. Geometry is in `ppt`, which
+Quarters need a 2x2 tree the script would have to build, and the result
+would depend on what was already on the workspace, so those float
+instead, along with maximise and centre. `Super+Shift+Space` tiles a
+floated window back.
+
+Snapping is a script rather than plain bindings because neither branch is
+expressible as one. Geometry is in `ppt`, which
 sway measures against the workspace rect; that already excludes waybar's
 reserved space, so the percentages need no bar arithmetic. `ppt` is
 integer-only, which is why thirds are 33/34/33 rather than exact.
