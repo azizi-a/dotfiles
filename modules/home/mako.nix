@@ -19,13 +19,11 @@ in
       background-color = "#${theme.bg}";
       text-color = "#${theme.fg}";
       border-color = "#${theme.accent}";
-      border-size = 2;
+      border-size = 1;
       border-radius = 4;
       padding = "10";
-      margin = "10";
       default-timeout = 5000;
-      max-visible = 5;
-      anchor = "top-right";
+      anchor = "bottom-left";
 
       # Nested attrsets are criteria sections. Anything marked urgent
       # should not disappear on its own.
