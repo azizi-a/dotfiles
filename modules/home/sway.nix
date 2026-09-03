@@ -200,6 +200,26 @@ let
     '';
   };
 
+  sway-power = pkgs.writeShellApplication {
+    name = "sway-power";
+    runtimeInputs = with pkgs; [
+      fuzzel
+      sway
+      systemd
+    ];
+    text = ''
+      case "$(printf '%s\n' Lock Suspend Hibernate "Log out" Reboot "Shut down" \
+                | fuzzel --dmenu --prompt 'power: ')" in
+        Lock)         ${config.programs.swaylock.package}/bin/swaylock -f ;;
+        Suspend)      systemctl suspend ;;
+        Hibernate)    systemctl hibernate ;;
+        "Log out")    swaymsg exit ;;
+        Reboot)       systemctl reboot ;;
+        "Shut down")  systemctl poweroff ;;
+      esac
+    '';
+  };
+
   snap = preset: "exec ${sway-snap}/bin/sway-snap ${preset}";
 in
 {
@@ -207,6 +227,7 @@ in
     sway-snap
     sway-screenshot
     sway-keys
+    sway-power
     pkgs.playerctl # media keys
   ];
 
@@ -269,6 +290,7 @@ in
         "${mod}+space" = lib.mkForce "exec ${pkgs.fuzzel}/bin/fuzzel";
         "${mod}+Tab" = "focus mode_toggle";
         "${mod}+slash" = "exec ${sway-keys}/bin/sway-keys";
+        "${mod}+Escape" = "exec ${sway-power}/bin/sway-power";
 
         # --- Rectangle-style snapping ------------------------------------
         # Halves and thirds resize in place; quarters float first.

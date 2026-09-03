@@ -30,7 +30,17 @@ in
         "backlight"
         "battery"
         "clock"
+        "custom/power"
       ];
+
+      # By name, not store path: sway.nix owns the script and waybar
+      # cannot reach its let block. useUserPackages puts it in the
+      # per-user profile, which the systemd user session has on PATH.
+      "custom/power" = {
+        format = "󰐥";
+        tooltip = false;
+        on-click = "sway-power";
+      };
 
       "sway/workspaces".format = "{name}";
       "sway/mode".format = "<span style=\"italic\">{}</span>";
@@ -119,8 +129,13 @@ in
       #battery,
       #backlight,
       #pulseaudio,
-      #tray {
+      #tray,
+      #custom-power {
         padding: 0 8px;
+      }
+
+      #custom-power {
+        color: #${theme.urgent};
       }
 
       #battery.warning {
