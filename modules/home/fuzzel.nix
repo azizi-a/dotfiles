@@ -12,7 +12,7 @@ in
     settings = {
       main = {
         font = "${theme.font}:size=12";
-        terminal = "${pkgs.foot}/bin/foot";
+        terminal = "${pkgs.kitty}/bin/kitty";
         layer = "overlay";
         icons-enabled = true;
         icon-theme = theme.iconTheme;

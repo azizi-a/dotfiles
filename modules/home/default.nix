@@ -8,12 +8,12 @@
   imports = [
     ./aliases.nix
     ./bat.nix
-    ./foot.nix
     ./fuzzel.nix
     ./git.nix
     ./gnome.nix
     ./gtk.nix
     ./helix.nix
+    ./kitty.nix
     ./kanshi.nix
     ./mako.nix
     ./neovim.nix
@@ -27,7 +27,6 @@
     ./vscode.nix
     ./waybar.nix
     ./zed-editor.nix
-    ./zellij.nix
     ./zsh.nix
   ];
 

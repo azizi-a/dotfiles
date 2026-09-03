@@ -92,7 +92,7 @@ entry in `flake.nix`; the modules are already shared.
 | tlp enable + mask ppd                  | `modules/nixos/power.nix`, two options                        |
 | `powertop --calibrate`                 | `powerManagement.powertop.enable`                             |
 | `gsettings set ...` lines              | `modules/home/gnome.nix` (dconf)                              |
-| guake `--restore-preferences`          | `modules/home/foot.nix` + sway scratchpad                     |
+| guake `--restore-preferences`          | `modules/home/kitty.nix` + sway scratchpad                    |
 | vim-plug + `:PlugInstall`              | `programs.neovim.plugins`                                     |
 | coc `extensions/package.json`          | `coc-*` plugins from nixpkgs                                  |
 | timeshift                              | boot generations, see `backups.nix`                           |
@@ -143,7 +143,7 @@ providing are now explicit:
 | **polkit agent**        | `polkit_gnome`, a user service in `sway.nix` |
 | display arrangements    | `kanshi.nix`                                 |
 | GTK theming             | `gtk.nix` (no settings daemon under sway)    |
-| guake                   | `foot.nix` in sway's scratchpad              |
+| guake                   | `kitty.nix` in sway's scratchpad             |
 
 The polkit agent is the one to remember: without it 1Password cannot
 authorise at all, and `pkexec` prompts vanish with no error.
