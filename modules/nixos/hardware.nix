@@ -6,7 +6,6 @@
 
     bluetooth = {
       enable = true;
-      powerOnBoot = true;
       settings.General = {
         # Headset battery reporting and better codec negotiation.
         Experimental = true;

@@ -101,7 +101,6 @@ let
       sway
       jq
       fuzzel
-      gnugrep
       gnused
       gawk
       coreutils
@@ -109,12 +108,37 @@ let
     text = ''
       swaymsg -t get_config \
         | jq -r '.config' \
-        | grep -E '^[[:space:]]*bindsym' \
-        | sed -E 's#^[[:space:]]*bindsym[[:space:]]+(--[a-z-]+[[:space:]]+)*##' \
-        | sed -E 's#/nix/store/[a-z0-9]{32}-[^/]+/bin/##g' \
-        | sed -E 's#\bMod4\b#Super#g; s#\bMod1\b#Alt#g' \
+        | sed -E '
+            s#/nix/store/[a-z0-9]{32}-[^/]+/bin/##g
+            s/\bMod4\b/Super/g
+            s/\bMod1\b/Alt/g
+            s#\bslash\b#/#g
+            s/\bcomma\b/,/g
+            s/\bperiod\b/./g
+            s/\bminus\b/-/g
+            s/\bplus\b/+/g
+            s/\bequal\b/=/g
+            s/\bgrave\b/`/g
+            s/\bbracketleft\b/[/g
+            s/\bbracketright\b/]/g
+            s/\bspace\b/Space/g
+            s/\bLeft\b/←/g
+            s/\bDown\b/↓/g
+            s/\bUp\b/↑/g
+            s/\bRight\b/→/g
+          ' \
+        | awk '
+            /^mode "/ { m = $0; sub(/^mode "/, "", m); sub(/".*/, "", m); mode = m; next }
+            /^}/      { mode = ""; next }
+            /^[[:space:]]*bindsym/ {
+              sub(/^[[:space:]]*bindsym[[:space:]]+/, "")
+              sub(/^(--[a-zA-Z-]+[[:space:]]+)+/, "")
+              key = $1; $1 = ""; sub(/^ /, "")
+              if (mode != "") $0 = "(" mode " mode) " $0
+              printf "%-22s %s\n", key, $0
+            }
+          ' \
         | sort -f \
-        | awk '{ key = $1; $1 = ""; sub(/^ /, ""); printf "%-26s %s\n", key, $0 }' \
         | fuzzel --dmenu --prompt 'keys: ' >/dev/null || true
     '';
   };
@@ -134,7 +158,6 @@ in
 
     config = {
       modifier = mod;
-      terminal = "${pkgs.foot}/bin/foot";
       menu = "${pkgs.fuzzel}/bin/fuzzel";
 
       window = {
