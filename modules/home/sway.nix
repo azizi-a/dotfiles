@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }:
@@ -176,10 +177,12 @@ in
         }
       ];
 
-      keybindings = {
+      # mkOptionDefault, or this replaces every default binding rather
+      # than adding to them: focus, move, workspaces, kill, the lot.
+      keybindings = lib.mkOptionDefault {
         # --- Launching and discovering ----------------------------------
-        # Super+Space displaces focus mode_toggle, rebound below.
-        "${mod}+space" = "exec ${pkgs.fuzzel}/bin/fuzzel";
+        # mkForce because this is the one key that collides with a default.
+        "${mod}+space" = lib.mkForce "exec ${pkgs.fuzzel}/bin/fuzzel";
         "${mod}+Tab" = "focus mode_toggle";
         "${mod}+slash" = "exec ${sway-keys}/bin/sway-keys";
 
