@@ -3,8 +3,7 @@ let
   theme = import ./theme.nix;
 in
 {
-  # Replaces the GNOME top bar and dash-to-dock. Runs as a systemd user
-  # service rather than a sway exec line so it comes back if it crashes.
+  # A user service rather than a sway exec, to restart on crash.
   programs.waybar = {
     enable = true;
     systemd.enable = true;
@@ -37,7 +36,6 @@ in
       "sway/mode".format = "<span style=\"italic\">{}</span>";
       "sway/window" = {
         max-length = 60;
-        # The bar is not a title bar; an empty workspace should look empty.
         format = "{title}";
       };
 
@@ -48,9 +46,7 @@ in
         tooltip-format = "<tt><small>{calendar}</small></tt>";
       };
 
-      # Framework enumerates the battery as BAT1, not BAT0. The same
-      # quirk is why the TLP thresholds in modules/nixos/power.nix are
-      # commented out.
+      # Framework enumerates the battery as BAT1, not BAT0.
       battery = {
         bat = "BAT1";
         states = {

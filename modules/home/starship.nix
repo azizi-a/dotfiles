@@ -2,15 +2,11 @@
 {
   programs.starship = {
     enable = true;
-    # Replaces `eval "$(starship init zsh)"` in zshrc, and
-    # install-scripts/starship.sh which piped a shell script off the web.
     enableZshIntegration = true;
 
     # Home Manager serialises this to ~/.config/starship.toml.
     settings = {
-      # The original used a TOML multi-line string with trailing
-      # backslashes, which TOML strips. A list joined into one string is
-      # the same value and easier to reorder.
+      # A joined list rather than a TOML multi-line string, to reorder easily.
       format = lib.concatStrings [
         "$username"
         "$hostname"
@@ -170,16 +166,12 @@
       username = {
         style_root = "bright-red";
         style_user = "yellow";
-        # Carried over as-is, but worth a look: this format has no $user
-        # in it, so the module renders only the style wrapper. You
-        # probably want "[$user]($style) ".
+        # No $user here, so this renders only the style wrapper.
         format = "($style)";
         show_always = true;
         disabled = false;
       };
 
-      # Not in the original, but now that you are on NixOS the nix_shell
-      # module earns its place in the format string above.
       nix_shell = {
         disabled = false;
         symbol = " ";

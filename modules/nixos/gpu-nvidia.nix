@@ -1,10 +1,5 @@
-# ---------------------------------------------------------------------------
-# Replacement for `sudo ubuntu-drivers autoinstall`.
-#
-# NOT imported by modules/nixos/default.nix. Import it from a host file only
-# on machines that actually have an Nvidia card, otherwise you pull a large
-# proprietary driver onto an Intel-only laptop.
-# ---------------------------------------------------------------------------
+# Not imported by default. Import from a host file only where there is an
+# Nvidia card, or you pull the proprietary driver onto an Intel laptop.
 { config, ... }:
 {
   services.xserver.videoDrivers = [ "nvidia" ];
@@ -15,17 +10,15 @@
     modesetting.enable = true;
     nvidiaSettings = true;
 
-    # Pascal (GTX 10xx) is not supported by the open kernel modules.
-    # Set to true only on Turing (RTX 20xx) or newer.
+    # True only on Turing (RTX 20xx) or newer; Pascal has no open module.
     open = false;
 
-    # Suspend/resume support. Helps on laptops, occasionally flaky.
+    # Suspend/resume. Helps on laptops, occasionally flaky.
     powerManagement.enable = true;
     powerManagement.finegrained = false;
 
-    # --- Hybrid graphics (Optimus) only ------------------------------------
-    # Find the bus IDs with `lspci | grep -E "VGA|3D"` and convert the
-    # hex address to the "PCI:bus:device:function" decimal form.
+    # Optimus only. Bus IDs from `lspci | grep -E "VGA|3D"`, hex address
+    # converted to decimal "PCI:bus:device:function".
     #
     # prime = {
     #   offload = {

@@ -4,13 +4,10 @@
     enable = true;
     package = pkgs.vscode;
 
-    # Leave the extensions directory writable so you can still install
-    # things from the Open VSX marketplace by hand. Set to false if you
-    # want the declared list to be the only source of truth.
+    # Writable, so marketplace installs by hand still stick.
     mutableExtensionsDir = true;
 
-    # The profiles.* layout arrived in Home Manager 25.05. On older
-    # releases these options sit directly under programs.vscode.
+    # profiles.* arrived in Home Manager 25.05.
     profiles.default = {
       extensions = with pkgs.vscode-extensions; [
         esbenp.prettier-vscode
@@ -22,11 +19,9 @@
         mkhl.direnv
         jnoortheen.nix-ide
 
-        # Not in nixpkgs: liviuschera.noctis (your colour theme),
+        # Not in nixpkgs, so install by hand or add the
+        # nix-vscode-extensions flake: liviuschera.noctis,
         # oderwat.indent-rainbow, naumovs.color-highlight.
-        # Either install them from the marketplace (mutableExtensionsDir
-        # is on, so they will stick), or add the nix-vscode-extensions
-        # flake as an input and pull them from Open VSX declaratively.
       ];
 
       userSettings = {
@@ -113,8 +108,7 @@
         ];
 
         # --- Neovim integration ---------------------------------------------
-        # The three darwin-specific paths and the /usr/local/opt one are
-        # dropped; this resolves to the exact nvim built by neovim.nix.
+        # The exact nvim built by neovim.nix.
         "vscode-neovim.neovimExecutablePaths.linux" = "${pkgs.neovim}/bin/nvim";
         "extensions.experimental.affinity"."asvetliakov.vscode-neovim" = 1;
 
@@ -134,7 +128,7 @@
         "nix.serverPath" = "nixd";
         "nix.formatterPath" = "nixfmt";
 
-        # --- Misc -------------------------------------------------------------
+        # --- Misc -----------------------------------------------------------
         "diffEditor.ignoreTrimWhitespace" = false;
         "diffEditor.maxComputationTime" = 0;
         "explorer.confirmDragAndDrop" = false;
@@ -147,18 +141,12 @@
         };
         "files.associations"."*.cs" = "csharp";
 
-        # Dropped as no longer meaningful here: sync.gist (settings sync
-        # is superseded by this repo), bracket-pair-colorizer-2.* (folded
-        # into the editor years ago), the csharpextensions and
-        # terminal.external.osxExec keys.
       };
     };
   };
 
-  # Snippets are copied verbatim rather than translated into Nix. The
-  # bodies are full of ${1:placeholder} syntax that would need escaping at
-  # every occurrence, and JSON-with-comments survives the round trip
-  # intact this way.
+  # Copied verbatim: the bodies are full of placeholder syntax that would
+  # need escaping at every occurrence.
   xdg.configFile = {
     "Code/User/snippets/html.json".source = ../../config/vscode/snippets/html.json;
     "Code/User/snippets/typescript.json".source = ../../config/vscode/snippets/typescript.json;

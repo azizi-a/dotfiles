@@ -8,10 +8,8 @@ let
 
   mod = "Mod4"; # Super. Mod1 (Alt) is left free for the scratchpad.
 
-  # Rectangle-style snapping. A script rather than bindsym lines because
-  # sway cannot scope a binding to the focused window when it is floating;
-  # see the README. ppt is percent of the workspace, which already
-  # excludes waybar, and is integer-only, hence 33/34/33 for thirds.
+  # A script because sway cannot scope a binding to the focused window
+  # when it is floating; see the README. ppt is integer-only, hence 33/34/33.
   sway-snap = pkgs.writeShellApplication {
     name = "sway-snap";
     runtimeInputs = with pkgs; [
@@ -59,8 +57,7 @@ let
     '';
   };
 
-  # Region select to a timestamped file, matching the ~/Screenshots ->
-  # ~/Pictures/Screenshots symlink set up in modules/home/default.nix.
+  # Writes where the ~/Screenshots symlink in default.nix points.
   sway-screenshot = pkgs.writeShellApplication {
     name = "sway-screenshot";
     runtimeInputs = with pkgs; [
@@ -75,9 +72,7 @@ let
       mkdir -p "$dir"
       file="$dir/$(date +%Y-%m-%d_%H-%M-%S).png"
 
-      # slurp exits nonzero and prints nothing when cancelled with Escape.
-      # Selecting first, in the parent shell, means cancelling aborts
-      # rather than feeding grim an empty geometry.
+      # Selected here so cancelling slurp aborts rather than feeding grim.
       geom=""
       case "$mode" in
         region | clip)
@@ -98,8 +93,7 @@ let
     '';
   };
 
-  # Read from the live config, so it covers the Home Manager defaults
-  # this file never spells out and cannot drift from what is bound.
+  # Live config, so it covers the Home Manager defaults and cannot drift.
   sway-keys = pkgs.writeShellApplication {
     name = "sway-keys";
     runtimeInputs = with pkgs; [
@@ -142,25 +136,19 @@ in
       terminal = "${pkgs.foot}/bin/foot";
       menu = "${pkgs.fuzzel}/bin/fuzzel";
 
-      # The title is already in waybar, so a border alone marks focus.
-      # Drag floating windows with Super held, having no bar to grab.
       window = {
         titlebar = false;
-        border = 2;
+        border = 1;
       };
       floating = {
         titlebar = false;
-        border = 2;
+        border = 1;
       };
 
-      # An empty list suppresses the bar block entirely. The default is a
-      # one-element list running swaybar with i3status, which would sit
-      # underneath waybar reserving a second exclusive zone.
+      # Empty suppresses swaybar, which would reserve a second zone.
       bars = [ ];
 
-      # Was services.xserver.xkb plus the dconf input-sources key. The
-      # system-level setting still covers the GDM screen and TTYs; this
-      # is sway's own copy.
+      # sway's own copy; services.xserver.xkb still covers GDM and TTYs.
       input = {
         "type:keyboard" = {
           xkb_layout = "gb";
@@ -173,21 +161,14 @@ in
         };
       };
 
-      # 2256x1504 at 13.5" is ~201 DPI. 1.5 is the equivalent of the 150%
-      # you would have picked in GNOME's Settings > Displays. Confirm the
-      # connector name with `swaymsg -t get_outputs` if this ever moves.
-      #
-      # Wallpaper is a solid colour rather than an image on purpose: sway
-      # config is validated in the Nix build sandbox, where a path under
-      # $HOME does not exist and would fail the build.
+      # ~201 DPI. A colour not an image: the build-time config validator
+      # cannot see a path under $HOME.
       output."eDP-1" = {
         scale = "1.5";
         bg = "#${theme.bg} solid_color";
       };
 
-      # The scratchpad terminal is spawned once per session and parked.
-      # Without this it would only exist after the first toggle, and the
-      # first toggle would have nothing to show.
+      # Spawned once and parked, or the first toggle has nothing to show.
       startup = [
         {
           # foot has no tabs; zellij is what supplies them.
@@ -197,15 +178,13 @@ in
 
       keybindings = {
         # --- Launching and discovering ----------------------------------
-        # Super+Space displaces sway's default focus mode_toggle, which
-        # takes Super+Tab. $mod+d stays bound by the Home Manager default.
+        # Super+Space displaces focus mode_toggle, rebound below.
         "${mod}+space" = "exec ${pkgs.fuzzel}/bin/fuzzel";
         "${mod}+Tab" = "focus mode_toggle";
         "${mod}+slash" = "exec ${sway-keys}/bin/sway-keys";
 
         # --- Rectangle-style snapping (floating windows only) ----------
-        # $mod+Shift+space floats the focused window, which is what makes
-        # these apply. On a tiled window they deliberately do nothing.
+        # Inert on tiled windows; $mod+Shift+space floats one first.
         "${mod}+Ctrl+Left" = snap "left-half";
         "${mod}+Ctrl+Right" = snap "right-half";
         "${mod}+Ctrl+Up" = snap "top-half";
@@ -226,23 +205,18 @@ in
         "${mod}+Ctrl+c" = snap "centre";
 
         # --- Monitors ---------------------------------------------------
-        # sway wraps at the end of the layout, so these cycle rather than
-        # stopping at the last screen. Unlike the snap keys, they work on
-        # tiled and floating windows alike.
+        # Wraps at the last screen. Works on tiled windows too.
         "${mod}+comma" = "focus output left";
         "${mod}+period" = "focus output right";
         "${mod}+Shift+comma" = "move container to output left";
         "${mod}+Shift+period" = "move container to output right";
 
-        # Drop-down terminal on guake's old Alt+Space, the only Mod1
-        # binding. Geometry is re-applied on every show: sway re-centres
-        # a window returning from the scratchpad and may drop its size.
+        # Re-applied on show: sway re-centres and may drop the size.
         "Mod1+space" =
           "[app_id=\"scratchpad-term\"] scratchpad show,"
           + " resize set 40 ppt 67 ppt, move position 0 ppt 0 ppt";
 
-        # Lock. Echoes macOS's Ctrl+Cmd+Q, and $mod+Shift+q is already
-        # sway's kill-window.
+        # Echoes macOS's Ctrl+Cmd+Q; $mod+Shift+q is already kill-window.
         "${mod}+Ctrl+q" = "exec ${config.programs.swaylock.package}/bin/swaylock -f";
 
         # --- Screenshots ------------------------------------------------
@@ -251,7 +225,6 @@ in
         "Ctrl+Print" = "exec ${sway-screenshot}/bin/sway-screenshot clip";
 
         # --- Media and brightness keys ----------------------------------
-        # GNOME bound these for you; under sway they are just bindings.
         "XF86AudioRaiseVolume" = "exec ${pkgs.wireplumber}/bin/wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+";
         "XF86AudioLowerVolume" = "exec ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
         "XF86AudioMute" = "exec ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
@@ -266,16 +239,12 @@ in
       };
     };
 
-    # Plain sway syntax for the things that have no Home Manager option,
-    # kept here so there is one obvious place to look for them.
+    # The things with no Home Manager option.
     extraConfig = ''
-      # 40% wide, 67% tall, against the left edge. Parked in the
-      # scratchpad at startup so Alt+Space toggles it rather than
-      # spawning a second one.
+      # Parked at startup so Alt+Space toggles rather than spawning.
       for_window [app_id="scratchpad-term"] floating enable, resize set 40 ppt 67 ppt, move position 0 ppt 0 ppt, move scratchpad
 
-      # Dialogs and pickers are tiled by default under sway, which makes
-      # them awkward. Floating them also means the snap keys work on them.
+      # Tiled dialogs are awkward, and floating them enables the snap keys.
       for_window [window_role="dialog"] floating enable
       for_window [window_type="dialog"] floating enable
       for_window [app_id="pavucontrol"] floating enable
@@ -284,14 +253,10 @@ in
     '';
   };
 
-  # Clipboard history is deliberately not enabled. cliphist only skips
-  # entries whose MIME types carry the password-manager hint, and
-  # 1Password does not set it, so every copied secret would persist in a
-  # plaintext history that outlives 1Password's own clipboard timer.
-  # GNOME kept no such history either, so this is not a regression.
+  # No clipboard history: cliphist only skips entries with the password
+  # manager MIME hint, which 1Password does not set, so secrets persist.
 
-  # A systemd user unit rather than a sway `exec` line, so it restarts on
-  # crash and stops with the session.
+  # A unit rather than a sway `exec`, to restart on crash.
   systemd.user.services.polkit-gnome-authentication-agent-1 = {
     Unit = {
       Description = "polkit-gnome authentication agent";
@@ -302,8 +267,7 @@ in
     Service = {
       ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
       Restart = "on-failure";
-      # Default is 5 restarts per 10s, after which systemd gives up for
-      # the session and polkit prompts silently stop appearing.
+      # Or systemd gives up after 5 restarts and prompts silently stop.
       StartLimitIntervalSec = 0;
     };
   };

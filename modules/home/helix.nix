@@ -3,17 +3,11 @@
   programs.helix = {
     enable = true;
 
-    # Set to true to export EDITOR=hx. Left off because your git
-    # core.editor is codium --wait, which would then disagree with the
-    # rest of the shell. Harmless either way, since git's own setting wins.
+    # Off so EDITOR does not disagree with git's core.editor.
     defaultEditor = false;
 
     settings = {
-      # Helix ships noctis as a built-in theme, so nothing needs
-      # vendoring. `:theme noctis_bordo` is the warmer variant if you
-      # want to try it. To override individual colours without leaving
-      # Nix, use programs.helix.themes to write a theme that
-      # `inherits = "noctis"`.
+      # Built in, so nothing needs vendoring. noctis_bordo is warmer.
       theme = "noctis";
 
       editor = {
@@ -123,8 +117,7 @@
       ];
     };
 
-    # Language servers and formatters, on PATH for helix only. Mirrors the
-    # coc extension list from neovim.nix.
+    # On PATH for helix only. Mirrors neovim.nix's coc extension list.
     extraPackages = with pkgs; [
       nixd
       nixfmt

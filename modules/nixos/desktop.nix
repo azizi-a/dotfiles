@@ -5,18 +5,14 @@
   # Note the paths: these moved out of services.xserver in 24.11.
   services.displayManager.gdm.enable = true;
 
-  # Without this GDM has no reason to prefer sway, and the first login
-  # after the migration lands back in GNOME.
+  # Without this GDM has no reason to prefer sway over GNOME.
   services.displayManager.defaultSession = "sway";
 
-  # The fallback session now, so a broken sway config means picking a
-  # different session rather than a trip to a TTY. xserver.enable stays on
-  # for XWayland and GNOME's X11 session; GDM does not gate sway on it.
+  # Kept as the fallback, so a broken sway config is a session switch
+  # rather than a trip to a TTY. Nothing here gates sway.
   services.desktopManager.gnome.enable = true;
 
-  # caps -> escape, shift+caps -> caps lock.
-  # Set here as well as in dconf because GNOME reads its own copy; having
-  # it at this level means it also applies at the GDM login screen and TTY.
+  # Also covers the GDM screen and the TTYs, which dconf does not.
   services.xserver.xkb = {
     layout = "gb";
     options = "caps:escape_shifted_capslock";
@@ -29,17 +25,14 @@
     gnome-tweaks
     gnome-extension-manager
 
-    # Ubuntu ships a patched dash-to-dock as part of the desktop; on
-    # vanilla GNOME it is a normal extension you install and enable.
+    # Enabled in modules/home/gnome.nix.
     gnomeExtensions.dash-to-dock
     gnomeExtensions.appindicator
 
-    # Provides Yaru-viridian / Yaru-viridian-dark, so your gtk-theme and
-    # icon-theme settings resolve to something real.
+    # What theme.nix's gtkTheme and iconTheme names resolve to.
     yaru-theme
   ];
 
-  # Trim the parts of stock GNOME you never used on Ubuntu.
   environment.gnome.excludePackages = with pkgs; [
     epiphany
     geary
@@ -51,9 +44,7 @@
     yelp
   ];
 
-  # Makes Electron and Chromium apps (VSCode, Cursor, Discord, Chromium)
-  # run natively on Wayland. This is the declarative replacement for the
-  # `--ozone-platform=wayland` flags scattered through your aliases.
+  # Electron and Chromium apps go native Wayland, no per-app flags.
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # GNOME keyring, needed by 1Password and VSCode secret storage.

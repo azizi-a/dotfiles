@@ -1,9 +1,7 @@
 { pkgs, lib, ... }:
 let
-  # noctis-nvim is usually in nixpkgs, but the attribute has come and gone
-  # over releases. `or` makes the fallback lazy, so the build below is only
-  # evaluated if the attribute is genuinely missing. If that happens you
-  # will get a hash mismatch error that prints the correct hash to paste in.
+  # The nixpkgs attribute has come and gone across releases, so `or`
+  # falls back lazily. Expect a hash mismatch naming the right hash.
   noctis =
     pkgs.vimPlugins.noctis-nvim or (pkgs.vimUtils.buildVimPlugin {
       pname = "noctis-nvim";
@@ -22,15 +20,10 @@ in
   programs.neovim = {
     enable = true;
 
-    # coc.nvim is a Node application, so its runtime has to be declared.
-    # This replaces the nvim/coc/extensions/package.json dance.
+    # coc.nvim is a Node application and needs its runtime declared.
     withNodeJs = true;
     withPython3 = true;
 
-    # Plugins are installed by Nix, so vim-plug is gone entirely: no
-    # autoload/plug.vim in the repo, no curl bootstrap, and no
-    # `:PlugInstall` step in the README. Each plugin carries its own
-    # config, which is roughly what plugin-configs/ was already doing.
     plugins = with pkgs.vimPlugins; [
       vim-polyglot # better syntax support
       nerdtree # file explorer
@@ -57,17 +50,10 @@ in
         config = builtins.readFile "${pluginConfigs}/coc.lua";
       }
 
-      # The coc-* extension packages are deliberately NOT listed here.
-      # nixpkgs has been dropping them as unmaintained (coc-tsserver went
-      # first), and pinning the rest just queues up the same error one
-      # attribute at a time. They are installed by coc itself instead,
-      # via g:coc_global_extensions in extraConfig below, which is the
-      # mechanism coc is designed around and which mirrors what
-      # nvim/coc/extensions/package.json did on Ubuntu.
+      # coc-* packages are not listed: nixpkgs keeps dropping them as
+      # unmaintained. g:coc_global_extensions below installs them instead.
 
-      # lightline.vim's config calls FugitiveHead, which needs fugitive
-      # to be installed. It was missing from the Ubuntu plugin list, so
-      # the git branch segment was silently blank.
+      # lightline calls FugitiveHead, so fugitive has to be present.
       vim-fugitive
       {
         plugin = lightline-vim;
@@ -76,8 +62,7 @@ in
       }
     ];
 
-    # Language servers and formatters that coc and friends shell out to.
-    # On Ubuntu these came from npm -g; here they are on PATH for nvim only.
+    # What coc shells out to, on PATH for nvim only.
     extraPackages = with pkgs; [
       nixd
       typescript-language-server
@@ -131,10 +116,8 @@ in
     '';
   };
 
-  # coc reads this from next to init.vim. It matters on NixOS because
-  # coc-rust-analyzer would otherwise download its own rust-analyzer
-  # binary, which is dynamically linked and will not run without
-  # programs.nix-ld. Pointing it at the nixpkgs one avoids that entirely.
+  # Or coc-rust-analyzer downloads its own, which is dynamically linked
+  # and will not run without nix-ld.
   xdg.configFile."nvim/coc-settings.json".text = builtins.toJSON {
     "rust-analyzer.server.path" = "${pkgs.rust-analyzer}/bin/rust-analyzer";
     "tsserver.tsdk" = "${pkgs.typescript}/lib/node_modules/typescript/lib";

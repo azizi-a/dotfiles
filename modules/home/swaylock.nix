@@ -6,13 +6,11 @@
 let
   theme = import ./theme.nix;
 
-  # -f daemonises after the lock surface is up, so swayidle and the
-  # sleep hook cannot race the screen going off before it is covered.
+  # -f daemonises only once the lock surface is up, so nothing races it.
   lock = "${config.programs.swaylock.package}/bin/swaylock -f";
 in
 {
-  # GNOME's lock screen. programs.swaylock.enable does not follow
-  # settings being set on a current home.stateVersion, so it is explicit.
+  # enable does not follow settings on a current stateVersion.
   programs.swaylock = {
     enable = true;
     package = pkgs.swaylock-effects;
@@ -38,8 +36,7 @@ in
     };
   };
 
-  # Was GNOME's idle/blank/lock settings plus logind. Note the ordering:
-  # lock before the screen powers off, so waking never shows the desktop.
+  # Lock before the screen powers off, so waking never shows the desktop.
   services.swayidle = {
     enable = true;
 
@@ -55,8 +52,7 @@ in
       }
     ];
 
-    # An attrset, not a list of { event; command; }. The list form still
-    # parses but warns on activation.
+    # An attrset; the old list form still parses but warns.
     events = {
       before-sleep = lock;
       lock = lock;

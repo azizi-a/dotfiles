@@ -3,9 +3,7 @@
   home.shellAliases = {
     # --- Navigation -------------------------------------------------------
     "~" = "cd ~";
-    # `..` is deliberately NOT an alias any more. It is a function in
-    # zsh.nix so it can take an optional sibling path, and an alias would
-    # win over the function at parse time.
+    # `..` is a function in zsh.nix; an alias would shadow it.
 
     # --- Listing ----------------------------------------------------------
     ll = "eza -lah --icons";
@@ -19,19 +17,8 @@
     # Backslash escapes the $ so Nix leaves the zsh expansion alone.
     path = "<<<\${(F)path}";
 
-    # `alias bat=batcat` is dropped: nixpkgs ships the binary as `bat`.
-
-    # No --ozone-platform=wayland here. NIXOS_OZONE_WL=1 is set globally
-    # in modules/nixos/desktop.nix, so every Electron app picks Wayland up.
+    # No ozone flag needed: NIXOS_OZONE_WL is set in desktop.nix.
     code = "codium";
-
-    # The cursor() wrapper function is also gone: --no-sandbox was working
-    # around the AppImage on Ubuntu, and the nixpkgs build does not need
-    # it. `cursor-update` has no meaning now that updates come from a
-    # rebuild, so it is dropped too.
-
-    # tptog now points at the script built in scripts.nix rather than a
-    # checked-in shell file, so there is no ~/.dotfiles path to keep valid.
 
     # --- Nix --------------------------------------------------------------
     rebuild = "sudo nixos-rebuild switch --flake ~/.dotfiles#nixos-laptop";

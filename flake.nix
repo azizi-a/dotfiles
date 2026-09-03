@@ -2,8 +2,7 @@
   description = "azizi-a NixOS + Home Manager configuration";
 
   inputs = {
-    # 26.05 "Yarara" is the current stable release. Swap for
-    # "github:NixOS/nixpkgs/nixos-unstable" if you want rolling.
+    # nixos-unstable for rolling.
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
     home-manager = {
@@ -11,9 +10,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Hardware quirk modules. Tracks master rather than a release branch
-    # because it has no nixpkgs dependency of its own and fixes land there
-    # first. Imported per-host, in hosts/laptop/default.nix.
+    # master rather than a release branch: no nixpkgs dependency of its
+    # own, and fixes land there first. Imported per-host.
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
@@ -22,8 +20,7 @@
     let
       system = "x86_64-linux";
 
-      # Single source of truth for identity. Referenced by both the NixOS
-      # modules and the Home Manager modules via specialArgs.
+      # Reaches both module trees via specialArgs.
       user = {
         name = "azizi";
         fullName = "Azizi";
@@ -43,8 +40,7 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              # Renames any pre-existing dotfile that HM wants to own,
-              # rather than refusing to activate. Handy during migration.
+              # Rename rather than refuse to activate on a clash.
               backupFileExtension = "hm-bak";
               extraSpecialArgs = { inherit inputs user; };
               users.${user.name} = import ./modules/home;

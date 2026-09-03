@@ -1,12 +1,7 @@
 { pkgs, ... }:
 let
-  # Was toggle_touchpad.sh, reached through an alias pointing at
-  # ~/.dotfiles. Building it as a package means it lands on PATH properly,
-  # gets shellcheck run over it at build time, and does not break if you
-  # move the repo.
-  #
-  # Drives sway rather than gsettings: the GNOME key it used to set is
-  # read by mutter, so under sway it toggled a value nothing acts on.
+  # A package so it lands on PATH and gets shellchecked at build time.
+  # Drives swaymsg: the GNOME key it used to set is read by mutter.
   tptog = pkgs.writeShellApplication {
     name = "tptog";
     runtimeInputs = with pkgs; [

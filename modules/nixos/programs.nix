@@ -1,21 +1,16 @@
 { pkgs, user, ... }:
 {
-  # Replaces install-scripts/1password.sh entirely: no apt repo, no GPG
-  # key, no debsig policy. The GUI needs system-level setup for its
-  # browser integration and polkit rules, so it cannot live in Home Manager.
+  # System level, the GUI needing polkit rules and browser integration.
   programs._1password.enable = true;
   programs._1password-gui = {
     enable = true;
     polkitPolicyOwners = [ user.name ];
   };
 
-  # Was `apt install input-remapper` plus enabling the daemon.
   services.input-remapper.enable = true;
 
-  # Lets dynamically linked binaries that were not built by Nix find their
-  # libraries. You need this if you keep using nvm or rustup, or run
-  # anything that ships a prebuilt ELF (some npm postinstall steps,
-  # Cursor's own updater, language server binaries downloaded by editors).
+  # Lets prebuilt ELFs find their libraries: rustup, Cursor's updater,
+  # language servers editors download for themselves.
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [
@@ -28,9 +23,8 @@
     ];
   };
 
-  # Kept minimal on purpose. Anything that is "yours" rather than "the
-  # machine's" belongs in modules/home/packages.nix, so it can be rebuilt
-  # without sudo.
+  # Minimal on purpose: anything of yours goes in home/packages.nix,
+  # which rebuilds without sudo.
   environment.systemPackages = with pkgs; [
     curl
     git
@@ -41,7 +35,6 @@
     usbutils
   ];
 
-  # Fixes the 5s hang on shutdown when NetworkManager waits for a network
-  # that is already gone. Harmless to keep.
+  # Fixes the 5s shutdown hang waiting on a network already gone.
   systemd.services.NetworkManager-wait-online.enable = false;
 }

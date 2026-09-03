@@ -1,20 +1,15 @@
 { pkgs, ... }:
 {
-  # Sway needs enabling at system level even though the whole compositor
-  # config lives in modules/home/sway.nix. This is what registers the
-  # wayland session so GDM offers "Sway" alongside GNOME, and the shared
-  # wayland-session module behind it also turns on polkit, dconf, the
-  # wlroots portal, the GTK portal and security.pam.services.swaylock.
+  # Registers the wayland session so GDM lists it, and pulls in polkit,
+  # dconf, both portals and pam.services.swaylock. Config is in home/.
   programs.sway = {
     enable = true;
 
-    # Themes GTK apps that sway itself launches; in practice the polkit
-    # dialog, which is otherwise unstyled white.
+    # Themes GTK apps sway launches itself, in practice the polkit dialog.
     wrapperFeatures.gtk = true;
 
-    # extraPackages is deliberately left alone. Assigning it replaces the
-    # module default (brightnessctl, foot, grim, swayidle, swaylock,
-    # wmenu) rather than adding to it, so extras go below instead.
+    # extraPackages is left alone: assigning it replaces the module
+    # default rather than adding to it, so extras go below.
   };
 
   environment.systemPackages = with pkgs; [
@@ -27,10 +22,8 @@
     slurp # region select, feeds grim
     wl-clipboard # sway-screenshot copies through wl-copy
 
-    # sway ships no polkit agent; the README says what breaks without one.
-    # polkit_gnome is ancient but is the one that surfaces the fprintd
-    # prompt; security.soteria is the maintained fallback. The unit that
-    # runs it is in modules/home/sway.nix.
+    # sway ships no polkit agent; see the README. Ancient, but the one
+    # that surfaces the fprintd prompt. Unit is in home/sway.nix.
     polkit_gnome
   ];
 
@@ -39,8 +32,7 @@
   # sudo, polkit and GDM keep the reader.
   security.pam.services.swaylock.fprintAuth = false;
 
-  # programs.sway turns on the wlr and GTK portal backends but not the
-  # portal service itself. GNOME happens to enable it today; spelling it
-  # out means the sway session survives GNOME ever being removed.
+  # programs.sway enables the backends but not the service; GNOME happens
+  # to today, and this outlives GNOME being removed.
   xdg.portal.enable = true;
 }
