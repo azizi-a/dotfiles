@@ -98,12 +98,39 @@ let
     '';
   };
 
+  # Read from the live config, so it covers the Home Manager defaults
+  # this file never spells out and cannot drift from what is bound.
+  sway-keys = pkgs.writeShellApplication {
+    name = "sway-keys";
+    runtimeInputs = with pkgs; [
+      sway
+      jq
+      fuzzel
+      gnugrep
+      gnused
+      gawk
+      coreutils
+    ];
+    text = ''
+      swaymsg -t get_config \
+        | jq -r '.config' \
+        | grep -E '^[[:space:]]*bindsym' \
+        | sed -E 's#^[[:space:]]*bindsym[[:space:]]+(--[a-z-]+[[:space:]]+)*##' \
+        | sed -E 's#/nix/store/[a-z0-9]{32}-[^/]+/bin/##g' \
+        | sed -E 's#\bMod4\b#Super#g; s#\bMod1\b#Alt#g' \
+        | sort -f \
+        | awk '{ key = $1; $1 = ""; sub(/^ /, ""); printf "%-26s %s\n", key, $0 }' \
+        | fuzzel --dmenu --prompt 'keys: ' >/dev/null || true
+    '';
+  };
+
   snap = preset: "exec ${sway-snap}/bin/sway-snap ${preset}";
 in
 {
   home.packages = [
     sway-snap
     sway-screenshot
+    sway-keys
     pkgs.playerctl # media keys
   ];
 
@@ -168,6 +195,13 @@ in
       ];
 
       keybindings = {
+        # --- Launching and discovering ----------------------------------
+        # Super+Space displaces sway's default focus mode_toggle, which
+        # takes Super+Tab. $mod+d stays bound by the Home Manager default.
+        "${mod}+space" = "exec ${pkgs.fuzzel}/bin/fuzzel";
+        "${mod}+Tab" = "focus mode_toggle";
+        "${mod}+slash" = "exec ${sway-keys}/bin/sway-keys";
+
         # --- Rectangle-style snapping (floating windows only) ----------
         # $mod+Shift+space floats the focused window, which is what makes
         # these apply. On a tiled window they deliberately do nothing.
