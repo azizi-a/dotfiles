@@ -20,6 +20,7 @@
 
     # --- Apps ------------------------------------------------------------
     discord
+    protonmail-desktop
     spotify
     vlc
 
