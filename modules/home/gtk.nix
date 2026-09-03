@@ -17,6 +17,11 @@ in
       name = theme.iconTheme;
       package = pkgs.yaru-theme;
     };
+
+    # A dark theme name alone leaves dialogs and pickers light; apps read
+    # this flag to pick their dark variant.
+    gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
+    gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
   };
 
   # Exports XCURSOR_*, which sway forwards to its seat and to clients.
