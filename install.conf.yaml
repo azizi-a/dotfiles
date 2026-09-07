@@ -21,6 +21,10 @@
       create: true
     ~/.config/bat:
       create: true
+    ~/.config/glide:
+      create: true
+    ~/.config/helix:
+      create: true
     ~/.config/coc:
       path: nvim/coc
       create: true

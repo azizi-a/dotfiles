@@ -1,0 +1,28 @@
+[settings]
+default_disable = false
+default_keys = true
+group_bars.thickness = 4
+
+[settings.experimental]
+status_icon.space_index = true
+
+[keys]
+"Alt + Space" = "disable"
+"Alt + Shift + Tab" = "toggle_window_floating"
+"Alt + Tab" = "toggle_focus_floating"
+
+# Arrow-key mirrors of the default h/j/k/l bindings.
+"Alt + ArrowLeft" = { move_focus = "left" }
+"Alt + ArrowDown" = { move_focus = "down" }
+"Alt + ArrowUp" = { move_focus = "up" }
+"Alt + ArrowRight" = { move_focus = "right" }
+
+"Alt + Shift + ArrowLeft" = { move_node = "left" }
+"Alt + Shift + ArrowDown" = { move_node = "down" }
+"Alt + Shift + ArrowUp" = { move_node = "up" }
+"Alt + Shift + ArrowRight" = { move_node = "right" }
+
+"Alt + Ctrl + ArrowLeft" = { resize = { direction = "left", percent = 5 } }
+"Alt + Ctrl + ArrowDown" = { resize = { direction = "down", percent = 5 } }
+"Alt + Ctrl + ArrowUp" = { resize = { direction = "up", percent = 5 } }
+"Alt + Ctrl + ArrowRight" = { resize = { direction = "right", percent = 5 } }

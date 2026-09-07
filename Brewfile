@@ -154,6 +154,8 @@ cask "firefox"
 cask "firefox@developer-edition"
 cask "font-fira-code"
 cask "font-fira-code-nerd-font"
+# Tiling window manager with tree layouts
+cask "glide"
 # Web browser
 cask "google-chrome"
 # Web browser
