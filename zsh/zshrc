@@ -38,7 +38,7 @@ export PATH="$(brew --prefix kubernetes-cli)/bin:$PATH"
 #eval "$(jenv init -)"
 # Add .NET Core SDK tools
 export PATH="$PATH:$HOME/.dotnet/tools"
-# llvm  
+# llvm
 export PATH="$(brew --prefix llvm)/bin:$PATH"
 ################################### Plugins ####################################
 # nvm lazy loading using oh-my-zsh nvm plugin

@@ -4,10 +4,10 @@ tap "hashicorp/tap"
 tap "homebrew/bundle"
 tap "homebrew/services"
 tap "human37/open-wispr"
-tap "osx-cross/arm"
-tap "osx-cross/avr"
+tap "osx-cross/arm", trusted: true
+tap "osx-cross/avr", trusted: true
 tap "oven-sh/bun"
-tap "qmk/qmk"
+tap "qmk/qmk", trusted: true
 tap "tilt-dev/tap"
 # Securely store and access AWS credentials in development environments
 brew "aws-vault"
@@ -132,13 +132,13 @@ brew "zsh-history-substring-search"
 # Fish shell like syntax highlighting for zsh
 brew "zsh-syntax-highlighting"
 # Kubernetes CLI To Manage Your Clusters In Style!
-brew "derailed/k9s/k9s"
+brew "derailed/k9s/k9s", trusted: true
 # Push-to-talk voice dictation for macOS using Whisper
 brew "human37/open-wispr/open-wispr", trusted: true
 # Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
-brew "oven-sh/bun/bun"
+brew "oven-sh/bun/bun", trusted: true
 # Quantum Mechanical Keyboard (QMK) Firmware
-brew "qmk/qmk/qmk"
+brew "qmk/qmk/qmk", trusted: true
 # Transfer files from and to an Android smartphone
 cask "android-file-transfer"
 # Memory training application
@@ -151,7 +151,6 @@ cask "bluesnooze"
 cask "brave-browser"
 # Utility that prevents the system from going to sleep
 cask "caffeine"
-# Secure and reliable decentralised instant messenger
 cask "chrome-devtools"
 # Terminal-based AI coding assistant
 cask "claude-code"
@@ -186,13 +185,9 @@ cask "libreoffice"
 # Web browser
 cask "librewolf"
 # App to manage software development and track bugs
-cask "linear-linear"
+cask "linear"
 # Customise mouse behavior
 cask "linearmouse"
-# Software for Logitech devices
-cask "logitech-options"
-# Mouse utility to add gesture functions and smooth scrolling to 3rd party mice
-cask "mac-mouse-fix"
 # App to write, plan, collaborate, and get organised
 cask "notion"
 # Get up and running with large language models locally
