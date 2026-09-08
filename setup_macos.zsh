@@ -29,6 +29,12 @@ defaults write com.googlecode.iterm2 NoSyncNeverRemindPrefsChangesLostForFile -b
 # Remove mouse acceleration
 defaults write -g com.apple.mouse.scaling -int -1
 
+# LigaSrcPro is a custom build, so Homebrew can't provide it.
+mkdir -p "$HOME/Library/Fonts"
+for font in "$HOME"/.dotfiles/fonts/*/*.(ttf|otf)(N); do
+  [[ -e "$HOME/Library/Fonts/${font:t}" ]] || cp "$font" "$HOME/Library/Fonts/"
+done
+
 # Finish macOS Setup
 killall Finder
 killall Dock

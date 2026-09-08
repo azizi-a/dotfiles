@@ -98,12 +98,11 @@
   "cli_default_open_behavior": "existing_window",
   "base_keymap": "VSCode",
   "buffer_font_fallbacks": [
-    "LigaSrc Pro",
     "FiraCode Nerd Font",
     "Monaco",
     "monospace",
   ],
-  "buffer_font_family": "LigaSauceCodePro Nerd Font",
+  "buffer_font_family": "LigaSrc Pro",
   "soft_wrap": "editor_width",
   "telemetry": {
     "diagnostics": true,

@@ -1,8 +1,6 @@
 tap "armmbed/formulae"
 tap "derailed/k9s"
 tap "hashicorp/tap"
-tap "homebrew/bundle"
-tap "homebrew/services"
 tap "human37/open-wispr"
 tap "osx-cross/arm", trusted: true
 tap "osx-cross/avr", trusted: true
@@ -166,6 +164,7 @@ cask "firefox"
 cask "firefox@developer-edition"
 cask "font-fira-code"
 cask "font-fira-code-nerd-font"
+cask "font-sauce-code-pro-nerd-font"
 # Tiling window manager with tree layouts
 cask "glide"
 # Web browser
