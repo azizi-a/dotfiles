@@ -1,0 +1,178 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "vim": {
+    "show_edit_predictions_in_normal_mode": true,
+  },
+  "format_on_save": "on",
+  "use_smartcase_search": true,
+  "languages": {
+    "Git Commit": {
+      "tab_size": 2,
+    },
+    "TypeScript": {
+      "tab_size": 2,
+      "language_servers": [
+        "typescript-ls",
+        "vtsls",
+        "!typescript-language-server",
+        "...",
+      ],
+    },
+    "TSX": {
+      "tab_size": 2,
+      "language_servers": [
+        "typescript-ls",
+        "vtsls",
+        "!typescript-language-server",
+        "...",
+      ],
+    },
+  },
+  "diff_view_style": "unified",
+  "indent_guides": {
+    "coloring": "indent_aware",
+    "background_coloring": "indent_aware",
+  },
+  "colorize_brackets": true,
+  "git": {
+    "path_style": "file_name_first",
+    "enable_diff": true,
+  },
+  "edit_predictions": {
+    "open_ai_compatible_api": {
+      "model": "",
+    },
+    "provider": "ollama",
+    "mode": "subtle",
+    "ollama": {
+      "api_url": "http://localhost:11434",
+      "model": "qwen2.5-coder:3b",
+      "prompt_format": "infer",
+      "max_output_tokens": 128,
+    },
+  },
+  "show_edit_predictions": true,
+  "terminal": {
+    "font_family": "SauceCodePro Nerd Font",
+  },
+  "collaboration_panel": {
+    "dock": "right",
+  },
+  "git_panel": {
+    "commit_title_max_length": 80,
+    "dock": "right",
+  },
+  "agent": {
+    "profiles": {
+      "readable": {
+        "name": "Readable",
+        "tools": {},
+        "enable_all_context_servers": false,
+        "context_servers": {},
+      },
+    },
+    "sidebar_side": "right",
+    "show_turn_stats": true,
+    "use_modifier_to_send": true,
+    "dock": "left",
+    "favorite_models": [],
+    "model_parameters": [],
+    "commit_message_model": {
+      "provider": "anthropic",
+      "model": "claude-5-sonnet",
+    },
+  },
+  "outline_panel": {
+    "dock": "right",
+  },
+  "project_panel": {
+    "dock": "right",
+  },
+  "cli_default_open_behavior": "existing_window",
+  "base_keymap": "VSCode",
+  "buffer_font_fallbacks": [
+    "LigaSrc Pro",
+    "FiraCode Nerd Font",
+    "Monaco",
+    "monospace",
+  ],
+  "buffer_font_family": "LigaSauceCodePro Nerd Font",
+  "soft_wrap": "editor_width",
+  "telemetry": {
+    "diagnostics": true,
+    "metrics": false,
+  },
+  "vim_mode": true,
+  "agent_servers": {
+    "claude-acp": {
+      "default_config_options": {
+        "agent": "default",
+        "fast": false,
+        "mode": "bypassPermissions",
+        "model": "opus[1m]",
+        "effort": "xhigh",
+      },
+      "favorite_config_option_values": {
+        "effort": ["max"],
+      },
+      "type": "registry",
+    },
+  },
+  "icon_theme": "Material Icon Theme",
+  "ui_font_size": 16,
+  "buffer_font_size": 15,
+  "theme": {
+    "mode": "dark",
+    "light": "One Light",
+    "dark": "Noctis",
+  },
+  "lsp": {
+    "vtsls": {
+      "settings": {
+        // For TypeScript:
+        "typescript": { "tsserver": { "maxTsServerMemory": 6144 } },
+        // For JavaScript:
+        "javascript": { "tsserver": { "maxTsServerMemory": 6144 } },
+      },
+    },
+    "tailwindcss-language-server": {
+      "settings": {
+        "experimental": {
+          "classRegex": [
+            "\\.className\\s*[+]?=\\s*['\"]([^'\"]*)['\"]",
+            "\\.setAttributeNS\\(.*,\\s*['\"]class['\"],\\s*['\"]([^'\"]*)['\"]",
+            "\\.setAttribute\\(['\"]class['\"],\\s*['\"]([^'\"]*)['\"]",
+            "\\.classList\\.add\\(['\"]([^'\"]*)['\"]",
+            "\\.classList\\.remove\\(['\"]([^'\"]*)['\"]",
+            "\\.classList\\.toggle\\(['\"]([^'\"]*)['\"]",
+            "\\.classList\\.contains\\(['\"]([^'\"]*)['\"]",
+            "\\.classList\\.replace\\(\\s*['\"]([^'\"]*)['\"]",
+            "\\.classList\\.replace\\([^,)]+,\\s*['\"]([^'\"]*)['\"]",
+          ],
+        },
+      },
+    },
+  },
+  "context_servers": {
+    "linear": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://mcp.linear.app/mcp"],
+      "env": {},
+    },
+  },
+  "experimental.theme_overrides": {
+    "version_control.conflict_marker.ours": "#3cc76e15",
+    "version_control.conflict_marker.theirs": "#3065e315",
+    // "version_control.conflict": "#dec184ff",
+  },
+  "file_types": {
+    "Git Commit": ["COMMIT_EDITMSG", "MERGE_MSG", "TAG_EDITMSG"],
+  },
+}

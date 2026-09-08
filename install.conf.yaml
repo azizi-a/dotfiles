@@ -23,6 +23,12 @@
       create: true
     ~/.config/glide:
       create: true
+    ~/.config/zed/settings.json:
+      path: zed/settings.json
+      create: true
+    ~/.config/zed/keymap.json:
+      path: zed/keymap.json
+      create: true
     ~/.config/helix:
       create: true
     ~/.config/coc:
