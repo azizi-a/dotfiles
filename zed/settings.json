@@ -97,11 +97,7 @@
   },
   "cli_default_open_behavior": "existing_window",
   "base_keymap": "VSCode",
-  "buffer_font_fallbacks": [
-    "FiraCode Nerd Font",
-    "Monaco",
-    "monospace",
-  ],
+  "buffer_font_fallbacks": ["FiraCode Nerd Font", "Monaco", "monospace"],
   "buffer_font_family": "LigaSrc Pro",
   "soft_wrap": "editor_width",
   "telemetry": {
@@ -159,13 +155,7 @@
       },
     },
   },
-  "context_servers": {
-    "linear": {
-      "command": "npx",
-      "args": ["-y", "mcp-remote", "https://mcp.linear.app/mcp"],
-      "env": {},
-    },
-  },
+  "context_servers": {},
   "experimental.theme_overrides": {
     "version_control.conflict_marker.ours": "#3cc76e15",
     "version_control.conflict_marker.theirs": "#3065e315",
