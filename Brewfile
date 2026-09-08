@@ -229,6 +229,8 @@ cask "vial"
 cask "visual-studio-code"
 # Multimedia player
 cask "vlc"
+# Multiplayer code editor
+cask "zed"
 vscode "alexcvzz.vscode-sqlite"
 vscode "amodio.tsl-problem-matcher"
 vscode "asvetliakov.vscode-neovim"

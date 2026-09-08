@@ -171,6 +171,17 @@
     "version_control.conflict_marker.theirs": "#3065e315",
     // "version_control.conflict": "#dec184ff",
   },
+  "auto_install_extensions": {
+    "codebook": true,
+    "git-firefly": true,
+    "html": true,
+    "jj-lsp": true,
+    "material-icon-theme": true,
+    "nix": true,
+    "noctis-port": true,
+    "toml": true,
+    "tsgo": true,
+  },
   "file_types": {
     "Git Commit": ["COMMIT_EDITMSG", "MERGE_MSG", "TAG_EDITMSG"],
   },
