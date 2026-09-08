@@ -1,21 +1,22 @@
 tap "armmbed/formulae"
 tap "derailed/k9s"
 tap "hashicorp/tap"
+tap "homebrew/bundle"
+tap "homebrew/services"
+tap "human37/open-wispr"
 tap "osx-cross/arm"
 tap "osx-cross/avr"
 tap "oven-sh/bun"
 tap "qmk/qmk"
 tap "tilt-dev/tap"
-# TIFF library and utilities
-brew "libtiff"
-# Color management engine supporting ICC profiles
-brew "little-cms2"
 # Securely store and access AWS credentials in development environments
 brew "aws-vault"
 # Official Amazon AWS command-line interface
 brew "awscli"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# Get/set bluetooth power and discoverable state
+brew "blueutil"
 # Core application library for C
 brew "glib"
 # X.Org: Library for common extensions to the X11 protocol
@@ -24,6 +25,10 @@ brew "libxext"
 brew "cmake"
 # Cryptographic recipes and primitives for Python
 brew "cryptography"
+# TIFF library and utilities
+brew "libtiff"
+# Color management engine supporting ICC profiles
+brew "little-cms2"
 # Secure runtime for JavaScript and TypeScript
 brew "deno"
 # Load/unload environment variables based on $PWD
@@ -46,8 +51,10 @@ brew "gh"
 brew "git"
 # Syntax-highlighting pager for git and diff output
 brew "git-delta"
-# Extensions to follow Vincent Driessen's branching model
-brew "git-flow"
+# AVH edition of git-flow
+brew "git-flow-avh"
+# Post-modern modal text editor
+brew "helix"
 # Kubernetes package manager
 brew "helm"
 # Deploy Kubernetes Helm Charts
@@ -86,8 +93,6 @@ brew "opentofu"
 brew "phylum-cli"
 # Fast, disk space efficient package manager
 brew "pnpm"
-# Python package management tool
-brew "poetry"
 # Framework for managing multi-language pre-commit hooks
 brew "pre-commit"
 # Interpreted, interactive, object-oriented programming language
@@ -106,6 +111,8 @@ brew "rustup"
 brew "showkey"
 # Cross-shell prompt for astronauts
 brew "starship"
+# Easiest, most secure way to use WireGuard and 2FA
+brew "tailscale"
 # Define your dev environment as code. For microservice apps on Kubernetes
 brew "tilt"
 # Extremely fast Python package installer and resolver, written in Rust
@@ -126,8 +133,8 @@ brew "zsh-history-substring-search"
 brew "zsh-syntax-highlighting"
 # Kubernetes CLI To Manage Your Clusters In Style!
 brew "derailed/k9s/k9s"
-# Vault
-brew "hashicorp/tap/vault"
+# Push-to-talk voice dictation for macOS using Whisper
+brew "human37/open-wispr/open-wispr", trusted: true
 # Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
 brew "oven-sh/bun/bun"
 # Quantum Mechanical Keyboard (QMK) Firmware
@@ -138,12 +145,18 @@ cask "android-file-transfer"
 cask "anki"
 # Cross platform SQL editor and database management app
 cask "beekeeper-studio"
+# Prevents your sleeping computer from connecting to Bluetooth accessories
+cask "bluesnooze"
 # Web browser focusing on privacy
 cask "brave-browser"
 # Utility that prevents the system from going to sleep
 cask "caffeine"
+# Secure and reliable decentralised instant messenger
+cask "chrome-devtools"
 # Terminal-based AI coding assistant
 cask "claude-code"
+# Write, edit, and chat about your code with AI
+cask "cursor"
 # Secure and reliable decentralised instant messenger
 cask "deltachat"
 # Voice and text chat software
@@ -190,10 +203,12 @@ cask "openlens"
 cask "orbstack"
 # Collaboration platform for API development
 cask "postman"
+# Client for Proton Mail and Proton Calendar
+cask "proton-mail"
+# VPN client focusing on security
+cask "protonvpn"
 # Toolbox companion for QMK Firmware
 cask "qmk-toolbox"
-# Control your tools with a few keystrokes
-cask "raycast"
 # Move and resize windows using keyboard shortcuts or snap areas
 cask "rectangle"
 # Tool to reverse the direction of scrolling
@@ -208,6 +223,10 @@ cask "spotify"
 cask "steermouse"
 # Break time reminder app
 cask "stretchly"
+# Mesh VPN based on WireGuard
+cask "tailscale-app"
+# Multi-platform VNC client and server
+cask "tigervnc"
 # Keyboard configurator
 cask "via"
 # Configurator of compatible keyboards in real time
@@ -302,3 +321,4 @@ vscode "wayou.vscode-todo-highlight"
 vscode "yzhang.markdown-all-in-one"
 cargo "mini-redis"
 cargo "radix-clis"
+npm "corepack"
