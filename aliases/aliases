@@ -1,7 +1,7 @@
 alias pn='pnpm'
 # alias ll='ls -lAhF'
 alias ll='eza -lahF --icons=auto'
-alias bbd='brew bundle dump --force --describe'
+alias bbd='brew bundle dump --force'
 alias path='<<<${(F)path}'
 alias ~='cd ~'
 alias py=python3

@@ -49,8 +49,8 @@ brew "gh"
 brew "git"
 # Syntax-highlighting pager for git and diff output
 brew "git-delta"
-# AVH edition of git-flow
-brew "git-flow-avh"
+# Modern implementation of the Git-flow branching model
+brew "git-flow-next"
 # Post-modern modal text editor
 brew "helix"
 # Kubernetes package manager
@@ -137,6 +137,8 @@ brew "human37/open-wispr/open-wispr", trusted: true
 brew "oven-sh/bun/bun", trusted: true
 # Quantum Mechanical Keyboard (QMK) Firmware
 brew "qmk/qmk/qmk", trusted: true
+# Password manager that keeps all passwords secure behind one password
+cask "1password"
 # Transfer files from and to an Android smartphone
 cask "android-file-transfer"
 # Memory training application
@@ -149,7 +151,6 @@ cask "bluesnooze"
 cask "brave-browser"
 # Utility that prevents the system from going to sleep
 cask "caffeine"
-cask "chrome-devtools"
 # Terminal-based AI coding assistant
 cask "claude-code"
 # Write, edit, and chat about your code with AI
@@ -215,16 +216,10 @@ cask "slack"
 cask "spotify"
 # Customise mouse buttons, wheels and cursor speed
 cask "steermouse"
-# Break time reminder app
-cask "stretchly"
 # Mesh VPN based on WireGuard
 cask "tailscale-app"
 # Multi-platform VNC client and server
 cask "tigervnc"
-# Keyboard configurator
-cask "via"
-# Configurator of compatible keyboards in real time
-cask "vial"
 # Open-source code editor
 cask "visual-studio-code"
 # Multimedia player
@@ -252,7 +247,6 @@ vscode "eamodio.gitlens"
 vscode "editorconfig.editorconfig"
 vscode "esbenp.prettier-vscode"
 vscode "figma.figma-vscode-extension"
-vscode "github.copilot-chat"
 vscode "github.vscode-github-actions"
 vscode "golang.go"
 vscode "graphql.vscode-graphql"
@@ -317,4 +311,3 @@ vscode "wayou.vscode-todo-highlight"
 vscode "yzhang.markdown-all-in-one"
 cargo "mini-redis"
 cargo "radix-clis"
-npm "corepack"
