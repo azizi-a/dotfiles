@@ -111,11 +111,13 @@
         "agent": "default",
         "fast": false,
         "mode": "bypassPermissions",
-        "model": "opus[1m]",
-        "effort": "xhigh",
+        "model": "claude-fable-5[1m]",
+        "effort": "medium",
       },
       "favorite_config_option_values": {
-        "effort": ["max"],
+        "effort": [
+          "xhigh"
+        ],
       },
       "type": "registry",
     },
