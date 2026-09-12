@@ -149,6 +149,8 @@ cask "beekeeper-studio"
 cask "bluesnooze"
 # Web browser focusing on privacy
 cask "brave-browser"
+# Tool to manage periodic breaks
+cask "breaktimer"
 # Utility that prevents the system from going to sleep
 cask "caffeine"
 # Terminal-based AI coding assistant
@@ -206,20 +208,20 @@ cask "protonvpn"
 cask "qmk-toolbox"
 # Move and resize windows using keyboard shortcuts or snap areas
 cask "rectangle"
-# Tool to reverse the direction of scrolling
-cask "scroll-reverser"
 # Instant messaging application focusing on security
 cask "signal"
 # Team communication and collaboration software
 cask "slack"
 # Music streaming service
 cask "spotify"
-# Customise mouse buttons, wheels and cursor speed
-cask "steermouse"
 # Mesh VPN based on WireGuard
 cask "tailscale-app"
 # Multi-platform VNC client and server
 cask "tigervnc"
+# Keyboard configurator
+cask "via"
+# Configurator of compatible keyboards in real time
+cask "vial"
 # Open-source code editor
 cask "visual-studio-code"
 # Multimedia player
