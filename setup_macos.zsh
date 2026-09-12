@@ -21,6 +21,11 @@ defaults write com.apple.dock autohide -bool true
 defaults write com.apple.dock autohide-time-modifier -float 0.5
 defaults write com.apple.dock autohide-delay -float 0.1
 
+# System Preferences > Menu Bar
+defaults -currentHost write -globalDomain NSStatusItemSpacing -int 2
+defaults -currentHost write -globalDomain NSStatusItemSelectionPadding -int 1
+
+
 # iTerm2 Settings
 defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
 defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$HOME/.dotfiles/iterm2"
@@ -36,6 +41,7 @@ for font in "$HOME"/.dotfiles/fonts/*/*.(ttf|otf)(N); do
 done
 
 # Finish macOS Setup
+killall ControlCenter
 killall Finder
 killall Dock
 echo "\n<<< macOS Setup Complete >>>\n"
