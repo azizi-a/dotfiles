@@ -36,8 +36,8 @@
       create: true
 
 - create:
-    - ~/Code
-    - ~/Code/Testbed
+    - ~/Developer
+    - ~/Developer/Testbed
     - ~/Screenshots
 
 - shell:
