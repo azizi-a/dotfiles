@@ -1,6 +1,7 @@
 [settings]
 default_disable = false
 default_keys = true
+focus_follows_mouse = false
 mouse_hides_on_focus = false
 group_bars.thickness = 4
 
