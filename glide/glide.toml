@@ -9,6 +9,19 @@ group_bars.thickness = 4
 status_icon.space_index = true
 
 [keys]
+# Floating focus
 "Alt + Space" = "disable"
-"Alt + Shift + Tab" = "toggle_window_floating"
 "Alt + Tab" = "toggle_focus_floating"
+"Alt + Shift + Tab" = "toggle_window_floating"
+
+# Focus
+"Alt + Ctrl + ArrowLeft"  = { move_focus = "left" }
+"Alt + Ctrl + ArrowDown"  = { move_focus = "down" }
+"Alt + Ctrl + ArrowUp"    = { move_focus = "up" }
+"Alt + Ctrl + ArrowRight" = { move_focus = "right" }
+
+# Move window
+"Alt + Ctrl + Shift + ArrowLeft"  = { move_node = "left" }
+"Alt + Ctrl + Shift + ArrowDown"  = { move_node = "down" }
+"Alt + Ctrl + Shift + ArrowUp"    = { move_node = "up" }
+"Alt + Ctrl + Shift + ArrowRight" = { move_node = "right" }
