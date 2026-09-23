@@ -1,7 +1,6 @@
 tap "armmbed/formulae"
 tap "derailed/k9s"
 tap "hashicorp/tap"
-tap "human37/open-wispr"
 tap "osx-cross/arm", trusted: true
 tap "osx-cross/avr", trusted: true
 tap "oven-sh/bun"
@@ -131,8 +130,6 @@ brew "zsh-history-substring-search"
 brew "zsh-syntax-highlighting"
 # Kubernetes CLI To Manage Your Clusters In Style!
 brew "derailed/k9s/k9s", trusted: true
-# Push-to-talk voice dictation for macOS using Whisper
-brew "human37/open-wispr/open-wispr", trusted: true
 # Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
 brew "oven-sh/bun/bun", trusted: true
 # Quantum Mechanical Keyboard (QMK) Firmware
@@ -174,6 +171,8 @@ cask "glide"
 cask "google-chrome"
 # Web browser
 cask "google-chrome@dev"
+# Speech to text application
+cask "handy"
 # HTTP and GraphQL Client
 cask "insomnia"
 # Terminal emulator as alternative to Apple's Terminal app
