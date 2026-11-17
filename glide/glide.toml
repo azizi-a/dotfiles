@@ -4,6 +4,8 @@ default_keys = true
 focus_follows_mouse = false
 mouse_hides_on_focus = false
 group_bars.thickness = 4
+group_bars.inactive_selected_color = "#555588"
+group_bars.inactive_background_color = "#777777"
 
 [settings.experimental]
 status_icon.space_index = true
@@ -15,13 +17,13 @@ status_icon.space_index = true
 "Alt + Shift + Tab" = "toggle_window_floating"
 
 # Focus
-"Alt + Ctrl + ArrowLeft"  = { move_focus = "left" }
-"Alt + Ctrl + ArrowDown"  = { move_focus = "down" }
-"Alt + Ctrl + ArrowUp"    = { move_focus = "up" }
+"Alt + Ctrl + ArrowLeft" = { move_focus = "left" }
+"Alt + Ctrl + ArrowDown" = { move_focus = "down" }
+"Alt + Ctrl + ArrowUp" = { move_focus = "up" }
 "Alt + Ctrl + ArrowRight" = { move_focus = "right" }
 
 # Move window
-"Alt + Ctrl + Shift + ArrowLeft"  = { move_node = "left" }
-"Alt + Ctrl + Shift + ArrowDown"  = { move_node = "down" }
-"Alt + Ctrl + Shift + ArrowUp"    = { move_node = "up" }
+"Alt + Ctrl + Shift + ArrowLeft" = { move_node = "left" }
+"Alt + Ctrl + Shift + ArrowDown" = { move_node = "down" }
+"Alt + Ctrl + Shift + ArrowUp" = { move_node = "up" }
 "Alt + Ctrl + Shift + ArrowRight" = { move_node = "right" }
